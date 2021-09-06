@@ -1,0 +1,26 @@
+{
+  "version": "0.0.0",
+  "name": "frontend",
+  "dependencies": {
+    "@angular/animations": { "version": "12.1.2" },
+    "@angular/common": { "version": "12.1.2" },
+    "@angular/compiler": { "version": "12.1.2" },
+    "@angular/core": { "version": "12.1.2" },
+    "@angular/forms": { "version": "12.1.2" },
+    "@angular/platform-browser-dynamic": { "version": "12.1.2" },
+    "@angular/platform-browser": { "version": "12.1.2" },
+    "@angular/router": { "version": "12.1.2" },
+    "@fortawesome/angular-fontawesome": { "version": "0.9.0" },
+    "@fortawesome/fontawesome-free": { "version": "5.15.3" },
+    "@fortawesome/fontawesome-svg-core": { "version": "1.2.35" },
+    "@fortawesome/free-solid-svg-icons": { "version": "5.15.3" },
+    "@ng-bootstrap/ng-bootstrap": { "version": "10.0.0" },
+    "@ng-select/ng-select": { "version": "7.2.0" },
+    "bootstrap": { "version": "5.0.0-beta3" },
+    "jquery": { "version": "3.6.0" },
+    "ngx-mask": { "version": "12.0.0" },
+    "rxjs": { "version": "6.6.7" },
+    "tslib": { "version": "2.3.0" },
+    "zone.js": { "version": "0.11.4" }
+  }
+}
