@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BarracaService } from 'src/app/barracas/services/barraca.service';
@@ -73,21 +73,39 @@ export class ModalMovimentacaoComponent implements OnInit {
     });
   }
 
+  private criarMovimentacao(): void {
+    this.movimentacaoService
+      .createMovimentacao(this.movimentacao)
+      .subscribe((movimentacao) => {
+        this.activeModal.close();
+        parent.location.reload();
+      });
+  }
+
+  private atualizarMovimentacao(): void {
+    this.movimentacaoService
+      .updateMovimentacao(this.movimentacao)
+      .subscribe((movimentacao) => {
+        this.activeModal.close();
+        parent.location.reload();
+      });
+  }
+
+  criarPessoa = (nome: string) => {
+    let pessoa = new Pessoa();
+    pessoa.nome = nome;
+    this.pessoaService.criarPessoa(pessoa).subscribe((pessoaCriada: Pessoa) => {
+      this.movimentacao.pessoa = pessoaCriada;
+      this.listarPessoas();
+    });
+  };
+
   public submitForm() {
     if (this.movimentacaoForm.valid) {
       if (this.type === ModalType.CREATE) {
-        this.movimentacaoService
-          .createMovimentacao(this.movimentacao)
-          .subscribe((movimentacao) => {
-            this.activeModal.close();
-            parent.location.reload();
-          });
+        this.criarMovimentacao();
       } else {
-        this.movimentacaoService
-          .updateMovimentacao(this.movimentacao)
-          .subscribe((movimentacao) => {
-            this.activeModal.close();
-          });
+        this.atualizarMovimentacao();
       }
     }
   }

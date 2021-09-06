@@ -59,16 +59,15 @@
       </ng-select>
     </div>
     <div class="form-check form-switch">
-      <label for="nome">Pessoa Física</label>
+      <label for="nome">Pessoa Jurídica</label>
       <input
-        [(ngModel)]="pessoa.pessoaFisica"
+        [(ngModel)]="pessoa.pessoaJuridica"
         #fisica="ngModel"
         type="checkbox"
         name="fisica"
         value="true"
         id="fisica_input"
         class="form-check-input"
-        checked
       />
     </div>
   </form>

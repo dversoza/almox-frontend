@@ -13,13 +13,13 @@
         placeholder="Pesquisar pessoa ..."
         aria-label="Search"
       />
-      <a
+      <button
         class="btn btn-secondary d-flex align-items-center"
-        href="#"
         (click)="listarPessoas()"
         style="margin: 0 10px"
-        ><i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar</a
       >
+        <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
+      </button>
       <button
         class="btn btn-success d-flex align-items-center"
         (click)="modalPessoa()"
@@ -47,7 +47,7 @@
     <tr *ngFor="let pessoa of pessoas">
       <th scope="row">{{ pessoa.id }}</th>
       <td>{{ pessoa.nome }}</td>
-      <td>{{ pessoa.pessoaFisica ? "PF" : "PJ" }}</td>
+      <td>{{ pessoa.pessoaJuridica ? "PJ" : "PF" }}</td>
       <td>{{ pessoa.documento }}</td>
       <td>{{ pessoa.telefone }}</td>
       <td>{{ pessoa.barraca?.nome }}</td>

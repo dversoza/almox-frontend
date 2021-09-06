@@ -4,7 +4,7 @@ export class Pessoa {
   constructor(
     public id?: number,
     public nome?: string,
-    public pessoaFisica?: boolean,
+    public pessoaJuridica?: boolean,
     public documento?: string,
     public telefone?: string,
     public barraca?: Barraca
