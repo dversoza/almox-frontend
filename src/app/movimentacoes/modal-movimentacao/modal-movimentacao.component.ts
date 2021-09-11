@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from 'src/app/auth/services/login.service';
 import { BarracaService } from 'src/app/barracas/services/barraca.service';
 import { PessoaService } from 'src/app/pessoas/services';
 import { ProdutoService } from 'src/app/produtos/services';
@@ -39,16 +40,29 @@ export class ModalMovimentacaoComponent implements OnInit {
     private movimentacaoService: MovimentacaoService,
     private produtoService: ProdutoService,
     private barracaService: BarracaService,
-    private pessoaService: PessoaService
+    private pessoaService: PessoaService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     if (!this.movimentacao) {
-      this.movimentacao = new Movimentacao();
       this.type = ModalType.CREATE;
+      this.movimentacao = new Movimentacao();
+      this.movimentacao.usuario = this.loginService.usuarioLogado
+        ? this.loginService.usuarioLogado
+        : undefined;
+      this.movimentacao.usuarioCriacao = this.loginService.usuarioLogado
+        ? this.loginService.usuarioLogado
+        : undefined;
+      this.movimentacao.usuarioModificacao = this.loginService.usuarioLogado
+        ? this.loginService.usuarioLogado
+        : undefined;
     } else {
-      this.um = this.movimentacao.produto?.unidadeMedida;
       this.type = ModalType.UPDATE;
+      this.movimentacao.usuarioModificacao = this.loginService.usuarioLogado
+        ? this.loginService.usuarioLogado
+        : undefined;
+      this.um = this.movimentacao.produto?.unidadeMedida;
     }
     this.listarBarracas();
     this.listarPessoas();
