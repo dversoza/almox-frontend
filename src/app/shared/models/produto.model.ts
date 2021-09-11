@@ -6,6 +6,7 @@ export class Produto {
     public nome?: string,
     public descricao?: string,
     public imagemURL?: string,
-    public unidadeMedida?: UnidadeMedida
+    public unidadeMedida?: UnidadeMedida,
+    public estoque?: number
   ) {}
 }

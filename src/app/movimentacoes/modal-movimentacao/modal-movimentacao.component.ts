@@ -114,8 +114,16 @@ export class ModalMovimentacaoComponent implements OnInit {
     });
   };
 
+  private validaMovimentacao() {
+    if (this.movimentacao.operacao == 'ENTRADA') {
+      this.movimentacao.barraca = { id: 1 };
+      this.movimentacao.pessoa = this.loginService.usuarioLogado?.pessoa;
+    }
+  }
+
   public submitForm() {
     if (this.movimentacaoForm.valid) {
+      this.validaMovimentacao();
       if (this.type === ModalType.CREATE) {
         this.criarMovimentacao();
       } else {
