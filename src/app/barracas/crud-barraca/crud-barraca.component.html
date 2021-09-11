@@ -34,9 +34,20 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Responsável</th>
+      <th [appSort]="barracas" data-order="desc" data-name="id" scope="col">
+        ID
+      </th>
+      <th [appSort]="barracas" data-order="desc" data-name="nome" scope="col">
+        Nome
+      </th>
+      <th
+        [appSort]="barracas"
+        data-order="desc"
+        data-name="responsavel"
+        scope="col"
+      >
+        Responsável
+      </th>
       <th scope="col">Contato</th>
       <th class="text-center">Opções ...</th>
     </tr>
@@ -46,7 +57,9 @@
       <th scope="row">{{ barraca.id }}</th>
       <td>{{ barraca.nome }}</td>
       <td>{{ barraca.responsavel?.nome }}</td>
-      <td>{{ barraca.contato }}</td>
+      <td>
+        {{ barraca.contato ? barraca.contato : barraca.responsavel?.telefone }}
+      </td>
       <td class="text-center">
         <button class="btn btn-xs btn-info" (click)="modalBarraca(barraca)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar

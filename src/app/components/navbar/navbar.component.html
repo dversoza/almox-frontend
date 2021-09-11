@@ -32,7 +32,7 @@
             ><i class="fas fa-shipping-fast"></i> Movimentações</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="nav-item">
           <a
             class="nav-link"
             [routerLinkActive]="['active']"
@@ -42,7 +42,7 @@
             ><i class="fas fa-store"></i> Barracas</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="nav-item">
           <a
             class="nav-link"
             [routerLinkActive]="['active']"
@@ -64,5 +64,15 @@
         </li>
       </ul>
     </div>
+    <ul *ngIf="usuarioLogado" class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="logout()">Logout</a>
+      </li>
+      <li class="nav-item">
+        <p class="navbar-text mb-0 text-white">
+          <i class="fa fa-user"></i> {{ usuarioLogado.pessoa?.nome }}
+        </p>
+      </li>
+    </ul>
   </div>
 </nav>

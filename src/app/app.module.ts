@@ -16,6 +16,8 @@ import { ProdutosModule } from './produtos/produtos.module';
 import { MovimentacoesModule } from './movimentacoes';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { registerLocaleData } from '@angular/common';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -26,15 +28,17 @@ registerLocaleData(localePt);
     HomepageComponent,
   ],
   imports: [
-    BrowserModule,
+    AuthModule,
     AppRoutingModule,
-    HttpClientModule,
     BarracasModule,
+    BrowserModule,
+    HttpClientModule,
     MovimentacoesModule,
     PessoasModule,
     ProdutosModule,
     UmsModule,
     UsuariosModule,
+    SharedModule,
   ],
   providers: [
     {

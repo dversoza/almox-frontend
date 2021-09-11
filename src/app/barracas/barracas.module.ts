@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalBarracaComponent } from './modal-barraca/modal-barraca.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [CrudBarracaComponent, ModalBarracaComponent],
@@ -16,6 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     HttpClientModule,
     FormsModule,
     NgSelectModule,
+    SharedModule,
   ],
   providers: [BarracaService],
 })

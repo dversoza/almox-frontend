@@ -40,8 +40,12 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
+      <th [appSort]="produtos" data-order="desc" data-name="id" scope="col">
+        ID
+      </th>
+      <th [appSort]="produtos" data-order="desc" data-name="nome" scope="col">
+        Nome
+      </th>
       <th scope="col">Descrição</th>
       <th scope="col">Unidade de Medida</th>
       <th class="text-center">Opções ...</th>

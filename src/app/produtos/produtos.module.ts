@@ -7,6 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { ProdutoService } from './services';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [CrudProdutoComponent, ModalProdutoComponent],
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     NgSelectModule,
     HttpClientModule,
     RouterModule,
+    SharedModule,
   ],
   providers: [ProdutoService],
 })

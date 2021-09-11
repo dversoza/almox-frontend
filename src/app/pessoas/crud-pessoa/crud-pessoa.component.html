@@ -34,12 +34,39 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Documento</th>
-      <th scope="col">Telefone</th>
-      <th scope="col">Barraca</th>
+      <th [appSort]="pessoas" data-order="desc" data-name="id" scope="col">
+        ID
+      </th>
+      <th [appSort]="pessoas" data-order="desc" data-name="nome" scope="col">
+        Nome
+      </th>
+      <th
+        [appSort]="pessoas"
+        data-order="desc"
+        data-name="pessoaJuridica"
+        scope="col"
+      >
+        Tipo
+      </th>
+      <th
+        [appSort]="pessoas"
+        data-order="desc"
+        data-name="documento"
+        scope="col"
+      >
+        Documento
+      </th>
+      <th
+        [appSort]="pessoas"
+        data-order="desc"
+        data-name="telefone"
+        scope="col"
+      >
+        Telefone
+      </th>
+      <th [appSort]="pessoas" data-order="desc" data-name="barraca" scope="col">
+        Barraca
+      </th>
       <th class="text-center">Opções ...</th>
     </tr>
   </thead>
