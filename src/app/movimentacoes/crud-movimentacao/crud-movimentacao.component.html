@@ -49,7 +49,7 @@
   <tbody class="align-middle">
     <tr *ngFor="let movimentacao of movimentacoes">
       <th scope="row">{{ movimentacao.id }}</th>
-      <td>{{ movimentacao.dataFato | date: "dd/MM HH:mm" }}</td>
+      <td>{{ movimentacao.dataFato | date: "dd/MM" }}</td>
       <td>{{ movimentacao.barraca?.nome }}</td>
       <td>{{ movimentacao.pessoa?.nome }}</td>
       <td>
