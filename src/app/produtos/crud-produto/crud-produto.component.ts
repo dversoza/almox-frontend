@@ -62,6 +62,4 @@ export class CrudProdutoComponent implements OnInit {
     }
     this.produtos = results;
   }
-
-  public calculaEstoque() {}
 }

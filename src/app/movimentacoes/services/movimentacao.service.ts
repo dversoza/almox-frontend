@@ -25,7 +25,7 @@ export class MovimentacaoService {
     movimentacao: Movimentacao
   ): Observable<Movimentacao> {
     return this.http.post<Movimentacao>(
-      `${this.apiMovimentacaoUrl}/criar`,
+      `${this.apiMovimentacaoUrl}/create`,
       movimentacao
     );
   }
@@ -34,12 +34,12 @@ export class MovimentacaoService {
     movimentacao: Movimentacao
   ): Observable<Movimentacao> {
     return this.http.put<Movimentacao>(
-      `${this.apiMovimentacaoUrl}/atualizar`,
+      `${this.apiMovimentacaoUrl}/update`,
       movimentacao
     );
   }
 
   public deleteMovimentacao(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiMovimentacaoUrl}/excluir/${id}`);
+    return this.http.delete<void>(`${this.apiMovimentacaoUrl}/delete/${id}`);
   }
 }

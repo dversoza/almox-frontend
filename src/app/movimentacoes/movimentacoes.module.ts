@@ -7,6 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { MovimentacaoService } from './services';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { SharedModule } from '../shared';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -18,6 +19,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     NgSelectModule,
     HttpClientModule,
     NgxMaskModule.forRoot(),
+    SharedModule,
   ],
   providers: [MovimentacaoService],
 })

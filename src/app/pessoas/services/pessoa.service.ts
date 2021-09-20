@@ -17,14 +17,14 @@ export class PessoaService {
   }
 
   public criarPessoa(pessoa: Pessoa): Observable<Pessoa> {
-    return this.http.post<Pessoa>(`${this.apiPessoasUrl}/criar`, pessoa);
+    return this.http.post<Pessoa>(`${this.apiPessoasUrl}/create`, pessoa);
   }
 
   public atualizarPessoa(pessoa: Pessoa): Observable<Pessoa> {
-    return this.http.put<Pessoa>(`${this.apiPessoasUrl}/editar`, pessoa);
+    return this.http.put<Pessoa>(`${this.apiPessoasUrl}/update`, pessoa);
   }
 
   public excluirPessoa(idPessoa: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiPessoasUrl}/excluir/${idPessoa}`);
+    return this.http.delete<void>(`${this.apiPessoasUrl}/delete/${idPessoa}`);
   }
 }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080',
+  apiBaseUrl: 'https://almox-api.herokuapp.com',
+  // apiBaseUrl: 'http://localhost:8080',
 };
 
 /*

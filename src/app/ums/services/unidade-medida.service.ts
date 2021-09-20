@@ -17,14 +17,14 @@ export class UnidadeMedidaService {
   }
 
   public createUM(um: UnidadeMedida): Observable<UnidadeMedida> {
-    return this.http.post<UnidadeMedida>(`${this.apiUmUrl}/criar`, um);
+    return this.http.post<UnidadeMedida>(`${this.apiUmUrl}/create`, um);
   }
 
   public updateUM(um: UnidadeMedida): Observable<UnidadeMedida> {
-    return this.http.put<UnidadeMedida>(`${this.apiUmUrl}/atualizar`, um);
+    return this.http.put<UnidadeMedida>(`${this.apiUmUrl}/update`, um);
   }
 
   public deleteUM(id: number): Observable<UnidadeMedida> {
-    return this.http.delete<UnidadeMedida>(`${this.apiUmUrl}/excluir/${id}`);
+    return this.http.delete<UnidadeMedida>(`${this.apiUmUrl}/delete/${id}`);
   }
 }

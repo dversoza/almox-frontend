@@ -21,16 +21,14 @@ export class BarracaService {
   }
 
   public addBarraca(barraca: Barraca): Observable<Barraca> {
-    return this.http.post<Barraca>(`${this.apiBarracasUrl}/criar`, barraca);
+    return this.http.post<Barraca>(`${this.apiBarracasUrl}/create`, barraca);
   }
 
   public updateBarraca(barraca: Barraca): Observable<Barraca> {
-    return this.http.put<Barraca>(`${this.apiBarracasUrl}/editar`, barraca);
+    return this.http.put<Barraca>(`${this.apiBarracasUrl}/update`, barraca);
   }
 
   public deleteBarraca(idBarraca: number): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiBarracasUrl}/excluir/${idBarraca}`
-    );
+    return this.http.delete<void>(`${this.apiBarracasUrl}/delete/${idBarraca}`);
   }
 }
