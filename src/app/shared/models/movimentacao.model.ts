@@ -35,6 +35,8 @@ export class Movimentacao {
   ) {
     if (!this.dataFato) {
       this.dataFato = new Date().toISOString().split('T')[0];
+    } else {
+      this.dataFato = this.dataFato.split('T')[0] + new Date(0, 0, 0, 3);
     }
   }
 }

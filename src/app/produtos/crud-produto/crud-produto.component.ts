@@ -53,7 +53,10 @@ export class CrudProdutoComponent implements OnInit {
   public pesquisarProduto(key: string): void {
     const results: Produto[] = [];
     for (const produto of this.produtos) {
-      if (produto?.nome?.includes(key) || produto?.descricao?.includes(key)) {
+      if (
+        produto?.nome?.toLowerCase().includes(key.toLowerCase()) ||
+        produto?.descricao?.toLowerCase().includes(key.toLowerCase())
+      ) {
         results.push(produto);
       }
     }

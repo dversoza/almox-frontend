@@ -77,12 +77,16 @@
   <tbody class="align-middle">
     <tr *ngFor="let movimentacao of movimentacoes">
       <th scope="row">{{ movimentacao.id }}</th>
-      <td>{{ movimentacao.dataFato | date: "dd/MM" }}</td>
+      <td>
+        {{
+          movimentacao.dataFato
+            ? (movimentacao.dataFato + 10800000 | date: "dd/MM")
+            : (movimentacao.dataFato | date: "dd/MM")
+        }}
+      </td>
       <td>{{ movimentacao.barraca?.nome }}</td>
       <td>{{ movimentacao.pessoa?.nome }}</td>
-      <td>
-        {{ movimentacao.produto?.nome }}
-      </td>
+      <td>{{ movimentacao.produto?.nome }}</td>
       <td>
         {{ movimentacao.quantidade }}
         {{ movimentacao.produto?.unidadeMedida?.sigla }}
