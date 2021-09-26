@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { Movimentacao } from 'src/app/shared';
+import { LoginService } from 'src/app/auth/services/login.service';
+import { Movimentacao, Usuario } from 'src/app/shared';
 import { ModalMovimentacaoComponent } from '../modal-movimentacao/modal-movimentacao.component';
 import { MovimentacaoService } from '../services';
 
@@ -14,11 +15,16 @@ export class CrudMovimentacaoComponent implements OnInit {
 
   constructor(
     private movimentacaoService: MovimentacaoService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.listarMovimentacoes();
+  }
+
+  get usuarioLogado(): Usuario | null {
+    return this.loginService.usuarioLogado;
   }
 
   public listarMovimentacoes(): void {
