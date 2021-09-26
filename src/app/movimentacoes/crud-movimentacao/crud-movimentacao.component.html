@@ -70,7 +70,9 @@
         Valor
       </th>
       <th scope="col">Obs.</th>
-      <th class="text-center">Opções ...</th>
+      <th *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="text-center">
+        Opções ...
+      </th>
     </tr>
   </thead>
 
@@ -93,7 +95,7 @@
       </td>
       <td>{{ movimentacao.valor | currency }}</td>
       <td>{{ movimentacao.observacao }}</td>
-      <td class="text-center">
+      <td *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="text-center">
         <button
           class="btn btn-xs btn-info"
           (click)="modalMovimentacao(movimentacao)"
