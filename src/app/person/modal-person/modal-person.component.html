@@ -1,0 +1,50 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{ person.name! ? person.name : "Criar Person" }}
+  </h5>
+  <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form #personForm="ngForm">
+    <div class="form-group">
+      <label for="name">Nome: </label>
+      <input [(ngModel)]="person.name" #name="ngModel" class="form-control" id="nome_input" name="name" type="text"
+        placeholder="Digite o name da person" required />
+    </div>
+    <div class="form-group">
+      <label for="document">Documento: </label>
+      <input class="form-control" [(ngModel)]="person.document" #document="ngModel" name="document" type="text"
+        placeholder="Digite o document da person" />
+    </div>
+    <div class="form-group">
+      <label for="contact">Telefone: </label>
+      <input class="form-control" [(ngModel)]="person.contact" #contact="ngModel" name="contact" type="text"
+        placeholder="Digite o contact da person" />
+    </div>
+    <div class="form-group">
+      <label for="stand">Stand: </label>
+      <ng-select [items]="stands" bindLabel="name" [(ngModel)]="person.stand" placeholder="Selecione a stand"
+        name="stand">
+      </ng-select>
+    </div>
+    <div class="form-check form-switch">
+      <label for="name">Person Jurídica</label>
+      <input [(ngModel)]="person.isBusiness" #isBusiness="ngModel" type="checkbox" name="isBusiness" value="true"
+        id="fisica_input" class="form-check-input" />
+    </div>
+  </form>
+  <div class="d-grid gap-2">
+    <button [disabled]="!personForm.form.valid" type="button" style="margin-top: 20px" class="btn btn-primary"
+      (click)="submitForm()">
+      <i class="fa fa-save" aria-hidden="true"></i>
+      Salvar
+    </button>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    Fechar
+  </button>
+</div>

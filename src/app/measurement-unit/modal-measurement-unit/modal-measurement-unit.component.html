@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{ mu.name ? mu.name : "Cadastrar Nova Unidade de Medida" }}
+  </h5>
+  <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form #umForm="ngForm">
+    <div class="form-group">
+      <label for="name">Nome: </label>
+      <input [(ngModel)]="mu.name" #name="ngModel" class="form-control" id="nome_input" name="name" type="text"
+        placeholder="Digite o name da unidade de medida" required />
+    </div>
+    <div class="form-group">
+      <label for="abbreviation">Sigla: </label>
+      <input [(ngModel)]="mu.abbreviation" #abbreviation="ngModel" name="abbreviation" id="abbreviation_input"
+        class="form-control" type="text" placeholder="Digite a abbreviation da unidade de medida" required />
+    </div>
+  </form>
+  <div class="d-grid gap-2">
+    <button [disabled]="!umForm.form.valid" style="margin-top: 20px" type="button" class="btn btn-primary"
+      (click)="submitForm()">
+      <i class="fa fa-save" aria-hidden="true"></i>
+      Salvar
+    </button>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    Fechar
+  </button>
+</div>

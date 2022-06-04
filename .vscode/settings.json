@@ -1,11 +1,13 @@
 {
     "cSpell.words": [
+        "Almox",
         "Criacao",
+        "datetime",
+        "description",
+        "details",
         "Modificacao",
-        "Movimentacao",
-        "descricao",
         "movimentacoes",
-        "observacao",
-        "operacao"
+        "Transaction",
+        "way"
     ]
 }

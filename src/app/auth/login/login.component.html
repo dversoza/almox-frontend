@@ -2,61 +2,27 @@
 <div class="well">
   <form #formLogin="ngForm">
     <div class="form-group">
-      <label for="usuario">Usuário:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="usuario"
-        name="usuario"
-        [(ngModel)]="login.login"
-        #usuario="ngModel"
-        required
-      />
-      <div
-        *ngIf="usuario.errors && (usuario.dirty || usuario.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!usuario.errors?.required">Digite o usuário</div>
+      <label for="user">Usuário:</label>
+      <input type="text" class="form-control" id="user" name="user" [(ngModel)]="login.username" #user="ngModel"
+        required />
+      <div *ngIf="user.errors && (user.dirty || user.touched)" class="alert alert-danger">
+        <div [hidden]="!user.errors?.required">Digite o usuário</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="senha">Senha:</label>
-      <input
-        type="password"
-        class="form-control"
-        id="senha"
-        name="senha"
-        [(ngModel)]="login.senha"
-        #senha="ngModel"
-        required
-      />
-      <div
-        *ngIf="senha.errors && (senha.dirty || senha.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!senha.errors?.required">Digite a senha.</div>
+      <label for="password">Senha:</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="login.password"
+        #password="ngModel" required />
+      <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+        <div [hidden]="!password.errors?.required">Digite a password.</div>
       </div>
     </div>
   </form>
-  <button
-    type="button"
-    class="btn btn-primary"
-    (click)="logar()"
-    [disabled]="!formLogin.form.valid"
-  >
+  <button type="button" class="btn btn-primary" (click)="logar()" [disabled]="!formLogin.form.valid">
     <i class="fa fa-save" aria-hidden="true"></i> Logar
   </button>
-  <div
-    *ngIf="message"
-    class="alert alert-danger alert-dismissible fade show"
-    role="alert"
-  >
+  <div *ngIf="message" class="alert alert-danger alert-dismissible fade show" role="alert">
     {{ message }}
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 </div>

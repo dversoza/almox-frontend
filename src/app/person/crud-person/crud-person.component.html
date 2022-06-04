@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-between" id="main-content">
+  <h1>Persons</h1>
+  <div>
+    <form class="d-flex flex-row">
+      <input #searchInput="ngModel" ngModel (ngModelChange)="pesquisarPerson(searchInput.value)" name="searchInput"
+        id="searchInput" class="form-control" type="search" placeholder="Pesquisar person ..." aria-label="Search" />
+      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllPersons()" style="margin: 0 10px">
+        <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
+      </button>
+      <button class="btn btn-success d-flex align-items-center" (click)="modalPerson()" type="button">
+        <i class="fa fa-plus" style="margin-right: 5px"></i> Nova
+      </button>
+    </form>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th [appSort]="person" data-order="desc" data-name="id" scope="col">
+        ID
+      </th>
+      <th [appSort]="person" data-order="desc" data-name="name" scope="col">
+        Nome
+      </th>
+      <th [appSort]="person" data-order="desc" data-name="isBusiness" scope="col">
+        Tipo
+      </th>
+      <th [appSort]="person" data-order="desc" data-name="document" scope="col">
+        Documento
+      </th>
+      <th [appSort]="person" data-order="desc" data-name="contact" scope="col">
+        Telefone
+      </th>
+      <th [appSort]="person" data-order="desc" data-name="stand" scope="col">
+        Stand
+      </th>
+      <th class="text-center">Opções ...</th>
+    </tr>
+  </thead>
+  <tbody class="align-middle">
+    <tr *ngFor="let person of person">
+      <th scope="row">{{ person.id }}</th>
+      <td>{{ person.name }}</td>
+      <td>{{ person.isBusiness ? "PJ" : "PF" }}</td>
+      <td>{{ person.document }}</td>
+      <td>{{ person.contact }}</td>
+      <td>{{ person.stand?.name }}</td>
+      <td class="text-center">
+        <button class="btn btn-xs btn-info" (click)="modalPerson(person)">
+          <i class="fa fa-edit" aria-hidden="true"></i> Editar
+        </button>
+        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="excluirPerson($event, person)"><i
+            class="fa fa-times" aria-hidden="true"></i> Excluir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-danger" *ngIf="!person || person?.length == 0">
+  Nenhuma person encontrada
+</div>

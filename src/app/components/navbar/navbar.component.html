@@ -1,76 +1,38 @@
-<nav
-  class="navbar navbar-expand-sm navbar-dark"
-  style="background-color: #013357"
->
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #013357">
   <div class="container-fluid">
-    <img
-      src="assets/nsaLogo.svg"
-      alt="Nossa Senhora Aparecida"
-      style="height: 50px; fill: azure"
-    />
+    <img src="assets/nsaLogo.svg" alt="Nossa Senhora Aparecida" style="height: 50px; fill: azure" />
     <a class="navbar-brand" href="#">Almoxarifado Catedral</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['movimentacoes']"
-            href="#"
-            ><i class="fas fa-shipping-fast"></i> Movimentações</a
-          >
-        </li>
-        <li *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['barracas']"
-            href="#"
-            ><i class="fas fa-store"></i> Barracas</a
-          >
-        </li>
-        <li *ngIf="usuarioLogado?.perfil === 'ADMIN'" class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['produtos']"
-            href="#"
-            ><i class="fas fa-dolly"></i> Produtos</a
-          >
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['transactions']" href="#"><i class="fas fa-shipping-fast"></i> Movimentações</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['pessoas']"
-            href="#"
-            ><i class="fas fa-user"></i> Pessoas</a
-          >
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['stands']" href="#"><i class="fas fa-store"></i> Stands</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['products']" href="#"><i class="fas fa-dolly"></i> Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['people']" href="#"><i class="fas fa-user"></i> Persons</a>
         </li>
       </ul>
     </div>
-    <ul *ngIf="usuarioLogado" class="navbar-nav ml-auto">
+    <ul *ngIf="authenticatedUser" class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="logout()">Logout</a>
       </li>
       <li class="nav-item">
         <p class="navbar-text mb-0 text-white">
-          <i class="fa fa-user"></i> {{ usuarioLogado.pessoa?.nome }}
+          <i class="fa fa-user"></i> {{ authenticatedUser?.person?.name }}
         </p>
       </li>
     </ul>

@@ -1,0 +1,129 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{
+    transaction.id
+    ? "Movimentação " + transaction.id
+    : "Cadastrar nova movimentação"
+    }}
+  </h5>
+  <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form #transactionForm="ngForm">
+    <div>
+      <label for="way" style="margin-right: 10px">Operação: </label>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.way" #way="ngModel" type="radio" name="way" value="ENTRADA" id="way_entrada"
+          class="form-check-input" />
+        <label class="form-check-label" for="way_entrada">Entrada</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.way" #way="ngModel" type="radio" name="way" value="SAÍDA" id="way_saída"
+          class="form-check-input" />
+        <label class="form-check-label" for="way_saída">Saída</label>
+      </div>
+    </div>
+
+    <div *ngIf="transaction.way == 'ENTRADA'">
+      <label for="type" style="margin-right: 10px">Tipo: </label>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="COMPRA" id="type_compra"
+          class="form-check-input" />
+        <label class="form-check-label" for="type_compra">Compra</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DOAÇÃO" id="type_doação"
+          class="form-check-input" />
+        <label class="form-check-label" for="type_doação">Doação</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DEVOLUÇÃO"
+          id="type_devolução" class="form-check-input" />
+        <label class="form-check-label" for="type_devolução">Devolução ao almoxarifado</label>
+      </div>
+    </div>
+
+    <div *ngIf="transaction.way == 'SAÍDA'">
+      <label for="type" style="margin-right: 10px">Tipo: </label>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="INTERNA" id="type_interna"
+          class="form-check-input" checked />
+        <label class="form-check-label" for="type_interna">Interna</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DEVOLUÇÃO"
+          id="type_devolução" class="form-check-input" />
+        <label class="form-check-label" for="type_devolução">Devolução ao fornecedor</label>
+      </div>
+    </div>
+
+    <div *ngIf="transaction.way">
+      <div class="form-group">
+        <label for="datetime">Data do Fato: </label>
+        <input type="date" class="form-control" [(ngModel)]="transaction.datetime" name="datetime"
+          placeholder="Digite a data e hora da movimentação" required />
+      </div>
+
+      <div *ngIf="transaction.way != 'ENTRADA'" class="form-group">
+        <label for="stand">Stand: </label>
+        <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
+          placeholder="Selecione a stand">
+        </ng-select>
+      </div>
+
+      <div *ngIf="transaction.way != 'ENTRADA'" class="form-group">
+        <label for="manager">Responsável: </label>
+        <ng-select [items]="person" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
+          placeholder="Responsavel pela retirada do product" addTagText="Criar: " [addTag]="criarPerson">
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label for="product">Product: </label>
+        <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
+          name="product" placeholder="Selecione o product" (close)="mu = transaction?.product?.measurementUnit"
+          required>
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantidade (em {{ mu?.name }}): </label>
+        <input [(ngModel)]="transaction.quantity" #quantity="ngModel" class="form-control" id="quantity_input"
+          name="quantity" type="number" placeholder="Digite o quantity da transaction" required />
+      </div>
+
+      <div *ngIf="
+          transaction.way == 'ENTRADA' && transaction.type != 'DEVOLUÇÃO'
+        " class="form-group">
+        <label for="price">{{
+          transaction.type == "DOAÇÃO"
+          ? "Valor Estimado da Doação: "
+          : "Valor da compra"
+          }}</label>
+        <input type="number" class="form-control" [(ngModel)]="transaction.price" name="price" #price="ngModel"
+          placeholder="Digite o price em reais" />
+      </div>
+
+      <div class="form-group">
+        <label for="details">Observações: </label>
+        <input type="text" class="form-control" [(ngModel)]="transaction.details" name="details" #details="ngModel"
+          placeholder="Detalhes sobre a movimentação" />
+      </div>
+
+      <div class="d-grid gap-2">
+        <button [disabled]="!transactionForm.form.valid" style="margin-top: 20px" type="button" class="btn btn-success"
+          (click)="submitForm()">
+          <i class="fa fa-save" aria-hidden="true"></i>
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    Fechar
+  </button>
+</div>

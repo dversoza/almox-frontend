@@ -6,15 +6,15 @@ import localePt from '@angular/common/locales/pt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BarracasModule } from './barracas';
+import { StandModule } from './stand';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { PessoasModule } from './pessoas';
+import { PersonsModule } from './person';
 import { HomepageComponent } from './homepage/homepage.component';
-import { UmsModule } from './ums';
-import { ProdutosModule } from './produtos/produtos.module';
-import { MovimentacoesModule } from './movimentacoes';
-import { UsuariosModule } from './usuarios/usuarios.module';
+import { MeasurementUnitModule } from './measurement-unit';
+import { ProductModule } from './product/products.module';
+import { TransactionModule } from './transaction';
+import { UserModule } from './user/user.module';
 import { registerLocaleData } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared';
@@ -30,14 +30,14 @@ registerLocaleData(localePt);
   imports: [
     AuthModule,
     AppRoutingModule,
-    BarracasModule,
+    StandModule,
     BrowserModule,
     HttpClientModule,
-    MovimentacoesModule,
-    PessoasModule,
-    ProdutosModule,
-    UmsModule,
-    UsuariosModule,
+    TransactionModule,
+    PersonsModule,
+    ProductModule,
+    MeasurementUnitModule,
+    UserModule,
     SharedModule,
   ],
   providers: [
@@ -52,4 +52,4 @@ registerLocaleData(localePt);
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

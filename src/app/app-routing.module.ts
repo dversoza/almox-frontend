@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginRoutes } from './auth/auth-routing.module';
 import { AuthGuard } from './auth/auth.guard';
-import { CrudBarracaComponent } from './barracas';
+import { CrudStandComponent } from './stand';
 import { HomepageComponent } from './homepage/homepage.component';
-import { CrudMovimentacaoComponent } from './movimentacoes';
-import { CrudPessoaComponent } from './pessoas';
-import { CrudProdutoComponent } from './produtos/crud-produto';
-import { CrudUnidadeMedidaComponent } from './ums/crud-unidade-medida';
+import { CrudTransactionComponent } from './transaction';
+import { CrudPersonComponent } from './person';
+import { CrudProductComponent } from './product/crud-product';
+import { CrudMeasurementUnitComponent } from './measurement-unit/crud-measurement-unit';
 
 const routes: Routes = [
   {
@@ -15,42 +15,42 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full',
     component: HomepageComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
   },
   {
-    path: 'barracas',
-    children: [{ path: '', component: CrudBarracaComponent }],
-    canActivate: [AuthGuard],
+    path: 'stands',
+    children: [{ path: '', component: CrudStandComponent }],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',
     },
   },
   {
-    path: 'movimentacoes',
-    children: [{ path: '', component: CrudMovimentacaoComponent }],
-    canActivate: [AuthGuard],
+    path: 'transactions',
+    children: [{ path: '', component: CrudTransactionComponent }],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
   },
   {
-    path: 'pessoas',
-    children: [{ path: '', component: CrudPessoaComponent }],
-    canActivate: [AuthGuard],
+    path: 'people',
+    children: [{ path: '', component: CrudPersonComponent }],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN,COMUM',
     },
   },
   {
-    path: 'produtos',
+    path: 'products',
     children: [
-      { path: '', component: CrudProdutoComponent },
-      { path: 'ums', component: CrudUnidadeMedidaComponent },
+      { path: '', component: CrudProductComponent },
+      { path: 'measurementUnits', component: CrudMeasurementUnitComponent },
     ],
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',
     },
@@ -59,7 +59,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
@@ -70,4 +70,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

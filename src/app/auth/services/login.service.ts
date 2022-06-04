@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Usuario } from 'src/app/shared';
+import { User } from 'src/app/shared';
 import { Login } from 'src/app/shared/models/login.model';
-import { UsuarioService } from 'src/app/usuarios/services/usuario.service';
+import { UserService } from 'src/app/user/services/user.service';
 
-const LS_CHAVE: string = 'usuarioLogado';
+const LOCAL_STORAGE_KEY: string = 'authUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  usuarios!: Usuario[];
+  users!: User[];
 
-  constructor(private usuarioService: UsuarioService) {
-    this.usuarioService.getUsuarios().subscribe((usuarios: Usuario[]) => {
-      this.usuarios = usuarios;
+  constructor(private userService: UserService) {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
     });
   }
 
-  public get usuarioLogado(): Usuario | null {
-    let usuario = localStorage[LS_CHAVE];
-    return usuario ? JSON.parse(localStorage[LS_CHAVE]) : null;
+  public get authUser(): User | null {
+    let user = localStorage[LOCAL_STORAGE_KEY];
+    return user ? JSON.parse(localStorage[LOCAL_STORAGE_KEY]) : null;
   }
 
-  public set usuarioLogado(usuario: Usuario | null) {
-    localStorage[LS_CHAVE] = JSON.stringify(usuario);
+  public set authUser(user: User | null) {
+    localStorage[LOCAL_STORAGE_KEY] = JSON.stringify(user);
   }
 
   logout() {
-    delete localStorage[LS_CHAVE];
+    delete localStorage[LOCAL_STORAGE_KEY];
   }
 
-  login(login: Login): Observable<Usuario | null> {
-    const usuarioExistente = this.usuarios.find(
-      (usuario: Usuario) => usuario.login === login.login
+  login(login: Login): Observable<User | null> {
+    const existingUser = this.users.find(
+      (user: User) => user.username === login.username
     );
 
-    if (usuarioExistente && usuarioExistente.senha === login.senha) {
-      this.usuarioLogado = usuarioExistente;
-      return of(usuarioExistente);
+    if (existingUser && existingUser.password === login.password) {
+      this.authUser = existingUser;
+      return of(existingUser);
     } else {
       return of(null);
     }
