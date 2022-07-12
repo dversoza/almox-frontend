@@ -1,46 +1,58 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/shared';
 import { Login } from 'src/app/shared/models/login.model';
-import { UserService } from 'src/app/user/services/user.service';
+import { environment } from 'src/environments/environment';
 
-const LOCAL_STORAGE_KEY: string = 'authUser';
+interface LoginResponse {
+  token: string;
+  user: User;
+  email: string;
+}
+
+const TOKEN_STORAGE_KEY = 'authToken';
+const USER_STORAGE_KEY = 'authUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  users!: User[];
+  private apiAuthUrl: string = `${environment.apiBaseUrl}/auth/`;
 
-  constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-    });
+  constructor(private http: HttpClient) { }
+
+  public login(login: Login): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiAuthUrl}`, login);
   }
 
-  public get authUser(): User | null {
-    let user = localStorage[LOCAL_STORAGE_KEY];
-    return user ? JSON.parse(localStorage[LOCAL_STORAGE_KEY]) : null;
+  public logout(): void {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(USER_STORAGE_KEY);
   }
 
-  public set authUser(user: User | null) {
-    localStorage[LOCAL_STORAGE_KEY] = JSON.stringify(user);
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem(TOKEN_STORAGE_KEY);
   }
 
-  logout() {
-    delete localStorage[LOCAL_STORAGE_KEY];
-  }
-
-  login(login: Login): Observable<User | null> {
-    const existingUser = this.users.find(
-      (user: User) => user.username === login.username
-    );
-
-    if (existingUser && existingUser.password === login.password) {
-      this.authUser = existingUser;
-      return of(existingUser);
-    } else {
-      return of(null);
+  public getToken(): string {
+    if (this.isLoggedIn()) {
+      return localStorage.getItem(TOKEN_STORAGE_KEY) as string;
     }
+    return '';
   }
+
+  public setToken(token: string): void {
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+  }
+
+  public getUser(): User | null {
+    let user = localStorage[USER_STORAGE_KEY];
+    return user ? JSON.parse(localStorage[USER_STORAGE_KEY]) : null;
+  }
+
+  public setUser(user: User | null) {
+    localStorage[USER_STORAGE_KEY] = JSON.stringify(user);
+  }
+
 }

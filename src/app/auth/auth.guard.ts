@@ -23,12 +23,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const authUser = this.loginService.authUser;
+    const authUser = this.loginService.getUser();
     let url = state.url;
     if (authUser) {
       if (
         route.data.role &&
-        route.data.role.indexOf(authUser.isStaff) === -1
+        route.data.role.indexOf(authUser.is_staff) === true
       ) {
         this.router.navigate(['/login'], {
           queryParams: { error: 'Proibido o acesso a ' + url },
@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/login'], {
-      queryParams: { error: 'Faça login antes de acessar!' },
+      queryParams: { error: 'Faça login para acessar o aplicativo!' },
     });
     return false;
   }

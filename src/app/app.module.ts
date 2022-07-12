@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID } from '@angular/core';
@@ -18,6 +18,7 @@ import { UserModule } from './user/user.module';
 import { registerLocaleData } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared';
+import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -49,6 +50,11 @@ registerLocaleData(localePt);
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'BRL',
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })

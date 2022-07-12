@@ -15,7 +15,7 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full',
     component: HomepageComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'stands',
     children: [{ path: '', component: CrudStandComponent }],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',
     },
@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'transactions',
     children: [{ path: '', component: CrudTransactionComponent }],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
@@ -39,7 +39,7 @@ const routes: Routes = [
   {
     path: 'people',
     children: [{ path: '', component: CrudPersonComponent }],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN,COMUM',
     },
@@ -50,7 +50,7 @@ const routes: Routes = [
       { path: '', component: CrudProductComponent },
       { path: 'measurementUnits', component: CrudMeasurementUnitComponent },
     ],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',
     },
@@ -59,7 +59,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
     },
