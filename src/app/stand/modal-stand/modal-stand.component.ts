@@ -39,7 +39,7 @@ export class ModalStandComponent implements OnInit {
   }
 
   public findAllPersons() {
-    this.personService.getPersons().subscribe((person) => {
+    this.personService.getAllPersons().subscribe((person) => {
       this.person = person;
     });
   }
@@ -47,7 +47,7 @@ export class ModalStandComponent implements OnInit {
   public submitForm() {
     if (this.standForm.valid) {
       if (this.type === ModalType.CREATE) {
-        this.standService.addStand(this.stand).subscribe(() => {
+        this.standService.createStand(this.stand).subscribe(() => {
           this.activeModal.close();
           parent.location.reload();
         });

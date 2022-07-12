@@ -6,7 +6,7 @@ export class Person {
     public name?: string,
     public isBusiness?: boolean,
     public document?: string,
-    public contact?: string,
+    public phone?: string,
     public stand?: Stand
   ) { }
 }

@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between" id="main-content">
-  <h1>Products</h1>
+  <h1>Produtos</h1>
   <div class="d-flex">
-    <input #searchInput="ngModel" ngModel (ngModelChange)="pesquisarProduct(searchInput.value)" name="searchInput"
+    <input #searchInput="ngModel" ngModel (ngModelChange)="searchProduct(searchInput.value)" name="searchInput"
       id="searchInput" class="form-control" type="search" placeholder="Pesquisar product ..." aria-label="Search" />
     <a class="btn btn-primary d-flex text-nowrap align-items-center" href="#" [routerLink]="['measurementUnits']">
       <i class="fas fa-ruler" style="margin-right: 5px"></i> Unidades de Medida
@@ -33,12 +33,12 @@
     <tr *ngFor="let product of products">
       <th scope="row">{{ product.id }}</th>
       <td>{{ product.name }}</td>
-      <td>{{ product.quantityInStock }} {{ product.measurementUnit?.abbreviation }}</td>
+      <td>{{ product.quantity }} {{ product.measurement_unit?.abbreviation }}</td>
       <td class="text-center">
         <button class="btn btn-xs btn-info" (click)="modalProduct(product)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
-        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="excluirProduct($event, product)"><i
+        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="deleteProduct($event, product)"><i
             class="fa fa-times" aria-hidden="true"></i> Excluir</a>
       </td>
     </tr>
@@ -46,5 +46,5 @@
 </table>
 
 <div class="alert alert-danger" *ngIf="!products || products?.length == 0">
-  Nenhum product encontrado!
+  Nenhum produto encontrado!
 </div>

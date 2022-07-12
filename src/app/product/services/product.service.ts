@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from 'src/app/shared/models/product.model';
+import { map, Observable } from 'rxjs';
+import { Product, DjangoPaginatedResponse } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,26 +12,28 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  public getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiProductsUrl}/`);
+  public getAllProducts(): Observable<Product[]> {
+    return this.http.get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`).pipe(
+      map(response => response.results)
+    );
   }
 
   public getProduct(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiProductsUrl}/${id}`);
   }
 
-  public addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(`${this.apiProductsUrl}/create`, product);
+  public createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.apiProductsUrl}/`, product);
   }
 
   public updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(
-      `${this.apiProductsUrl}/update/${product.id}`,
+      `${this.apiProductsUrl}/${product.id}`,
       product
     );
   }
 
   public deleteProduct(id: number): Observable<Product> {
-    return this.http.delete<Product>(`${this.apiProductsUrl}/delete/${id}`);
+    return this.http.delete<Product>(`${this.apiProductsUrl}/${id}`);
   }
 }

@@ -22,7 +22,7 @@ export class CrudPersonComponent implements OnInit {
   }
 
   public findAllPersons(): void {
-    this.personService.getPersons().subscribe(
+    this.personService.getAllPersons().subscribe(
       (response: Person[]) => {
         this.person = response;
       },
@@ -37,13 +37,13 @@ export class CrudPersonComponent implements OnInit {
     modalRef.componentInstance.person = person;
   }
 
-  public excluirPerson($event: any, person: Person): void {
+  public deletePerson($event: any, person: Person): void {
     $event.preventDefault();
     if (
       confirm(`Tem certeza que deseja excluir a person ${person.name}?`) &&
       person.id
     ) {
-      this.personService.excluirPerson(person.id).subscribe(
+      this.personService.deletePerson(person.id).subscribe(
         (response: any) => {
           this.findAllPersons();
         },
@@ -54,14 +54,14 @@ export class CrudPersonComponent implements OnInit {
     }
   }
 
-  public pesquisarPerson(key: string): void {
+  public searchPerson(key: string): void {
     const results: Person[] = [];
     if (key.length > 1) {
       for (const person of this.person) {
         if (
           person?.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
           person?.document?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          person?.contact?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+          person?.phone?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
           person?.stand?.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1
         ) {
           results.push(person);

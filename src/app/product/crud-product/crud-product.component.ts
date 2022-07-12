@@ -23,8 +23,9 @@ export class CrudProductComponent implements OnInit {
   }
 
   public findAllProducts(): void {
-    this.productService.getProducts().subscribe((products: Product[]) => {
+    this.productService.getAllProducts().subscribe((products: Product[]) => {
       this.products = products;
+      console.log(this.products);
     });
   }
 
@@ -33,7 +34,7 @@ export class CrudProductComponent implements OnInit {
     modalRef.componentInstance.product = product;
   }
 
-  public excluirProduct($event: any, product: Product) {
+  public deleteProduct($event: any, product: Product) {
     $event.preventDefault();
     if (
       confirm(`Tem certeza que deseja excluir o product ${product.name}?`) &&
@@ -50,7 +51,7 @@ export class CrudProductComponent implements OnInit {
     }
   }
 
-  public pesquisarProduct(key: string): void {
+  public searchProduct(key: string): void {
     const results: Product[] = [];
     for (const product of this.products) {
       if (

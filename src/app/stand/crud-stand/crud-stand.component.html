@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between" id="main-content">
-  <h1>Stands</h1>
+  <h1>Barracas</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel (ngModelChange)="pesquisarStand(searchInput.value)" name="searchInput"
+      <input #searchInput="ngModel" ngModel (ngModelChange)="searchStand(searchInput.value)" name="searchInput"
         id="searchInput" class="form-control" type="search" placeholder="Pesquisar stand ..." aria-label="Search" />
       <button class="btn btn-secondary d-flex align-items-center" (click)="findAllStands()" style="margin: 0 10px">
         <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
@@ -36,13 +36,13 @@
       <td>{{ stand.name }}</td>
       <td>{{ stand.manager?.name }}</td>
       <td>
-        {{ stand.contact ? stand.contact : stand.manager?.contact }}
+        {{ stand.contact ? stand.contact : stand.manager?.phone }}
       </td>
       <td class="text-center">
         <button class="btn btn-xs btn-info" (click)="modalStand(stand)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
-        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="excluirStand($event, stand)"><i
+        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="deleteStand($event, stand)"><i
             class="fa fa-times" aria-hidden="true"></i> Excluir</a>
       </td>
     </tr>
@@ -50,5 +50,5 @@
 </table>
 
 <div class="alert alert-danger" *ngIf="!stands || stands?.length == 0">
-  Nenhuma stand encontrada
+  Nenhuma barraca encontrada
 </div>

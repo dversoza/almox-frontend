@@ -2,13 +2,14 @@
   <h1>Unidades de Medida</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel (ngModelChange)="pesquisarUM(searchInput.value)" name="searchInput"
-        id="searchInput" class="form-control" type="search" placeholder="Pesquisar unidade de medida ..."
-        aria-label="Pesquisar" />
-      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllUMs()" style="margin: 0 10px">
+      <input #searchInput="ngModel" ngModel (ngModelChange)="searchMeasurementUnit(searchInput.value)"
+        name="searchInput" id="searchInput" class="form-control" type="search"
+        placeholder="Pesquisar unidade de medida ..." aria-label="Pesquisar" />
+      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllMeasurementUnits()"
+        style="margin: 0 10px">
         <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
       </button>
-      <button class="btn btn-success d-flex align-items-center" (click)="modalUM()" type="button">
+      <button class="btn btn-success d-flex align-items-center" (click)="modalMeasurementUnit()" type="button">
         <i class="fa fa-plus" style="margin-right: 5px"></i> Nova
       </button>
     </form>
@@ -18,8 +19,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th [appSort]="ums" data-order="desc" data-name="id" scope="col">ID</th>
-      <th [appSort]="ums" data-order="desc" data-name="name" scope="col">
+      <th [appSort]="measurementUnits" data-order="desc" data-name="id" scope="col">ID</th>
+      <th [appSort]="measurementUnits" data-order="desc" data-name="name" scope="col">
         Nome
       </th>
       <th scope="col">Sigla</th>
@@ -27,21 +28,22 @@
     </tr>
   </thead>
   <tbody class="align-middle">
-    <tr *ngFor="let mu of ums">
-      <th scope="row">{{ mu.id }}</th>
-      <td>{{ mu.name }}</td>
-      <td>{{ mu.abbreviation }}</td>
+    <tr *ngFor="let measurementUnit of measurementUnits">
+      <th scope="row">{{ measurementUnit.id }}</th>
+      <td>{{ measurementUnit.name }}</td>
+      <td>{{ measurementUnit.abbreviation }}</td>
       <td class="text-center">
-        <button class="btn btn-xs btn-info" (click)="modalUM(mu)">
+        <button class="btn btn-xs btn-info" (click)="modalMeasurementUnit(measurementUnit)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
-        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#" (click)="excluirUM($event, mu)"><i
-            class="fa fa-times" aria-hidden="true"></i> Excluir</a>
+        <a style="margin-left: 15px" class="btn btn-xs btn-danger" href="#"
+          (click)="deleteMeasurementUnit($event, measurementUnit)"><i class="fa fa-times" aria-hidden="true"></i>
+          Excluir</a>
       </td>
     </tr>
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!ums || ums?.length == 0">
+<div class="alert alert-danger" *ngIf="!measurementUnits || measurementUnits?.length == 0">
   Nenhuma unidade de medida cadastrada
 </div>

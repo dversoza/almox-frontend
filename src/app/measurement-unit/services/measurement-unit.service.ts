@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { MeasurementUnit } from 'src/app/shared/models/measurement-unit.model';
+import { map, Observable } from 'rxjs';
+import { DjangoPaginatedResponse, MeasurementUnit } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,18 +13,20 @@ export class MeasurementUnitService {
   constructor(private http: HttpClient) { }
 
   public findAllMeasurementUnits(): Observable<MeasurementUnit[]> {
-    return this.http.get<MeasurementUnit[]>(this.apiMeasurementUnitsUrl);
+    return this.http.get<DjangoPaginatedResponse<MeasurementUnit>>(`${this.apiMeasurementUnitsUrl}/`).pipe(
+      map(response => response.results)
+    );
   }
 
-  public createUM(mu: MeasurementUnit): Observable<MeasurementUnit> {
-    return this.http.post<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/create`, mu);
+  public createMeasurementUnit(measurementUnit: MeasurementUnit): Observable<MeasurementUnit> {
+    return this.http.post<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/create/`, measurementUnit);
   }
 
-  public updateUM(mu: MeasurementUnit): Observable<MeasurementUnit> {
-    return this.http.put<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/update`, mu);
+  public updateMeasurementUnit(measurementUnit: MeasurementUnit): Observable<MeasurementUnit> {
+    return this.http.put<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/`, measurementUnit);
   }
 
-  public deleteUM(id: number): Observable<MeasurementUnit> {
+  public deleteMeasurementUnit(id: number): Observable<MeasurementUnit> {
     return this.http.delete<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/delete/${id}`);
   }
 }

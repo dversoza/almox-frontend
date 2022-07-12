@@ -18,16 +18,16 @@ enum TransactionWay {
 export class Transaction {
   constructor(
     public id?: number,
-    public createdAt?: Date,
-    public createdBy?: User,
-    public updatedAt?: Date,
-    public updatedBy?: User,
+    public created_at?: Date,
+    public updated_at?: Date,
+    public created_by?: User,
+    public updated_by?: User,
     public stand?: Stand,
     public product?: Product,
     public person?: Person,
     public way?: TransactionWay,
     public type?: TransactionType,
-    public datetime?: string,
+    public datetime: Date = new Date(),
     public quantity?: number,
     public price?: number,
     public details?: string

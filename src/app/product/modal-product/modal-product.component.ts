@@ -19,13 +19,13 @@ enum ModalType {
 export class ModalProductComponent implements OnInit {
   @ViewChild('productForm') productForm!: NgForm;
   product!: Product;
-  ums!: MeasurementUnit[];
+  measurementUnits!: MeasurementUnit[];
   type!: ModalType;
 
   constructor(
     public activeModal: NgbActiveModal,
     private productService: ProductService,
-    private umService: MeasurementUnitService
+    private measurementUnitService: MeasurementUnitService
   ) { }
 
   ngOnInit(): void {
@@ -35,19 +35,20 @@ export class ModalProductComponent implements OnInit {
     } else {
       this.type = ModalType.UPDATE;
     }
-    this.findAllUMs();
+    this.findAllMeasurementUnits();
   }
 
-  public findAllUMs() {
-    this.umService.findAllMeasurementUnits().subscribe((ums: MeasurementUnit[]) => {
-      this.ums = ums;
-    });
+  public findAllMeasurementUnits() {
+    this.measurementUnitService.findAllMeasurementUnits().subscribe(
+      (response) => {
+        this.measurementUnits = response;
+      });
   }
 
   public submitForm() {
     if (this.productForm.valid) {
       if (this.type === ModalType.CREATE) {
-        this.productService.addProduct(this.product).subscribe(
+        this.productService.createProduct(this.product).subscribe(
           () => {
             this.activeModal.close();
             parent.location.reload();

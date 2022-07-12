@@ -10,7 +10,7 @@ import { MeasurementUnitService } from '../services';
   styleUrls: ['./crud-measurement-unit.component.css'],
 })
 export class CrudMeasurementUnitComponent implements OnInit {
-  public ums!: MeasurementUnit[];
+  public measurementUnits!: MeasurementUnit[];
 
   constructor(
     private measurementUnitService: MeasurementUnitService,
@@ -18,13 +18,13 @@ export class CrudMeasurementUnitComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.findAllUMs();
+    this.findAllMeasurementUnits();
   }
 
-  public findAllUMs(): void {
+  public findAllMeasurementUnits(): void {
     this.measurementUnitService.findAllMeasurementUnits().subscribe(
-      (ums: MeasurementUnit[]) => {
-        this.ums = ums;
+      (response) => {
+        this.measurementUnits = response;
       },
       (error) => {
         alert(error.message);
@@ -32,22 +32,22 @@ export class CrudMeasurementUnitComponent implements OnInit {
     );
   }
 
-  public modalUM(mu?: MeasurementUnit) {
+  public modalMeasurementUnit(measurementUnit?: MeasurementUnit) {
     const modalRef = this.modalService.open(ModalMeasurementUnitComponent);
-    modalRef.componentInstance.mu = mu;
+    modalRef.componentInstance.measurementUnit = measurementUnit;
   }
 
-  public excluirUM($event: any, mu: MeasurementUnit) {
+  public deleteMeasurementUnit($event: any, measurementUnit: MeasurementUnit) {
     $event.preventDefault();
     if (
       confirm(
-        `Tem certeza que deseja excluir a unidade de medida '${mu.name}'?`
+        `Tem certeza que deseja excluir a unidade de medida '${measurementUnit.name}'?`
       ) &&
-      mu.id
+      measurementUnit.id
     ) {
-      this.measurementUnitService.deleteUM(mu.id).subscribe(
+      this.measurementUnitService.deleteMeasurementUnit(measurementUnit.id).subscribe(
         () => {
-          this.findAllUMs();
+          this.findAllMeasurementUnits();
         },
         (error) => {
           alert(error.message);
@@ -56,16 +56,16 @@ export class CrudMeasurementUnitComponent implements OnInit {
     }
   }
 
-  public pesquisarUM(key: string): void {
+  public searchMeasurementUnit(key: string): void {
     const results: MeasurementUnit[] = [];
-    for (const mu of this.ums) {
+    for (const measurementUnit of this.measurementUnits) {
       if (
-        mu?.name?.toLowerCase().includes(key.toLowerCase()) ||
-        mu?.abbreviation?.toLowerCase().includes(key.toLowerCase())
+        measurementUnit?.name?.toLowerCase().includes(key.toLowerCase()) ||
+        measurementUnit?.abbreviation?.toLowerCase().includes(key.toLowerCase())
       ) {
-        results.push(mu);
+        results.push(measurementUnit);
       }
     }
-    this.ums = results;
+    this.measurementUnits = results;
   }
 }

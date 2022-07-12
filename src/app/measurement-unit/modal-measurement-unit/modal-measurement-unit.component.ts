@@ -15,18 +15,18 @@ enum ModalType {
   styleUrls: ['./modal-measurement-unit.component.css'],
 })
 export class ModalMeasurementUnitComponent implements OnInit {
-  @ViewChild('umForm') umForm!: NgForm;
-  mu!: MeasurementUnit;
+  @ViewChild('measurementUnitForm') measurementUnitForm!: NgForm;
+  measurementUnit!: MeasurementUnit;
   type!: ModalType;
 
   constructor(
     public activeModal: NgbActiveModal,
-    private umService: MeasurementUnitService
+    private measurementUnitService: MeasurementUnitService
   ) { }
 
   ngOnInit(): void {
-    if (!this.mu) {
-      this.mu = new MeasurementUnit();
+    if (!this.measurementUnit) {
+      this.measurementUnit = new MeasurementUnit();
       this.type = ModalType.CREATE;
     } else {
       this.type = ModalType.UPDATE;
@@ -34,14 +34,14 @@ export class ModalMeasurementUnitComponent implements OnInit {
   }
 
   public submitForm() {
-    if (this.umForm.valid) {
+    if (this.measurementUnitForm.valid) {
       if (this.type === ModalType.CREATE) {
-        this.umService.createUM(this.mu).subscribe(() => {
+        this.measurementUnitService.createMeasurementUnit(this.measurementUnit).subscribe(() => {
           this.activeModal.close();
           parent.location.reload();
         });
       } else {
-        this.umService.updateUM(this.mu).subscribe(() => {
+        this.measurementUnitService.updateMeasurementUnit(this.measurementUnit).subscribe(() => {
           this.activeModal.close();
         });
       }

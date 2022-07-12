@@ -11,7 +11,7 @@ import { TransactionService } from '../services';
   styleUrls: ['./crud-transaction.component.css'],
 })
 export class CrudTransactionComponent implements OnInit {
-  public movimentacoes!: Transaction[];
+  public transactions!: Transaction[];
 
   constructor(
     private transactionService: TransactionService,
@@ -24,14 +24,14 @@ export class CrudTransactionComponent implements OnInit {
   }
 
   get authUser(): User | null {
-    return this.loginService.authUser;
+    return this.loginService.getUser();
   }
 
   public findAllTransactions(): void {
     this.transactionService.getTransactions().subscribe(
-      (movimentacoes: Transaction[]) => {
-        console.log(movimentacoes);
-        this.movimentacoes = movimentacoes;
+      (transactions: Transaction[]) => {
+        console.log(transactions);
+        this.transactions = transactions;
       },
       (error) => {
         alert(error.message);
@@ -77,7 +77,7 @@ export class CrudTransactionComponent implements OnInit {
       return;
     }
 
-    for (const transaction of this.movimentacoes) {
+    for (const transaction of this.transactions) {
       if (
         transaction.stand?.name?.toLowerCase().includes(key.toLowerCase()) ||
         transaction.product?.name?.toLowerCase().includes(key.toLowerCase()) ||
@@ -88,6 +88,6 @@ export class CrudTransactionComponent implements OnInit {
         results.push(transaction);
       }
     }
-    this.movimentacoes = results;
+    this.transactions = results;
   }
 }

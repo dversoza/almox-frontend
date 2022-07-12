@@ -19,48 +19,44 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th [appSort]="movimentacoes" data-order="desc" data-name="id" scope="col">
+      <th [appSort]="transactions" data-order="desc" data-name="id" scope="col">
         ID
       </th>
-      <th [appSort]="movimentacoes" data-order="desc" data-name="datetime" scope="col">
+      <th [appSort]="transactions" data-order="desc" data-name="datetime" scope="col">
         Data
       </th>
       <th scope="col">Stand</th>
       <th scope="col">Responsável</th>
       <th scope="col">Product</th>
-      <th [appSort]="movimentacoes" data-order="desc" data-name="quantity" scope="col">
+      <th [appSort]="transactions" data-order="desc" data-name="quantity" scope="col">
         Quantidade
       </th>
-      <th [appSort]="movimentacoes" data-order="desc" data-name="price" scope="col">
+      <th [appSort]="transactions" data-order="desc" data-name="price" scope="col">
         Valor
       </th>
       <th scope="col">Obs.</th>
-      <th *ngIf="authUser?.isStaff" class="text-center">
+      <th *ngIf="authUser?.is_staff" class="text-center">
         Opções ...
       </th>
     </tr>
   </thead>
 
   <tbody class="align-middle">
-    <tr *ngFor="let transaction of movimentacoes">
+    <tr *ngFor="let transaction of transactions">
       <th scope="row">{{ transaction.id }}</th>
       <td>
-        {{
-        transaction.datetime
-        ? (transaction.datetime + 10800000 | date: "dd/MM")
-        : (transaction.datetime | date: "dd/MM")
-        }}
+        {{ transaction.datetime | date: 'dd/MM/yyyy HH:mm' }}
       </td>
       <td>{{ transaction.stand?.name }}</td>
       <td>{{ transaction.person?.name }}</td>
       <td>{{ transaction.product?.name }}</td>
       <td>
         {{ transaction.quantity }}
-        {{ transaction.product?.measurementUnit?.abbreviation }}
+        {{ transaction.product?.measurement_unit?.abbreviation }}
       </td>
       <td>{{ transaction.price | currency }}</td>
       <td>{{ transaction.details }}</td>
-      <td *ngIf="authUser?.isStaff" class="text-center">
+      <td *ngIf="authUser?.is_staff" class="text-center">
         <button class="btn btn-xs btn-info" (click)="modalTransaction(transaction)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
@@ -71,6 +67,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!movimentacoes || movimentacoes?.length == 0">
+<div class="alert alert-danger" *ngIf="!transactions || transactions?.length == 0">
   Nenhuma movimentação encontrada
 </div>

@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h5 class="modal-title">
-    {{ person.name! ? person.name : "Criar Person" }}
+    {{ person.name! ? person.name : "Criar Pessoa" }}
   </h5>
   <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
 </div>
@@ -10,26 +10,26 @@
     <div class="form-group">
       <label for="name">Nome: </label>
       <input [(ngModel)]="person.name" #name="ngModel" class="form-control" id="nome_input" name="name" type="text"
-        placeholder="Digite o name da person" required />
+        placeholder="Digite o nome da pessoa" required />
     </div>
     <div class="form-group">
       <label for="document">Documento: </label>
       <input class="form-control" [(ngModel)]="person.document" #document="ngModel" name="document" type="text"
-        placeholder="Digite o document da person" />
+        placeholder="Digite o documento da pessoa" />
     </div>
     <div class="form-group">
       <label for="contact">Telefone: </label>
-      <input class="form-control" [(ngModel)]="person.contact" #contact="ngModel" name="contact" type="text"
-        placeholder="Digite o contact da person" />
+      <input class="form-control" [(ngModel)]="person.phone" #contact="ngModel" name="contact" type="text"
+        placeholder="Digite o telefone de contato da pessoa" />
     </div>
     <div class="form-group">
-      <label for="stand">Stand: </label>
-      <ng-select [items]="stands" bindLabel="name" [(ngModel)]="person.stand" placeholder="Selecione a stand"
+      <label for="stand">Barraca: </label>
+      <ng-select [items]="stands" bindLabel="name" [(ngModel)]="person.stand" placeholder="Selecione a barraca"
         name="stand">
       </ng-select>
     </div>
     <div class="form-check form-switch">
-      <label for="name">Person Jurídica</label>
+      <label for="name">Pessoa Jurídica</label>
       <input [(ngModel)]="person.isBusiness" #isBusiness="ngModel" type="checkbox" name="isBusiness" value="true"
         id="fisica_input" class="form-check-input" />
     </div>

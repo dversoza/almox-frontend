@@ -48,18 +48,9 @@ export class ModalTransactionComponent implements OnInit {
     if (!this.transaction) {
       this.type = ModalType.CREATE;
       this.transaction = new Transaction();
-      this.transaction.createdBy = this.loginService.authUser
-        ? this.loginService.authUser
-        : undefined;
-      this.transaction.updatedBy = this.loginService.authUser
-        ? this.loginService.authUser
-        : undefined;
     } else {
       this.type = ModalType.UPDATE;
-      this.transaction.updatedBy = this.loginService.authUser
-        ? this.loginService.authUser
-        : undefined;
-      this.mu = this.transaction.product?.measurementUnit;
+      this.mu = this.transaction.product?.measurement_unit;
     }
     this.findAllStands();
     this.findAllPersons();
@@ -67,24 +58,24 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   public findAllProducts(): void {
-    this.productService.getProducts().subscribe((products) => {
+    this.productService.getAllProducts().subscribe((products) => {
       this.products = products;
     });
   }
 
   public findAllStands(): void {
-    this.standService.getStands().subscribe((stands) => {
+    this.standService.getAllStands().subscribe((stands) => {
       this.stands = stands;
     });
   }
 
   public findAllPersons(): void {
-    this.personService.getPersons().subscribe((person) => {
+    this.personService.getAllPersons().subscribe((person) => {
       this.person = person;
     });
   }
 
-  private criarTransaction(): void {
+  private createTransaction(): void {
     this.transactionService
       .createTransaction(this.transaction)
       .subscribe((transaction) => {
@@ -93,7 +84,7 @@ export class ModalTransactionComponent implements OnInit {
       });
   }
 
-  private atualizarTransaction(): void {
+  private updateTransaction(): void {
     this.transactionService
       .updateTransaction(this.transaction)
       .subscribe((transaction) => {
@@ -102,29 +93,29 @@ export class ModalTransactionComponent implements OnInit {
       });
   }
 
-  criarPerson = (name: string) => {
+  createPerson = (name: string) => {
     let person = new Person();
     person.name = name;
-    this.personService.criarPerson(person).subscribe((personCriada: Person) => {
+    this.personService.createPerson(person).subscribe((personCriada: Person) => {
       this.transaction.person = personCriada;
       this.findAllPersons();
     });
   };
 
-  private validaTransaction() {
+  private validateTransaction() {
     if (this.transaction.way == 'ENTRADA') {
       this.transaction.stand = { id: 1 };
-      this.transaction.person = this.loginService.authUser?.person;
+      this.transaction.person = this.loginService.getUser()?.person;
     }
   }
 
   public submitForm() {
     if (this.transactionForm.valid) {
-      this.validaTransaction();
+      this.validateTransaction();
       if (this.type === ModalType.CREATE) {
-        this.criarTransaction();
+        this.createTransaction();
       } else {
-        this.atualizarTransaction();
+        this.updateTransaction();
       }
     }
   }

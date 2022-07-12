@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Person } from 'src/app/shared/models/person.model';
+import { map, Observable } from 'rxjs';
+import { Person, DjangoPaginatedResponse } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,19 +12,25 @@ export class PersonService {
 
   constructor(private http: HttpClient) { }
 
-  public getPersons(): Observable<Person[]> {
-    return this.http.get<Person[]>(`${this.apiPersonsUrl}`);
+  public getAllPersons(): Observable<Person[]> {
+    return this.http.get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`).pipe(
+      map(response => response.results)
+    );
   }
 
-  public criarPerson(person: Person): Observable<Person> {
-    return this.http.post<Person>(`${this.apiPersonsUrl}/create`, person);
+  public getPerson(idPerson: number): Observable<Person> {
+    return this.http.get<Person>(`${this.apiPersonsUrl}/${idPerson}`);
   }
 
-  public atualizarPerson(person: Person): Observable<Person> {
-    return this.http.put<Person>(`${this.apiPersonsUrl}/update`, person);
+  public createPerson(person: Person): Observable<Person> {
+    return this.http.post<Person>(`${this.apiPersonsUrl}/`, person);
   }
 
-  public excluirPerson(idPerson: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiPersonsUrl}/delete/${idPerson}`);
+  public updatePerson(person: Person): Observable<Person> {
+    return this.http.put<Person>(`${this.apiPersonsUrl}/${person.id}/`, person);
+  }
+
+  public deletePerson(idPerson: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiPersonsUrl}/${idPerson}`);
   }
 }

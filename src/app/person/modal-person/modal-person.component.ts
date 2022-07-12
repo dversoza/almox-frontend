@@ -39,7 +39,7 @@ export class ModalPersonComponent implements OnInit {
   }
 
   public findAllStands(): void {
-    this.standService.getStands().subscribe(
+    this.standService.getAllStands().subscribe(
       (response: Stand[]) => {
         this.stands = response;
       },
@@ -51,9 +51,9 @@ export class ModalPersonComponent implements OnInit {
 
   private personFactory(person: Person): any {
     if (this.type === ModalType.CREATE) {
-      return this.personService.criarPerson(person);
+      return this.personService.createPerson(person);
     } else {
-      return this.personService.atualizarPerson(person);
+      return this.personService.updatePerson(person);
     }
   }
 

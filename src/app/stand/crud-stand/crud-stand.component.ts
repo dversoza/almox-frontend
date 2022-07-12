@@ -23,7 +23,7 @@ export class CrudStandComponent implements OnInit {
   }
 
   public findAllStands(): void {
-    this.standService.getStands().subscribe(
+    this.standService.getAllStands().subscribe(
       (response: Stand[]) => {
         this.stands = response;
       },
@@ -38,7 +38,7 @@ export class CrudStandComponent implements OnInit {
     modalRef.componentInstance.stand = stand;
   }
 
-  public pesquisarStand(key: string): void {
+  public searchStand(key: string): void {
     const results: Stand[] = [];
     for (const stand of this.stands) {
       if (
@@ -53,7 +53,7 @@ export class CrudStandComponent implements OnInit {
     this.stands = results;
   }
 
-  public excluirStand($event: any, stand: Stand) {
+  public deleteStand($event: any, stand: Stand) {
     $event.preventDefault();
     if (
       confirm(`Tem certeza que deseja excluir a stand ${stand.name}?`) &&

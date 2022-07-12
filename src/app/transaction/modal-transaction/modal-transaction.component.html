@@ -75,14 +75,14 @@
       <div *ngIf="transaction.way != 'ENTRADA'" class="form-group">
         <label for="manager">Responsável: </label>
         <ng-select [items]="person" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
-          placeholder="Responsavel pela retirada do product" addTagText="Criar: " [addTag]="criarPerson">
+          placeholder="Responsavel pela retirada do product" addTagText="Criar: " [addTag]="createPerson">
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="product">Product: </label>
         <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          name="product" placeholder="Selecione o product" (close)="mu = transaction?.product?.measurementUnit"
+          name="product" placeholder="Selecione o product" (close)="mu = transaction?.product?.measurement_unit"
           required>
         </ng-select>
       </div>

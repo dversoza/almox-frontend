@@ -5,7 +5,7 @@ export class Product {
     public id?: number,
     public name?: string,
     public description?: string,
-    public measurementUnit?: MeasurementUnit,
-    public quantityInStock?: number
+    public measurement_unit?: MeasurementUnit,
+    public quantity?: number,
   ) { }
 }
