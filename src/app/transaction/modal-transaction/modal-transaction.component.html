@@ -82,7 +82,7 @@
       <div class="form-group">
         <label for="product">Product: </label>
         <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          name="product" placeholder="Selecione o product" (close)="mu = transaction?.product?.measurement_unit"
+          name="product" placeholder="Selecione o product" (close)="mu = transaction.product?.measurement_unit"
           required>
         </ng-select>
       </div>
