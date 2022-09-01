@@ -4,6 +4,15 @@ import { map, Observable } from 'rxjs';
 import { Stand, DjangoPaginatedResponse } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
+
+export interface StandDetail extends Stand {
+  stock: [{
+    product__name: number;
+    stock: number;
+  }]
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,19 +27,19 @@ export class StandService {
     );
   }
 
-  public getStand(idStand: number): Observable<Stand> {
-    return this.http.get<Stand>(`${this.apiStandsUrl}/${idStand}`);
+  public getStand(idStand: number): Observable<StandDetail> {
+    return this.http.get<StandDetail>(`${this.apiStandsUrl}/${idStand}/`);
   }
 
   public createStand(stand: Stand): Observable<Stand> {
-    return this.http.post<Stand>(`${this.apiStandsUrl}/create/`, stand);
+    return this.http.post<Stand>(`${this.apiStandsUrl}/`, stand);
   }
 
   public updateStand(stand: Stand): Observable<Stand> {
-    return this.http.put<Stand>(`${this.apiStandsUrl}/update/`, stand);
+    return this.http.put<Stand>(`${this.apiStandsUrl}/${stand.id}/`, stand);
   }
 
   public deleteStand(idStand: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiStandsUrl}/delete/${idStand}`);
+    return this.http.delete<void>(`${this.apiStandsUrl}/${idStand}/`);
   }
 }

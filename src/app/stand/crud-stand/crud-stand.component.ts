@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Stand } from 'src/app/shared/models/stand.model';
 import { ModalStandComponent } from '../modal-stand';
@@ -15,7 +16,8 @@ export class CrudStandComponent implements OnInit {
 
   constructor(
     private standService: StandService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,10 @@ export class CrudStandComponent implements OnInit {
   public modalStand(stand?: Stand) {
     const modalRef = this.modalService.open(ModalStandComponent);
     modalRef.componentInstance.stand = stand;
+  }
+
+  public detailStand(stand: Stand): void {
+    this.router.navigate(['/stands', stand.id]);
   }
 
   public searchStand(key: string): void {
