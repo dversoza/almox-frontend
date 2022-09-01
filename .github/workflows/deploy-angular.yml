@@ -1,0 +1,40 @@
+name: GitHub Actions Deploy Angular App
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy
+      if: success()
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
+        TARGET: ${{ secrets.SSH_REMOTE_TARGET }}
+        EXCLUDE: "/dist/, /node_modules/"
