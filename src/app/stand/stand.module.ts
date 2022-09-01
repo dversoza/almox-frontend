@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StandService } from './services/stand.service';
-import { CrudStandComponent } from './crud-stand';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalStandComponent } from './modal-stand/modal-stand.component';
+import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared';
+import { CrudStandComponent } from './crud-stand';
+import { DetailStandComponent } from './detail-stand/detail-stand.component';
+import { ModalStandComponent } from './modal-stand/modal-stand.component';
+import { StandService } from './services/stand.service';
 
 @NgModule({
-  declarations: [CrudStandComponent, ModalStandComponent],
+  declarations: [CrudStandComponent, ModalStandComponent, DetailStandComponent],
   imports: [
     CommonModule,
     RouterModule,
