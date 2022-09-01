@@ -33,7 +33,7 @@
     <tr *ngFor="let product of products">
       <th scope="row">{{ product.id }}</th>
       <td>{{ product.name }}</td>
-      <td>{{ product.quantity }} {{ product.measurement_unit?.abbreviation }}</td>
+      <td>{{ product.stock }} {{ product.measurement_unit?.abbreviation }}</td>
       <td class="text-center">
         <button class="btn btn-xs btn-info" (click)="modalProduct(product)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar

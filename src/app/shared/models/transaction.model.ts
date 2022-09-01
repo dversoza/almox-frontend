@@ -3,33 +3,33 @@ import { Person } from './person.model';
 import { Product } from './product.model';
 import { User } from './user.model';
 
-enum TransactionType {
-  COMPRA = 'COMPRA',
-  DOAÇÃO = 'DOAÇÃO',
-  DEVOLUÇÃO = 'DEVOLUÇÃO',
-  INTERNA = 'INTERNA',
+export class TransactionType {
+  constructor(
+    public id?: number,
+    public name?: string,
+    public operation?: string,
+    public abbreviation?: string,
+  ) { }
 }
 
-enum TransactionWay {
-  IN = 'ENTRADA',
-  OUT = 'SAÍDA',
+enum TransactionOperation {
+  IN = 'E',
+  OUT = 'S',
 }
 
 export class Transaction {
-  constructor(
-    public id?: number,
-    public created_at?: Date,
-    public updated_at?: Date,
-    public created_by?: User,
-    public updated_by?: User,
-    public stand?: Stand,
-    public product?: Product,
-    public person?: Person,
-    public way?: TransactionWay,
-    public type?: TransactionType,
-    public datetime: Date = new Date(),
-    public quantity?: number,
-    public price?: number,
-    public details?: string
-  ) { }
+  public id?: number
+  public created_at?: Date
+  public updated_at?: Date
+  public created_by?: User
+  public updated_by?: User
+  public stand?: Stand
+  public product?: Product
+  public person?: Person
+  public operation?: TransactionOperation
+  public type?: TransactionType
+  public datetime?: Date
+  public quantity?: number
+  public price?: number
+  public details?: string
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginRoutes } from './auth/auth-routing.module';
 import { AuthGuard } from './auth/auth.guard';
-import { CrudStandComponent } from './stand';
+import { CrudStandComponent, DetailStandComponent } from './stand';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CrudTransactionComponent } from './transaction';
 import { CrudPersonComponent } from './person';
@@ -22,7 +22,10 @@ const routes: Routes = [
   },
   {
     path: 'stands',
-    children: [{ path: '', component: CrudStandComponent }],
+    children: [
+      { path: '', component: CrudStandComponent },
+      { path: ':id', component: DetailStandComponent },
+    ],
     canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',

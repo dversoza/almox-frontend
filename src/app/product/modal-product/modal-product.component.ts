@@ -5,6 +5,7 @@ import { Product } from 'src/app/shared/models/product.model';
 import { MeasurementUnit } from 'src/app/shared/models/measurement-unit.model';
 import { MeasurementUnitService } from 'src/app/measurement-unit/services';
 import { ProductService } from '../services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 enum ModalType {
   CREATE,
@@ -52,11 +53,8 @@ export class ModalProductComponent implements OnInit {
           () => {
             this.activeModal.close();
             parent.location.reload();
-          },
-          (error) => {
-            alert(error.message);
-          }
-        );
+          }),
+          (error: HttpErrorResponse) => { alert(error.message) }
       } else {
         this.productService.updateProduct(this.product).subscribe(() => {
           this.activeModal.close();

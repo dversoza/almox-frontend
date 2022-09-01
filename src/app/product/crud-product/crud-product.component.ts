@@ -25,7 +25,6 @@ export class CrudProductComponent implements OnInit {
   public findAllProducts(): void {
     this.productService.getAllProducts().subscribe((products: Product[]) => {
       this.products = products;
-      console.log(this.products);
     });
   }
 
@@ -41,13 +40,8 @@ export class CrudProductComponent implements OnInit {
       product.id
     ) {
       this.productService.deleteProduct(product.id).subscribe(
-        () => {
-          this.findAllProducts();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
+        () => { this.findAllProducts(); }),
+        (error: HttpErrorResponse) => { alert(error.message) }
     }
   }
 
