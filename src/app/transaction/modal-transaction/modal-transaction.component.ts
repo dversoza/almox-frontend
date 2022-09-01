@@ -10,7 +10,7 @@ import {
   Transaction,
   Person,
   Product,
-  MeasurementUnit,
+  TransactionType,
 } from 'src/app/shared';
 import { TransactionService } from '../services';
 
@@ -27,13 +27,15 @@ enum ModalType {
 export class ModalTransactionComponent implements OnInit {
   @ViewChild('transactionForm') transactionForm!: NgForm;
 
-  type!: ModalType;
+  modal_type!: ModalType;
 
   transaction!: Transaction;
+  allTransactionTypes!: TransactionType[];
+  transactionTypes!: TransactionType[];
+
   stands!: Stand[];
   person!: Person[];
   products!: Product[];
-  mu?: MeasurementUnit;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -41,20 +43,20 @@ export class ModalTransactionComponent implements OnInit {
     private productService: ProductService,
     private standService: StandService,
     private personService: PersonService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) { }
 
   ngOnInit(): void {
     if (!this.transaction) {
-      this.type = ModalType.CREATE;
+      this.modal_type = ModalType.CREATE;
       this.transaction = new Transaction();
     } else {
-      this.type = ModalType.UPDATE;
-      this.mu = this.transaction.product?.measurement_unit;
+      this.modal_type = ModalType.UPDATE;
     }
     this.findAllStands();
     this.findAllPersons();
     this.findAllProducts();
+    this.findAllTransactionTypes();
   }
 
   public findAllProducts(): void {
@@ -75,6 +77,14 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
+  public findAllTransactionTypes(): void {
+    this.transactionService.getTransactionTypes().subscribe((transactionTypes) => {
+      this.allTransactionTypes = transactionTypes;
+      this.changeOperation();
+    }
+    );
+  }
+
   private createTransaction(): void {
     this.transactionService
       .createTransaction(this.transaction)
@@ -93,26 +103,31 @@ export class ModalTransactionComponent implements OnInit {
       });
   }
 
+  public changeOperation(): void {
+    this.transactionTypes = this.allTransactionTypes.filter(
+      (transactionType) => transactionType.operation === this.transaction.operation
+    );
+  }
+
   createPerson = (name: string) => {
     let person = new Person();
     person.name = name;
     this.personService.createPerson(person).subscribe((personCriada: Person) => {
       this.transaction.person = personCriada;
-      this.findAllPersons();
     });
+    this.findAllPersons();
   };
 
   private validateTransaction() {
-    if (this.transaction.way == 'ENTRADA') {
+    if (this.transaction.operation == 'E') {
       this.transaction.stand = { id: 1 };
-      this.transaction.person = this.loginService.getUser()?.person;
     }
   }
 
   public submitForm() {
     if (this.transactionForm.valid) {
       this.validateTransaction();
-      if (this.type === ModalType.CREATE) {
+      if (this.modal_type === ModalType.CREATE) {
         this.createTransaction();
       } else {
         this.updateTransaction();

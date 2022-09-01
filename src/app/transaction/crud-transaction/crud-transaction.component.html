@@ -2,7 +2,7 @@
   <h1>Movimentações</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel (ngModelChange)="pesquisarTransaction(searchInput.value)" name="searchInput"
+      <input #searchInput="ngModel" ngModel (ngModelChange)="searchTransaction(searchInput.value)" name="searchInput"
         id="searchInput" class="form-control" type="search" placeholder="Pesquisar movimentação ..."
         aria-label="Pesquisar" />
       <button class="btn btn-secondary d-flex align-items-center" (click)="findAllTransactions()"
@@ -51,6 +51,8 @@
       <td>{{ transaction.person?.name }}</td>
       <td>{{ transaction.product?.name }}</td>
       <td>
+        <i *ngIf="transaction.operation == 'S'" class="fa fa-arrow-up text-success"></i>
+        <i *ngIf="transaction.operation == 'E'" class="fa fa-arrow-down text-danger"></i>
         {{ transaction.quantity }}
         {{ transaction.product?.measurement_unit?.abbreviation }}
       </td>
@@ -60,7 +62,7 @@
         <button class="btn btn-xs btn-info" (click)="modalTransaction(transaction)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
-        <a class="btn btn-xs btn-danger" href="#" (click)="excluirTransaction($event, transaction)"><i
+        <a class="btn btn-xs btn-danger" href="#" (click)="deleteTransaction($event, transaction)"><i
             class="fa fa-times" aria-hidden="true"></i> Excluir</a>
       </td>
     </tr>

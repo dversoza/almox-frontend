@@ -12,103 +12,87 @@
 <div class="modal-body">
   <form #transactionForm="ngForm">
     <div>
-      <label for="way" style="margin-right: 10px">Operação: </label>
+      <label for="operation" style="margin-right: 10px">Operação: </label>
       <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.way" #way="ngModel" type="radio" name="way" value="ENTRADA" id="way_entrada"
-          class="form-check-input" />
-        <label class="form-check-label" for="way_entrada">Entrada</label>
+        <input [(ngModel)]="transaction.operation" #operation="ngModel" type="radio" name="operation" value="E"
+          id="operation_in" class="form-check-input" />
+        <label class="form-check-label" for="operation_in">Entrada</label>
       </div>
       <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.way" #way="ngModel" type="radio" name="way" value="SAÍDA" id="way_saída"
-          class="form-check-input" />
-        <label class="form-check-label" for="way_saída">Saída</label>
-      </div>
-    </div>
-
-    <div *ngIf="transaction.way == 'ENTRADA'">
-      <label for="type" style="margin-right: 10px">Tipo: </label>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="COMPRA" id="type_compra"
-          class="form-check-input" />
-        <label class="form-check-label" for="type_compra">Compra</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DOAÇÃO" id="type_doação"
-          class="form-check-input" />
-        <label class="form-check-label" for="type_doação">Doação</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DEVOLUÇÃO"
-          id="type_devolução" class="form-check-input" />
-        <label class="form-check-label" for="type_devolução">Devolução ao almoxarifado</label>
+        <input [(ngModel)]="transaction.operation" #operation="ngModel" type="radio" name="operation" value="S"
+          id="operation_out" class="form-check-input" />
+        <label class="form-check-label" for="operation_out">Saída</label>
       </div>
     </div>
 
-    <div *ngIf="transaction.way == 'SAÍDA'">
-      <label for="type" style="margin-right: 10px">Tipo: </label>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="INTERNA" id="type_interna"
-          class="form-check-input" checked />
-        <label class="form-check-label" for="type_interna">Interna</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.type" #type="ngModel" type="radio" name="type" value="DEVOLUÇÃO"
-          id="type_devolução" class="form-check-input" />
-        <label class="form-check-label" for="type_devolução">Devolução ao fornecedor</label>
-      </div>
-    </div>
-
-    <div *ngIf="transaction.way">
+    <div *ngIf="transaction.operation">
       <div class="form-group">
-        <label for="datetime">Data do Fato: </label>
-        <input type="date" class="form-control" [(ngModel)]="transaction.datetime" name="datetime"
-          placeholder="Digite a data e hora da movimentação" required />
-      </div>
-
-      <div *ngIf="transaction.way != 'ENTRADA'" class="form-group">
-        <label for="stand">Stand: </label>
-        <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
-          placeholder="Selecione a stand">
-        </ng-select>
-      </div>
-
-      <div *ngIf="transaction.way != 'ENTRADA'" class="form-group">
-        <label for="manager">Responsável: </label>
-        <ng-select [items]="person" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
-          placeholder="Responsavel pela retirada do product" addTagText="Criar: " [addTag]="createPerson">
-        </ng-select>
-      </div>
-
-      <div class="form-group">
-        <label for="product">Product: </label>
-        <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          name="product" placeholder="Selecione o product" (close)="mu = transaction.product?.measurement_unit"
+        <label for="type">Tipo: </label>
+        <ng-select (click)="changeOperation()" [items]="transactionTypes" bindLabel="name"
+          [(ngModel)]="transaction.type" #type="ngModel" name="type" placeholder="Selecione o tipo da movimentação"
           required>
         </ng-select>
       </div>
+    </div>
+
+    <div *ngIf="transaction.operation">
+      <div class="form-group">
+        <label for="datetime">Data do Fato: </label>
+        <input type="datetime-local" class="form-control" name="datetime" [(ngModel)]="transaction.datetime"
+          #datetime="ngModel" placeholder="Digite a data e hora da movimentação" required />
+      </div>
+
+      <div *ngIf="transaction.operation != 'E'" class="form-group">
+        <label for="stand">Barraca: </label>
+        <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
+          placeholder="Selecione a barraca">
+        </ng-select>
+      </div>
 
       <div class="form-group">
-        <label for="quantity">Quantidade (em {{ mu?.name }}): </label>
-        <input [(ngModel)]="transaction.quantity" #quantity="ngModel" class="form-control" id="quantity_input"
-          name="quantity" type="number" placeholder="Digite o quantity da transaction" required />
+        <label for="manager">Responsável: </label>
+        <ng-select [items]="person" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
+          placeholder="Selecione o responsável pela movimentação" addTagText="Criar: " [addTag]="createPerson">
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label for="product">Produto: </label>
+        <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
+          name="product" placeholder="Selecione o produto" required>
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity" class="text-nowrap">Quantidade:</label>
+        <div class="input-group">
+          <div *ngIf="transaction.product" class="input-group-prepend">
+            <span class="input-group-text">{{transaction.product.measurement_unit?.name | lowercase }}s</span>
+          </div>
+          <input [(ngModel)]="transaction.quantity" #quantity="ngModel" class="form-control" id="quantity_input"
+            name="quantity" type="number" placeholder="Digite a quantidade ..." required />
+        </div>
+
       </div>
 
       <div *ngIf="
-          transaction.way == 'ENTRADA' && transaction.type != 'DEVOLUÇÃO'
+          transaction.operation == 'E' && transaction.type?.name != 'Devolução'
         " class="form-group">
         <label for="price">{{
-          transaction.type == "DOAÇÃO"
+          transaction.type?.name == "Doação"
           ? "Valor Estimado da Doação: "
           : "Valor da compra"
           }}</label>
-        <input type="number" class="form-control" [(ngModel)]="transaction.price" name="price" #price="ngModel"
-          placeholder="Digite o price em reais" />
+        <input type="text" class="form-control" [ngModel]="transaction.price | currency:'BRL':'symbol':'1.2-2'"
+          [ngModelOptions]="{updateOn:'blur'}"
+          (ngModelChange)="transaction.price=$event.replace('.', '').replace(',', '.').replace('R$', '')" name="price"
+          #price="ngModel" placeholder="Digite o valor em reais" />
       </div>
 
       <div class="form-group">
         <label for="details">Observações: </label>
-        <input type="text" class="form-control" [(ngModel)]="transaction.details" name="details" #details="ngModel"
-          placeholder="Detalhes sobre a movimentação" />
+        <textarea class="form-control" [(ngModel)]="transaction.details" name="details" #details="ngModel"
+          placeholder="Detalhes sobre a movimentação" cols="40" rows="2"></textarea>
       </div>
 
       <div class="d-grid gap-2">

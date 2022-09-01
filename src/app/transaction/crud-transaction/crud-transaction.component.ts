@@ -28,15 +28,11 @@ export class CrudTransactionComponent implements OnInit {
   }
 
   public findAllTransactions(): void {
-    this.transactionService.getTransactions().subscribe(
-      (transactions: Transaction[]) => {
-        console.log(transactions);
-        this.transactions = transactions;
-      },
-      (error) => {
-        alert(error.message);
-      }
-    );
+    this.transactionService.getTransactions().subscribe((transactions) => {
+      this.transactions = transactions;
+    }), (error: any) => {
+      alert(error.message);
+    }
   }
 
   public modalTransaction(transaction?: Transaction) {
@@ -52,7 +48,7 @@ export class CrudTransactionComponent implements OnInit {
     modalRef.componentInstance.transaction = transaction;
   }
 
-  public excluirTransaction($event: any, transaction: Transaction) {
+  public deleteTransaction($event: any, transaction: Transaction) {
     $event.preventDefault();
     if (
       confirm('Tem certeza que deseja excluir esta movimentação?') &&
@@ -69,7 +65,7 @@ export class CrudTransactionComponent implements OnInit {
     }
   }
 
-  public pesquisarTransaction(key: string): void {
+  public searchTransaction(key: string): void {
     const results: Transaction[] = [];
 
     if (!key) {
