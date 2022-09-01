@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://almox-api.herokuapp.com',
+  apiBaseUrl: 'https://api-catedral.versoza.dev',
 };
