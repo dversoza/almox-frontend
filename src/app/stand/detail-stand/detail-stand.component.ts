@@ -25,7 +25,6 @@ export class DetailStandComponent implements OnInit {
     const standId = this.route.snapshot.params.id;
     this.standService.getStand(standId).subscribe((stand) => {
       this.stand = stand;
-    }
-    );
+    });
   }
 }
