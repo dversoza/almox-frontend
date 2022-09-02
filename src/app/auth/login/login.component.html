@@ -4,8 +4,8 @@
     <form #formLogin="ngForm">
       <div class="form-group">
         <label for="user">Usuário:</label>
-        <input type="text" class="form-control" id="user" name="user" [(ngModel)]="login.username" #user="ngModel"
-          required />
+        <input type="text" class="form-control" id="user" name="user" oninput="this.value = this.value.toLowerCase()"
+          [(ngModel)]="login.username" #user="ngModel" required />
         <div *ngIf="user.errors && (user.dirty || user.touched)" class="alert alert-danger alert-dismissible fade show"
           role="alert" style="margin-top: 1%;">
           <div [hidden]="!user.errors.required">Digite o usuário</div>
