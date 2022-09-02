@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://api-catedral.versoza.dev',
+  baseUrl: 'https://api-catedral.versoza.dev',
+  apiBaseUrl: 'https://api-catedral.versoza.dev/api',
 };
