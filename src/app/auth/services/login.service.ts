@@ -18,15 +18,16 @@ const USER_STORAGE_KEY = 'authUser';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiAuthUrl: string = `${environment.apiBaseUrl}/auth/`;
+  private apiAuthUrl: string = `${environment.apiBaseUrl}/auth`;
 
   constructor(private http: HttpClient) { }
 
   public login(login: Login): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiAuthUrl}`, login);
+    return this.http.post<LoginResponse>(`${this.apiAuthUrl}/login/`, login);
   }
 
   public logout(): void {
+    this.http.get(`${this.apiAuthUrl}/logout/`);
     localStorage.removeItem(TOKEN_STORAGE_KEY);
     localStorage.removeItem(USER_STORAGE_KEY);
   }
