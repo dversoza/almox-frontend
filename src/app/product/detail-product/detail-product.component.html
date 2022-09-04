@@ -1,0 +1,26 @@
+<div class="d-flex">
+  <h1 *ngIf="product">{{ product.name }}</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>
+        Barraca
+      </th>
+      <th>
+        Estoque
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngIf="product?.stock" class="align-middle">
+    <tr *ngFor="let stock of product.stand_stocks">
+      <th scope="row">{{ stock.stand__name }}</th>
+      <td>{{ stock.stock }} {{product.measurement_unit?.name?.toLowerCase()}}s</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-danger" *ngIf="!loading && !product?.stock">
+  Nenhuma barraca encontrada para este produto!
+</div>

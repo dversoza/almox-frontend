@@ -24,27 +24,14 @@ const appRoutes: Routes = [
       role: 'ADMIN, COMUM',
     },
   },
-  {
-    path: 'stands',
-    redirectTo: 'stands',
-    pathMatch: 'full',
-  },
+  { path: 'stands', redirectTo: 'stands', pathMatch: 'full' },
+  { path: 'products', redirectTo: 'products', pathMatch: 'full' },
   {
     path: 'people',
     children: [{ path: '', component: CrudPersonComponent }],
     canActivate: [AuthGuard],
     data: {
       role: 'ADMIN,COMUM',
-    },
-  },
-  {
-    path: 'products',
-    children: [
-      { path: '', component: CrudProductComponent },
-    ],
-    canActivate: [AuthGuard],
-    data: {
-      role: 'ADMIN',
     },
   },
   ...LoginRoutes,

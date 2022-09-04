@@ -4,6 +4,13 @@ import { map, Observable } from 'rxjs';
 import { Product, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
+export interface ProductDetail extends Product {
+  stand_stocks: [{
+    stand__name: string;
+    stock: number;
+  }]
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,8 +28,8 @@ export class ProductService {
     );
   }
 
-  public getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.apiProductsUrl}/${id}`);
+  public getProduct(id: number): Observable<ProductDetail> {
+    return this.http.get<ProductDetail>(`${this.apiProductsUrl}/${id}`);
   }
 
   public createProduct(product: Product): Observable<Product> {
