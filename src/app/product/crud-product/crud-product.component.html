@@ -46,11 +46,11 @@
         <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#"><i class="fa fa-eye"
             aria-hidden="true"></i>
           Estoque</a>
-        <a style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalProduct(product)" href="#">
+        <button style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalProduct(product)">
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
-        </a>
-        <a class="btn btn-xs btn-danger" href="#" (click)="deleteProduct($event, product)"><i class="fa fa-times"
-            aria-hidden="true"></i> Excluir</a>
+        </button>
+        <button class="btn btn-xs btn-danger" (click)="deleteProduct($event, product)"><i class="fa fa-times"
+            aria-hidden="true"></i> Excluir</button>
       </td>
     </tr>
   </tbody>

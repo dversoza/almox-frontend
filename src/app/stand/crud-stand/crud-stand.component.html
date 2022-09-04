@@ -45,19 +45,17 @@
       <th scope="row">{{ stand.id }}</th>
       <td>{{ stand.name }}</td>
       <td>{{ stand.manager?.name }}</td>
-      <td>
-        {{ stand.contact ? stand.contact : stand.manager?.phone }}
-      </td>
+      <td>{{ stand.contact ? stand.contact : stand.manager?.phone }}</td>
       <td class="text-center">
-        <a class="btn btn-xs btn-primary" [routerLink]="['/stands', stand.id]" href="#"><i class="fa fa-eye"
-            aria-hidden="true"></i>
-          Estoque</a>
-        <a style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalStand(stand)" href="#">
-          <i class="fa fa-edit" aria-hidden="true"></i> Editar
+        <a class="btn btn-xs btn-primary" [routerLink]="['/stands', stand.id]" href="#">
+          <i class="fa fa-eye" aria-hidden="true"></i> Estoque
         </a>
-        <a class="btn btn-xs btn-danger" href="#" (click)="deleteStand($event, stand)"><i class="fa fa-times"
-            aria-hidden="true"></i> Excluir</a>
-
+        <button style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalStand(stand)">
+          <i class="fa fa-edit" aria-hidden="true"></i> Editar
+        </button>
+        <button class="btn btn-xs btn-danger" (click)="deleteStand($event, stand)">
+          <i class="fa fa-times" aria-hidden="true"></i> Excluir
+        </button>
       </td>
     </tr>
   </tbody>
