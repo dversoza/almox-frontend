@@ -22,6 +22,9 @@ export class StandService {
   constructor(private http: HttpClient) { }
 
   public getAllStands(options: DjangoRequestOptionsList): Observable<Stand[]> {
+    if (!options.params?.query) {
+      delete options.params?.query;
+    }
     return this.http.get<DjangoPaginatedResponse<Stand>>(`${this.apiStandsUrl}/`, options).pipe(
       map(response => response.results)
     );

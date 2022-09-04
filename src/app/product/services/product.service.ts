@@ -13,6 +13,9 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   public getAllProducts(options: DjangoRequestOptionsList): Observable<Product[]> {
+    if (!options.params?.query) {
+      delete options.params?.query;
+    }
     return this.http.get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`, options).pipe(
       map(response => response.results)
     );
@@ -30,7 +33,7 @@ export class ProductService {
   }
 
   public updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiProductsUrl}/${product.id}`, {
+    return this.http.put<Product>(`${this.apiProductsUrl}/${product.id}/`, {
       ...product,
       measurement_unit_id: product.measurement_unit?.id,
     });

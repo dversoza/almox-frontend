@@ -3,8 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/shared/models/product.model';
 import { MeasurementUnit } from 'src/app/shared/models/measurement-unit.model';
-import { MeasurementUnitService } from 'src/app/measurement-unit/services';
-import { ProductService } from '../services';
+import { ProductService, MeasurementUnitService } from '../services';
 import { HttpErrorResponse } from '@angular/common/http';
 
 enum ModalType {

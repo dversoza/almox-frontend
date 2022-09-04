@@ -11,7 +11,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
-import { MeasurementUnitModule } from './measurement-unit';
 import { PersonsModule } from './person';
 import { ProductModule } from './product/products.module';
 import { SharedModule } from './shared';
@@ -35,7 +34,6 @@ registerLocaleData(localePt);
     TransactionModule,
     PersonsModule,
     ProductModule,
-    MeasurementUnitModule,
     UserModule,
     SharedModule,
     AppRoutingModule,

@@ -14,6 +14,9 @@ export class TransactionService {
   constructor(private http: HttpClient) { }
 
   public getTransactions(options: DjangoRequestOptionsList): Observable<Transaction[]> {
+    if (!options.params?.query) {
+      delete options.params?.query;
+    }
     return this.http.get<DjangoPaginatedResponse<Transaction>>(`${(this.apiTransactionUrl)}/`, options)
       .pipe(
         map(response =>

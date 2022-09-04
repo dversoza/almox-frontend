@@ -26,7 +26,10 @@ export class CrudPersonComponent implements OnInit {
 
   public findAllPersons(query: string = ''): void {
     this.personService.getAllPersons({
-      params: { page: this.currentPage, query }
+      params: {
+        page: this.currentPage,
+        query
+      }
     }).subscribe((response: Person[]) => {
       this.persons = response;
       this.loading = false;

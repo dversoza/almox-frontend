@@ -13,6 +13,9 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   public getAllPersons(options: DjangoRequestOptionsList = {}): Observable<Person[]> {
+    if (!options.params?.query) {
+      delete options.params?.query;
+    }
     return this.http.get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`, options).pipe(
       map(response => response.results)
     );

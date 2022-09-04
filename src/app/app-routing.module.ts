@@ -6,7 +6,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { CrudTransactionComponent } from './transaction';
 import { CrudPersonComponent } from './person';
 import { CrudProductComponent } from './product/crud-product';
-import { CrudMeasurementUnitComponent } from './measurement-unit/crud-measurement-unit';
 
 const appRoutes: Routes = [
   {
@@ -42,7 +41,6 @@ const appRoutes: Routes = [
     path: 'products',
     children: [
       { path: '', component: CrudProductComponent },
-      { path: 'measurementUnits', component: CrudMeasurementUnitComponent },
     ],
     canActivate: [AuthGuard],
     data: {

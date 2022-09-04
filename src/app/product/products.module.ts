@@ -5,7 +5,7 @@ import { ModalProductComponent } from './modal-product/modal-product.component';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductService } from './services';
+import { MeasurementUnitService, ProductService } from './services';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared';
 
@@ -19,6 +19,6 @@ import { SharedModule } from '../shared';
     RouterModule,
     SharedModule,
   ],
-  providers: [ProductService],
+  providers: [ProductService, MeasurementUnitService],
 })
 export class ProductModule { }
