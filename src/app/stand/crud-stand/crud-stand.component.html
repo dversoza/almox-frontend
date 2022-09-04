@@ -49,7 +49,7 @@
         {{ stand.contact ? stand.contact : stand.manager?.phone }}
       </td>
       <td class="text-center">
-        <a class="btn btn-xs btn-primary" (click)="detailStand(stand)" href="#"><i class="fa fa-eye"
+        <a class="btn btn-xs btn-primary" [routerLink]="['/stands', stand.id]" href="#"><i class="fa fa-eye"
             aria-hidden="true"></i>
           Estoque</a>
         <a style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalStand(stand)" href="#">

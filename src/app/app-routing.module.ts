@@ -2,33 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginRoutes } from './auth/auth-routing.module';
 import { AuthGuard } from './auth/auth.guard';
-import { CrudStandComponent, DetailStandComponent } from './stand';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CrudTransactionComponent } from './transaction';
 import { CrudPersonComponent } from './person';
 import { CrudProductComponent } from './product/crud-product';
 import { CrudMeasurementUnitComponent } from './measurement-unit/crud-measurement-unit';
 
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '',
-    pathMatch: 'full',
     component: HomepageComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'ADMIN, COMUM',
-    },
-  },
-  {
-    path: 'stands',
-    children: [
-      { path: '', component: CrudStandComponent },
-      { path: ':id', component: DetailStandComponent },
-    ],
-    canActivate: [AuthGuard],
-    data: {
-      role: 'ADMIN',
     },
   },
   {
@@ -38,6 +24,11 @@ const routes: Routes = [
     data: {
       role: 'ADMIN, COMUM',
     },
+  },
+  {
+    path: 'stands',
+    redirectTo: 'stands',
+    pathMatch: 'full',
   },
   {
     path: 'people',
@@ -70,7 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes, { enableTracing: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

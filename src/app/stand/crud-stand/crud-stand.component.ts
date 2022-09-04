@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Stand } from 'src/app/shared/models/stand.model';
 import { ModalStandComponent } from '../modal-stand';
@@ -18,8 +17,7 @@ export class CrudStandComponent implements OnInit {
 
   constructor(
     private standService: StandService,
-    private modalService: NgbModal,
-    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -43,10 +41,6 @@ export class CrudStandComponent implements OnInit {
   public modalStand(stand?: Stand) {
     const modalRef = this.modalService.open(ModalStandComponent);
     modalRef.componentInstance.stand = stand;
-  }
-
-  public detailStand(stand: Stand): void {
-    this.router.navigate(['/stands', stand.id]);
   }
 
   public deleteStand($event: any, stand: Stand) {
@@ -79,6 +73,6 @@ export class CrudStandComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.stands.length == 10;
+    return this.stands ? this.stands.length == 10 : false;
   }
 }

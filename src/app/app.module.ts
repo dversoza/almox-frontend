@@ -28,9 +28,8 @@ registerLocaleData(localePt);
     HomepageComponent,
   ],
   imports: [
-    AuthModule,
-    AppRoutingModule,
     StandModule,
+    AuthModule,
     BrowserModule,
     HttpClientModule,
     TransactionModule,
@@ -39,6 +38,7 @@ registerLocaleData(localePt);
     MeasurementUnitModule,
     UserModule,
     SharedModule,
+    AppRoutingModule,
   ],
   providers: [
     {
