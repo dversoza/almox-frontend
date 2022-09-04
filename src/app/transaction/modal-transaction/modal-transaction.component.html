@@ -38,8 +38,9 @@
     <div *ngIf="transaction.operation">
       <div class="form-group">
         <label for="datetime">Data do Fato: </label>
-        <input type="datetime-local" class="form-control" name="datetime" [(ngModel)]="transaction.datetime"
-          #datetime="ngModel" placeholder="Digite a data e hora da movimentação" required />
+        <input type="datetime-local" class="form-control" name="datetime"
+          [ngModel]="transaction.datetime | date:'yyyy-MM-ddTHH:mm'" #datetime="ngModel"
+          placeholder="Digite a data e hora da movimentação" required />
       </div>
 
       <div *ngIf="transaction.operation != 'E'" class="form-group">
@@ -66,13 +67,12 @@
       <div class="form-group">
         <label for="quantity" class="text-nowrap">Quantidade:</label>
         <div class="input-group">
-          <div *ngIf="transaction.product" class="input-group-prepend">
-            <span class="input-group-text">{{transaction.product.measurement_unit?.name | lowercase }}s</span>
-          </div>
           <input [(ngModel)]="transaction.quantity" #quantity="ngModel" class="form-control" id="quantity_input"
             name="quantity" type="number" placeholder="Digite a quantidade ..." required />
+          <div *ngIf="transaction.product" class="input-group-append">
+            <span class="input-group-text">{{transaction.product.measurement_unit?.name | lowercase }}s</span>
+          </div>
         </div>
-
       </div>
 
       <div *ngIf="

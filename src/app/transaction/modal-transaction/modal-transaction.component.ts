@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'src/app/auth/services/login.service';
 import { StandService } from 'src/app/stand/services/stand.service';
@@ -26,6 +26,7 @@ enum ModalType {
 })
 export class ModalTransactionComponent implements OnInit {
   @ViewChild('transactionForm') transactionForm!: NgForm;
+  @ViewChild('datetime') datetime!: NgModel;
 
   modal_type!: ModalType;
 
@@ -139,6 +140,7 @@ export class ModalTransactionComponent implements OnInit {
   public submitForm() {
     if (this.transactionForm.valid) {
       this.validateTransaction();
+      this.transaction.datetime = this.datetime.value;
       if (this.modal_type === ModalType.CREATE) {
         this.createTransaction();
       } else {
