@@ -13,6 +13,7 @@ import { MeasurementUnitService } from '../services';
 export class CrudMeasurementUnitComponent implements OnInit {
   public measurementUnits!: MeasurementUnit[];
 
+  public loading = true;
   private currentPage: number = 1;
 
   constructor(
@@ -28,6 +29,7 @@ export class CrudMeasurementUnitComponent implements OnInit {
     this.measurementUnitService.findAllMeasurementUnits(this.currentPage).subscribe(
       (response) => {
         this.measurementUnits = response;
+        this.loading = false;
       }),
       (error: HttpErrorResponse) => {
         alert(error.message);

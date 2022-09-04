@@ -13,6 +13,7 @@ import { ProductService } from '../services';
 export class CrudProductComponent implements OnInit {
   public products!: Product[];
 
+  public loading = true;
   private currentPage: number = 1;
 
   constructor(
@@ -32,6 +33,7 @@ export class CrudProductComponent implements OnInit {
       }
     }).subscribe((products: Product[]) => {
       this.products = products;
+      this.loading = false;
     });
   }
 

@@ -67,6 +67,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!persons || persons?.length == 0">
+<div class="alert alert-danger" *ngIf="!loading && !persons">
   Nenhuma pessoa encontrada
 </div>

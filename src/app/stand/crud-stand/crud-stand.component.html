@@ -63,6 +63,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!stands || stands?.length == 0">
+<div class="alert alert-danger" *ngIf="!loading && !stands">
   Nenhuma barraca encontrada
 </div>

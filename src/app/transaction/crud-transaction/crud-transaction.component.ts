@@ -14,7 +14,8 @@ import { TransactionService } from '../services';
 export class CrudTransactionComponent implements OnInit {
   public transactions!: Transaction[];
 
-  public currentPage = 1;
+  public loading = true;
+  private currentPage = 1;
 
   constructor(
     private transactionService: TransactionService,
@@ -38,6 +39,7 @@ export class CrudTransactionComponent implements OnInit {
       },
     }).subscribe((transactions) => {
       this.transactions = transactions;
+      this.loading = false;
     }), (error: any) => {
       alert(error.message);
     }

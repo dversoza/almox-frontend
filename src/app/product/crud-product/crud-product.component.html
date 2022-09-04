@@ -54,6 +54,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!products || products?.length == 0">
+<div class="alert alert-danger" *ngIf="!loading && !products">
   Nenhum produto encontrado!
 </div>

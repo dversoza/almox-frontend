@@ -1,5 +1,5 @@
 <div class="d-flex">
-  <h1>{{ stand.name }}</h1>
+  <h1 *ngIf="stand">{{ stand.name }}</h1>
 </div>
 
 <table class="table table-striped">
@@ -13,7 +13,7 @@
       </th>
     </tr>
   </thead>
-  <tbody class="align-middle">
+  <tbody *ngIf="stand?.stock" class="align-middle">
     <tr *ngFor="let stock of stand.stock">
       <th scope="row">{{ stock.product__name }}</th>
       <td>{{ stock.stock }}</td>
@@ -21,6 +21,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!stand?.stock">
+<div class="alert alert-danger" *ngIf="!loading && !stand?.stock">
   Nenhum produto encontrado para esta barraca!
 </div>

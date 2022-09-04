@@ -13,6 +13,7 @@ import { StandService } from '../services/stand.service';
 export class CrudStandComponent implements OnInit {
   public stands!: Stand[];
 
+  public loading = true;
   private currentPage: number = 1;
 
   constructor(
@@ -33,6 +34,7 @@ export class CrudStandComponent implements OnInit {
     }).subscribe(
       (response: Stand[]) => {
         this.stands = response;
+        this.loading = false;
       }), (error: HttpErrorResponse) => {
         alert(error.message);
       }

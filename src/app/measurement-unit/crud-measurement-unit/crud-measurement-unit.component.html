@@ -50,6 +50,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!measurementUnits || measurementUnits?.length == 0">
+<div class="alert alert-danger" *ngIf="!loading && !measurementUnits">
   Nenhuma unidade de medida cadastrada
 </div>

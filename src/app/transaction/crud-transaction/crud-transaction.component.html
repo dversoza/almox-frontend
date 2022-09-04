@@ -77,6 +77,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!transactions || transactions?.length == 0">
+<div class="alert alert-danger" *ngIf="!loading && !transactions">
   Nenhuma movimentação encontrada
 </div>

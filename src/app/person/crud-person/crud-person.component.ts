@@ -10,9 +10,10 @@ import { PersonService } from '../services/person.service';
   styleUrls: ['./crud-person.component.css'],
 })
 export class CrudPersonComponent implements OnInit {
-  persons!: Person[];
+  public persons!: Person[];
 
-  currentPage: number = 1;
+  public loading = true;
+  private currentPage: number = 1;
 
   constructor(
     private personService: PersonService,
@@ -26,8 +27,12 @@ export class CrudPersonComponent implements OnInit {
   public findAllPersons(query: string = ''): void {
     this.personService.getAllPersons({
       params: { page: this.currentPage, query }
-    }).subscribe((response: Person[]) => { this.persons = response; }),
+    }).subscribe((response: Person[]) => {
+      this.persons = response;
+      this.loading = false;
+    }),
       (error: any) => { alert(error.message); }
+
   }
 
   public modalPerson(person?: Person): void {

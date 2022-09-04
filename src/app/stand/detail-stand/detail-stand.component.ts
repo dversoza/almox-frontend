@@ -11,6 +11,8 @@ import { StandDetail, StandService } from '../services/stand.service';
 export class DetailStandComponent implements OnInit {
   stand!: StandDetail;
 
+  loading = true;
+
   constructor(
     private standService: StandService,
     private route: ActivatedRoute,
@@ -24,7 +26,7 @@ export class DetailStandComponent implements OnInit {
     const standId = this.route.snapshot.params.id;
     this.standService.getStand(standId).subscribe((stand) => {
       this.stand = stand;
-      console.log(stand);
+      this.loading = false;
     }), (error: HttpErrorResponse) => {
       alert(error);
     }
