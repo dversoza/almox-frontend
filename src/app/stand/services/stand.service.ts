@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 
 export interface StandDetail extends Stand {
   stock: [{
-    product__name: number;
+    product__name: string;
     stock: number;
   }]
 }

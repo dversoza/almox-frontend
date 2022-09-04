@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from 'src/app/product/services';
-import { Product, Stand } from 'src/app/shared';
 import { StandDetail, StandService } from '../services/stand.service';
 
 @Component({
@@ -25,6 +24,9 @@ export class DetailStandComponent implements OnInit {
     const standId = this.route.snapshot.params.id;
     this.standService.getStand(standId).subscribe((stand) => {
       this.stand = stand;
-    });
+      console.log(stand);
+    }), (error: HttpErrorResponse) => {
+      alert(error);
+    }
   }
 }

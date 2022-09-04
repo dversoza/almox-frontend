@@ -67,6 +67,6 @@ export class CrudProductComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.products.length == 10;
+    return this.products?.length == 10;
   }
 }

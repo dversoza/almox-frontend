@@ -87,6 +87,6 @@ export class CrudTransactionComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.transactions.length == 10;
+    return this.transactions?.length == 10;
   }
 }

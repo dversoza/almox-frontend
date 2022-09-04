@@ -72,6 +72,6 @@ export class CrudMeasurementUnitComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.measurementUnits.length == 10;
+    return this.measurementUnits?.length == 10;
   }
 }

@@ -62,6 +62,6 @@ export class CrudPersonComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.persons.length == 10;
+    return this.persons?.length == 10;
   }
 }
