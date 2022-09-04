@@ -23,11 +23,17 @@ export class PersonService {
   }
 
   public createPerson(person: Person): Observable<Person> {
-    return this.http.post<Person>(`${this.apiPersonsUrl}/`, person);
+    return this.http.post<Person>(`${this.apiPersonsUrl}/`, {
+      ...person,
+      stand_id: person.stand?.id,
+    });
   }
 
   public updatePerson(person: Person): Observable<Person> {
-    return this.http.put<Person>(`${this.apiPersonsUrl}/${person.id}/`, person);
+    return this.http.put<Person>(`${this.apiPersonsUrl}/${person.id}/`, {
+      ...person,
+      stand_id: person.stand?.id,
+    });
   }
 
   public deletePerson(idPerson: number): Observable<void> {

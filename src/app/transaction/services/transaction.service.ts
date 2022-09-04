@@ -40,12 +40,8 @@ export class TransactionService {
 
   public createTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(`${this.apiTransactionUrl}/`, {
-      id: transaction.id,
-      datetime: transaction.datetime,
-      details: transaction.details,
-      operation: transaction.operation,
+      ...transaction,
       price: transaction.price ? (transaction.price * 100).toFixed(0) : 0,
-      quantity: transaction.quantity,
       person_id: transaction.person?.id,
       type_id: transaction.type?.id,
       stand_id: transaction.stand?.id,
@@ -55,12 +51,8 @@ export class TransactionService {
 
   public updateTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.put<Transaction>(`${this.apiTransactionUrl}/${transaction.id}/`, {
-      id: transaction.id,
-      datetime: transaction.datetime,
-      details: transaction.details,
-      operation: transaction.operation,
+      ...transaction,
       price: transaction.price ? (transaction.price * 100).toFixed(0) : 0,
-      quantity: transaction.quantity,
       person_id: transaction.person?.id,
       type_id: transaction.type?.id,
       stand_id: transaction.stand?.id,

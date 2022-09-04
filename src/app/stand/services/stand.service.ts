@@ -32,11 +32,17 @@ export class StandService {
   }
 
   public createStand(stand: Stand): Observable<Stand> {
-    return this.http.post<Stand>(`${this.apiStandsUrl}/`, stand);
+    return this.http.post<Stand>(`${this.apiStandsUrl}/`, {
+      ...stand,
+      manager_id: stand.manager?.id,
+    });
   }
 
   public updateStand(stand: Stand): Observable<Stand> {
-    return this.http.put<Stand>(`${this.apiStandsUrl}/${stand.id}/`, stand);
+    return this.http.put<Stand>(`${this.apiStandsUrl}/${stand.id}/`, {
+      ...stand,
+      manager_id: stand.manager?.id,
+    });
   }
 
   public deleteStand(idStand: number): Observable<void> {
