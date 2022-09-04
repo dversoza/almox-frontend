@@ -14,6 +14,8 @@ import { StandService } from '../services/stand.service';
 export class CrudStandComponent implements OnInit {
   public stands!: Stand[];
 
+  private currentPage: number = 1;
+
   constructor(
     private standService: StandService,
     private modalService: NgbModal,
@@ -24,15 +26,18 @@ export class CrudStandComponent implements OnInit {
     this.findAllStands();
   }
 
-  public findAllStands(): void {
-    this.standService.getAllStands().subscribe(
+  public findAllStands(query: string = ''): void {
+    this.standService.getAllStands({
+      params: {
+        page: this.currentPage,
+        query,
+      }
+    }).subscribe(
       (response: Stand[]) => {
         this.stands = response;
-      },
-      (error: HttpErrorResponse) => {
+      }), (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    );
   }
 
   public modalStand(stand?: Stand) {
@@ -44,21 +49,6 @@ export class CrudStandComponent implements OnInit {
     this.router.navigate(['/stands', stand.id]);
   }
 
-  public searchStand(key: string): void {
-    const results: Stand[] = [];
-    for (const stand of this.stands) {
-      if (
-        stand?.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        stand?.contact?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        stand?.manager?.name?.toLowerCase().indexOf(key.toLowerCase()) !==
-        -1
-      ) {
-        results.push(stand);
-      }
-    }
-    this.stands = results;
-  }
-
   public deleteStand($event: any, stand: Stand) {
     $event.preventDefault();
     if (
@@ -68,11 +58,27 @@ export class CrudStandComponent implements OnInit {
       this.standService.deleteStand(stand.id).subscribe(
         () => {
           this.findAllStands();
-        },
-        (error: HttpErrorResponse) => {
+        }), (error: HttpErrorResponse) => {
           alert(error.message);
         }
-      );
     }
+  }
+
+  public nextPage(): void {
+    this.currentPage++;
+    this.findAllStands();
+  }
+
+  public previousPage(): void {
+    this.currentPage--;
+    this.findAllStands();
+  }
+
+  public hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  public hasNextPage(): boolean {
+    return this.stands.length == 10;
   }
 }

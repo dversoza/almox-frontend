@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MeasurementUnit } from 'src/app/shared/models/measurement-unit.model';
@@ -12,6 +13,8 @@ import { MeasurementUnitService } from '../services';
 export class CrudMeasurementUnitComponent implements OnInit {
   public measurementUnits!: MeasurementUnit[];
 
+  private currentPage: number = 1;
+
   constructor(
     private measurementUnitService: MeasurementUnitService,
     private modalService: NgbModal
@@ -22,14 +25,13 @@ export class CrudMeasurementUnitComponent implements OnInit {
   }
 
   public findAllMeasurementUnits(): void {
-    this.measurementUnitService.findAllMeasurementUnits().subscribe(
+    this.measurementUnitService.findAllMeasurementUnits(this.currentPage).subscribe(
       (response) => {
         this.measurementUnits = response;
-      },
-      (error) => {
+      }),
+      (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    );
   }
 
   public modalMeasurementUnit(measurementUnit?: MeasurementUnit) {
@@ -48,24 +50,28 @@ export class CrudMeasurementUnitComponent implements OnInit {
       this.measurementUnitService.deleteMeasurementUnit(measurementUnit.id).subscribe(
         () => {
           this.findAllMeasurementUnits();
-        },
-        (error) => {
+        }),
+        (error: HttpErrorResponse) => {
           alert(error.message);
         }
-      );
     }
   }
 
-  public searchMeasurementUnit(key: string): void {
-    const results: MeasurementUnit[] = [];
-    for (const measurementUnit of this.measurementUnits) {
-      if (
-        measurementUnit?.name?.toLowerCase().includes(key.toLowerCase()) ||
-        measurementUnit?.abbreviation?.toLowerCase().includes(key.toLowerCase())
-      ) {
-        results.push(measurementUnit);
-      }
-    }
-    this.measurementUnits = results;
+  public nextPage(): void {
+    this.currentPage++;
+    this.findAllMeasurementUnits();
+  }
+
+  public previousPage(): void {
+    this.currentPage--;
+    this.findAllMeasurementUnits();
+  }
+
+  public hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  public hasNextPage(): boolean {
+    return this.measurementUnits.length == 10;
   }
 }

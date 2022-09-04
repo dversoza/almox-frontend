@@ -2,18 +2,26 @@
   <h1>Movimentações</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel (ngModelChange)="searchTransaction(searchInput.value)" name="searchInput"
-        id="searchInput" class="form-control" type="search" placeholder="Pesquisar movimentação ..."
-        aria-label="Pesquisar" />
-      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllTransactions()"
+      <input #searchInput="ngModel" ngModel name="searchInput" id="searchInput" class="form-control" type="search"
+        placeholder="Pesquisar movimentação ..." aria-label="Pesquisar" />
+      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllTransactions(searchInput.value)"
         style="margin: 0 10px">
-        <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
+        <i class="fa fa-search" style="margin-right: 5px"></i> Pesquisar
       </button>
       <button class="btn btn-success d-flex align-items-center" (click)="modalTransaction()" type="button">
         <i class="fa fa-plus" style="margin-right: 5px"></i> Nova
       </button>
     </form>
   </div>
+</div>
+
+<div class="d-flex justify-content-between" style="margin-top: 2%;">
+  <button class="btn btn-primary" (click)="previousPage()" [disabled]="!hasPreviousPage()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior
+  </button>
+  <button class="btn btn-primary" (click)="nextPage()" [disabled]="!hasNextPage()">
+    Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
 </div>
 
 <table class="table table-striped">

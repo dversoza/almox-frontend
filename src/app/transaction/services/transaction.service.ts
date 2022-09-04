@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { DjangoPaginatedResponse, Transaction, TransactionType } from 'src/app/shared';
+import { DjangoPaginatedResponse, DjangoRequestOptionsList, Transaction, TransactionType } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
-
 
 @Injectable({
   providedIn: 'root',
@@ -14,21 +13,25 @@ export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
-  public getTransactions(): Observable<Transaction[]> {
-    return this.http.get<DjangoPaginatedResponse<Transaction>>(`${(this.apiTransactionUrl)}/`).pipe(
-      map(response =>
-        response.results.map(transaction => ({
-          ...transaction,
-          price: transaction.price ? transaction.price / 100 : 0,
-        }))
-      )
-    );
+  public getTransactions(options: DjangoRequestOptionsList): Observable<Transaction[]> {
+    return this.http.get<DjangoPaginatedResponse<Transaction>>(`${(this.apiTransactionUrl)}/`, options)
+      .pipe(
+        map(response =>
+          response.results.map(transaction => ({
+            ...transaction,
+            price: transaction.price ? transaction.price / 100 : 0,
+          }))
+        )
+      );
   }
 
-  public getTransactionTypes(): Observable<TransactionType[]> {
-    return this.http.get<DjangoPaginatedResponse<TransactionType>>(`${this.apiTransactionTypesUrl}/`).pipe(
-      map(response => response.results)
-    );
+  public getTransactionTypes(page: number = 1): Observable<TransactionType[]> {
+    return this.http.get<DjangoPaginatedResponse<TransactionType>>(`${this.apiTransactionTypesUrl}/`, {
+      params: {
+        page: page.toString(),
+      },
+    })
+      .pipe(map(response => response.results));
   }
 
   public getTransaction(id: number): Observable<Transaction> {

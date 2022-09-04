@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Stand, DjangoPaginatedResponse } from 'src/app/shared';
+import { Stand, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 
@@ -21,8 +21,8 @@ export class StandService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllStands(): Observable<Stand[]> {
-    return this.http.get<DjangoPaginatedResponse<Stand>>(`${this.apiStandsUrl}/`).pipe(
+  public getAllStands(options: DjangoRequestOptionsList): Observable<Stand[]> {
+    return this.http.get<DjangoPaginatedResponse<Stand>>(`${this.apiStandsUrl}/`, options).pipe(
       map(response => response.results)
     );
   }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Person, DjangoPaginatedResponse } from 'src/app/shared';
+import { Person, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class PersonService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllPersons(): Observable<Person[]> {
-    return this.http.get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`).pipe(
+  public getAllPersons(options: DjangoRequestOptionsList = {}): Observable<Person[]> {
+    return this.http.get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`, options).pipe(
       map(response => response.results)
     );
   }

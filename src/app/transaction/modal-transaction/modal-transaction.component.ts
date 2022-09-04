@@ -59,20 +59,32 @@ export class ModalTransactionComponent implements OnInit {
     this.findAllTransactionTypes();
   }
 
-  public findAllProducts(): void {
-    this.productService.getAllProducts().subscribe((products) => {
+  public findAllProducts(productName: string = ''): void {
+    this.productService.getAllProducts({
+      params: {
+        query: productName,
+      }
+    }).subscribe((products) => {
       this.products = products;
     });
   }
 
-  public findAllStands(): void {
-    this.standService.getAllStands().subscribe((stands) => {
+  public findAllStands(standName: string = ''): void {
+    this.standService.getAllStands({
+      params: {
+        query: standName,
+      }
+    }).subscribe((stands) => {
       this.stands = stands;
     });
   }
 
-  public findAllPersons(): void {
-    this.personService.getAllPersons().subscribe((person) => {
+  public findAllPersons(personName: string = ''): void {
+    this.personService.getAllPersons({
+      params: {
+        query: personName,
+      }
+    }).subscribe((person) => {
       this.person = person;
     });
   }

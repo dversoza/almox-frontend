@@ -10,7 +10,9 @@ import { PersonService } from '../services/person.service';
   styleUrls: ['./crud-person.component.css'],
 })
 export class CrudPersonComponent implements OnInit {
-  person!: Person[];
+  persons!: Person[];
+
+  currentPage: number = 1;
 
   constructor(
     private personService: PersonService,
@@ -21,15 +23,11 @@ export class CrudPersonComponent implements OnInit {
     this.findAllPersons();
   }
 
-  public findAllPersons(): void {
-    this.personService.getAllPersons().subscribe(
-      (response: Person[]) => {
-        this.person = response;
-      },
-      (error: any) => {
-        alert(error.message);
-      }
-    );
+  public findAllPersons(query: string = ''): void {
+    this.personService.getAllPersons({
+      params: { page: this.currentPage, query }
+    }).subscribe((response: Person[]) => { this.persons = response; }),
+      (error: any) => { alert(error.message); }
   }
 
   public modalPerson(person?: Person): void {
@@ -43,33 +41,27 @@ export class CrudPersonComponent implements OnInit {
       confirm(`Tem certeza que deseja excluir a person ${person.name}?`) &&
       person.id
     ) {
-      this.personService.deletePerson(person.id).subscribe(
-        (response: any) => {
-          this.findAllPersons();
-        },
-        (error: any) => {
-          alert(error.message);
-        }
-      );
+      this.personService.deletePerson(person.id)
+        .subscribe(() => { this.findAllPersons(); }),
+        (error: any) => { alert(error.message); }
     }
   }
 
-  public searchPerson(key: string): void {
-    const results: Person[] = [];
-    if (key.length > 1) {
-      for (const person of this.person) {
-        if (
-          person?.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          person?.document?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          person?.phone?.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          person?.stand?.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        ) {
-          results.push(person);
-        }
-      }
-      this.person = results;
-    } else {
-      this.findAllPersons();
-    }
+  public nextPage(): void {
+    this.currentPage++;
+    this.findAllPersons();
+  }
+
+  public previousPage(): void {
+    this.currentPage--;
+    this.findAllPersons();
+  }
+
+  public hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  public hasNextPage(): boolean {
+    return this.persons.length == 10;
   }
 }

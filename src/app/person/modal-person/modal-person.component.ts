@@ -38,15 +38,16 @@ export class ModalPersonComponent implements OnInit {
     this.findAllStands();
   }
 
-  public findAllStands(): void {
-    this.standService.getAllStands().subscribe(
+  public findAllStands(standName: string = ''): void {
+    this.standService.getAllStands({
+      params: {
+        query: standName,
+      },
+    }).subscribe(
       (response: Stand[]) => {
         this.stands = response;
-      },
-      (error: any) => {
-        alert(error.message);
-      }
-    );
+      }),
+      (error: any) => { alert(error.message); }
   }
 
   private personFactory(person: Person): any {

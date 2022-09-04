@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'src/app/auth/services/login.service';
@@ -13,6 +14,8 @@ import { TransactionService } from '../services';
 export class CrudTransactionComponent implements OnInit {
   public transactions!: Transaction[];
 
+  public currentPage = 1;
+
   constructor(
     private transactionService: TransactionService,
     private modalService: NgbModal,
@@ -27,8 +30,13 @@ export class CrudTransactionComponent implements OnInit {
     return this.loginService.getUser();
   }
 
-  public findAllTransactions(): void {
-    this.transactionService.getTransactions().subscribe((transactions) => {
+  public findAllTransactions(query: string = ''): void {
+    this.transactionService.getTransactions({
+      params: {
+        page: this.currentPage,
+        query,
+      },
+    }).subscribe((transactions) => {
       this.transactions = transactions;
     }), (error: any) => {
       alert(error.message);
@@ -57,33 +65,28 @@ export class CrudTransactionComponent implements OnInit {
       this.transactionService.deleteTransaction(transaction.id).subscribe(
         () => {
           this.findAllTransactions();
-        },
-        (error) => {
+        }),
+        (error: HttpErrorResponse) => {
           alert(error.message);
         }
-      );
     }
   }
 
-  public searchTransaction(key: string): void {
-    const results: Transaction[] = [];
+  public nextPage(): void {
+    this.currentPage++;
+    this.findAllTransactions();
+  }
 
-    if (!key) {
-      this.findAllTransactions();
-      return;
-    }
+  public previousPage(): void {
+    this.currentPage--;
+    this.findAllTransactions();
+  }
 
-    for (const transaction of this.transactions) {
-      if (
-        transaction.stand?.name?.toLowerCase().includes(key.toLowerCase()) ||
-        transaction.product?.name?.toLowerCase().includes(key.toLowerCase()) ||
-        transaction.quantity?.toString().includes(key) ||
-        transaction.price?.toString().includes(key) ||
-        transaction.person?.name?.toLowerCase().includes(key.toLowerCase())
-      ) {
-        results.push(transaction);
-      }
-    }
-    this.transactions = results;
+  public hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  public hasNextPage(): boolean {
+    return this.transactions.length == 10;
   }
 }

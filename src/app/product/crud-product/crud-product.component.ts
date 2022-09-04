@@ -13,6 +13,8 @@ import { ProductService } from '../services';
 export class CrudProductComponent implements OnInit {
   public products!: Product[];
 
+  private currentPage: number = 1;
+
   constructor(
     private productService: ProductService,
     private modalService: NgbModal
@@ -22,8 +24,13 @@ export class CrudProductComponent implements OnInit {
     this.findAllProducts();
   }
 
-  public findAllProducts(): void {
-    this.productService.getAllProducts().subscribe((products: Product[]) => {
+  public findAllProducts(query: string = ''): void {
+    this.productService.getAllProducts({
+      params: {
+        page: this.currentPage,
+        query,
+      }
+    }).subscribe((products: Product[]) => {
       this.products = products;
     });
   }
@@ -45,19 +52,21 @@ export class CrudProductComponent implements OnInit {
     }
   }
 
-  public searchProduct(key: string): void {
-    const results: Product[] = [];
-    for (const product of this.products) {
-      if (
-        product?.name?.toLowerCase().includes(key.toLowerCase()) ||
-        product?.description?.toLowerCase().includes(key.toLowerCase())
-      ) {
-        results.push(product);
-      }
-    }
-    if (key === '') {
-      this.findAllProducts();
-    }
-    this.products = results;
+  public nextPage(): void {
+    this.currentPage++;
+    this.findAllProducts();
+  }
+
+  public previousPage(): void {
+    this.currentPage--;
+    this.findAllProducts();
+  }
+
+  public hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  public hasNextPage(): boolean {
+    return this.products.length == 10;
   }
 }

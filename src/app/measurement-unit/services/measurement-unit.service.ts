@@ -12,8 +12,12 @@ export class MeasurementUnitService {
 
   constructor(private http: HttpClient) { }
 
-  public findAllMeasurementUnits(): Observable<MeasurementUnit[]> {
-    return this.http.get<DjangoPaginatedResponse<MeasurementUnit>>(`${this.apiMeasurementUnitsUrl}/`).pipe(
+  public findAllMeasurementUnits(page: number = 1): Observable<MeasurementUnit[]> {
+    return this.http.get<DjangoPaginatedResponse<MeasurementUnit>>(`${this.apiMeasurementUnitsUrl}/`, {
+      params: {
+        page: page.toString()
+      },
+    }).pipe(
       map(response => response.results)
     );
   }

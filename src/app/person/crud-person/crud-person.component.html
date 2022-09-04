@@ -2,10 +2,11 @@
   <h1>Pessoas</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel (ngModelChange)="searchPerson(searchInput.value)" name="searchInput"
-        id="searchInput" class="form-control" type="search" placeholder="Pesquisar pessoa ..." aria-label="Search" />
-      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllPersons()" style="margin: 0 10px">
-        <i class="fa fa-sync" style="margin-right: 5px"></i> Atualizar
+      <input #searchInput="ngModel" ngModel name="searchInput" id="searchInput" class="form-control" type="search"
+        placeholder="Pesquisar pessoa ..." aria-label="Search" />
+      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllPersons(searchInput.value)"
+        style="margin: 0 10px">
+        <i class="fa fa-sync" style="margin-right: 5px"></i> Pesquisar
       </button>
       <button class="btn btn-success d-flex align-items-center" (click)="modalPerson()" type="button">
         <i class="fa fa-plus" style="margin-right: 5px"></i> Nova
@@ -14,32 +15,41 @@
   </div>
 </div>
 
+<div class="d-flex justify-content-between" style="margin-top: 2%;">
+  <button class="btn btn-primary" (click)="previousPage()" [disabled]="!hasPreviousPage()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior
+  </button>
+  <button class="btn btn-primary" (click)="nextPage()" [disabled]="!hasNextPage()">
+    Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th [appSort]="person" data-order="desc" data-name="id" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="id" scope="col">
         ID
       </th>
-      <th [appSort]="person" data-order="desc" data-name="name" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="name" scope="col">
         Nome
       </th>
-      <th [appSort]="person" data-order="desc" data-name="isBusiness" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="isBusiness" scope="col">
         Tipo
       </th>
-      <th [appSort]="person" data-order="desc" data-name="document" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="document" scope="col">
         Documento
       </th>
-      <th [appSort]="person" data-order="desc" data-name="contact" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="contact" scope="col">
         Telefone
       </th>
-      <th [appSort]="person" data-order="desc" data-name="stand" scope="col">
+      <th [appSort]="persons" data-order="desc" data-name="stand" scope="col">
         Barraca
       </th>
       <th class="text-center">Opções ...</th>
     </tr>
   </thead>
   <tbody class="align-middle">
-    <tr *ngFor="let person of person">
+    <tr *ngFor="let person of persons">
       <th scope="row">{{ person.id }}</th>
       <td>{{ person.name }}</td>
       <td>{{ person.isBusiness ? "PJ" : "PF" }}</td>
@@ -57,6 +67,6 @@
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!person || person?.length == 0">
+<div class="alert alert-danger" *ngIf="!persons || persons?.length == 0">
   Nenhuma pessoa encontrada
 </div>

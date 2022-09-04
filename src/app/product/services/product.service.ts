@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Product, DjangoPaginatedResponse } from 'src/app/shared';
+import { Product, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllProducts(): Observable<Product[]> {
-    return this.http.get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`).pipe(
+  public getAllProducts(options: DjangoRequestOptionsList): Observable<Product[]> {
+    return this.http.get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`, options).pipe(
       map(response => response.results)
     );
   }
