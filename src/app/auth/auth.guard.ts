@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
         route.data.role &&
         route.data.role.indexOf(authUser.is_staff) === true
       ) {
-        this.router.navigate(['/login'], {
+        this.router.navigate(['/'], {
           queryParams: { error: 'Proibido o acesso a ' + url },
         });
         return false;

@@ -13,7 +13,8 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   @ViewChild('formLogin') formLogin!: NgForm;
   login!: Login;
-  loading: boolean = false;
+
+  loading: boolean = true;
   message!: string;
 
   constructor(
@@ -30,26 +31,25 @@ export class LoginComponent implements OnInit {
     this.login = new Login();
     this.route.queryParams.subscribe((params) => {
       this.message = params['error'];
+      this.loading = false;
     });
   }
 
   authenticate(): void {
     this.loading = true;
-    if (this.formLogin.form.valid) {
-      this.loginService.login(this.login).subscribe((login_response) => {
-        if (login_response) {
-          this.loginService.setToken(login_response.token);
-          this.loginService.setUser(login_response.user);
-          this.loading = false;
-          this.router.navigate(['/']);
-        } else {
-          this.loading = false;
-          this.message = 'Usuário ou senha inválidos';
-        }
-      }), (error: HttpErrorResponse) => {
+
+    this.loginService.login(this.login).subscribe({
+      next: (auth_success) => {
+        this.loginService.setToken(auth_success.token);
+        this.loginService.setUser(auth_success.user);
         this.loading = false;
-        this.message = error.message;
-      }
-    }
+        this.router.navigate(['/']);
+      },
+      error: (auth_err: HttpErrorResponse) => {
+        this.loading = false;
+        this.message = "Usuário ou senha inválidos!";
+        console.log(auth_err);
+      },
+    });
   }
 }
