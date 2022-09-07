@@ -25,6 +25,7 @@
     <div class="form-group">
       <label for="stand">Barraca: </label>
       <ng-select [items]="stands" bindLabel="name" [(ngModel)]="person.stand" placeholder="Selecione a barraca"
+        #stand="ngModel" (ngModelChange)="findStands(stand.value)">
         name="stand">
       </ng-select>
     </div>

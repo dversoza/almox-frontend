@@ -46,21 +46,22 @@
       <div *ngIf="transaction.operation != 'E'" class="form-group">
         <label for="stand">Barraca: </label>
         <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
-          placeholder="Selecione a barraca">
+          (ngModelChange)="findStands(stand.value)" placeholder="Selecione a barraca">
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="manager">Responsável: </label>
-        <ng-select [items]="person" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
-          placeholder="Selecione o responsável pela movimentação" addTagText="Criar: " [addTag]="createPerson">
+        <ng-select [items]="persons" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
+          (ngModelChange)="findPersons(manager.value)" placeholder="Selecione o responsável pela movimentação"
+          addTagText="Criar: " [addTag]="createPerson">
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="product">Produto: </label>
         <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          name="product" placeholder="Selecione o produto" required>
+          (ngModelChange)="findProducts(product.value)" name="product" placeholder="Selecione o produto" required>
         </ng-select>
       </div>
 

@@ -15,7 +15,7 @@
     <div class="form-group">
       <label for="name">Responsável: </label>
       <ng-select [items]="person" bindLabel="name" [(ngModel)]="stand.manager" #manager="ngModel" name="manager"
-        placeholder="Selecione o responsável">
+        (ngModelChange)="findPersons(manager.value)" placeholder="Selecione o responsável">
       </ng-select>
     </div>
     <div class="form-group">

@@ -20,7 +20,8 @@
     <div class="form-group">
       <label for="measurementUnit">Unidade de Medida: </label>
       <ng-select [items]="measurementUnits" bindLabel="name" [(ngModel)]="product.measurement_unit"
-        #measurementUnit="ngModel" name="measurementUnit" placeholder="Selecione a unidade de medida" required>
+        (ngModelChange)="findMeasurementUnits(measurementUnit.value)" #measurementUnit="ngModel" name="measurementUnit"
+        placeholder="Selecione a unidade de medida" required>
       </ng-select>
     </div>
   </form>
