@@ -36,6 +36,7 @@ export class CrudStandComponent implements OnInit {
         this.stands = response;
         this.loading = false;
       }), (error: HttpErrorResponse) => {
+        this.loading = false;
         alert(error.message);
       }
   }

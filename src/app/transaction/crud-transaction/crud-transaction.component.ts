@@ -40,7 +40,8 @@ export class CrudTransactionComponent implements OnInit {
     }).subscribe((transactions) => {
       this.transactions = transactions;
       this.loading = false;
-    }), (error: any) => {
+    }), (error: HttpErrorResponse) => {
+      this.loading = false;
       alert(error.message);
     }
   }

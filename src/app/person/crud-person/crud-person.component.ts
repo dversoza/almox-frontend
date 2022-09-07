@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Person } from 'src/app/shared/models/person.model';
@@ -33,9 +34,10 @@ export class CrudPersonComponent implements OnInit {
     }).subscribe((response: Person[]) => {
       this.persons = response;
       this.loading = false;
-    }),
-      (error: any) => { alert(error.message); }
-
+    }), (error: HttpErrorResponse) => {
+      this.loading = false;
+      alert(error.message);
+    }
   }
 
   public modalPerson(person?: Person): void {

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,7 +46,10 @@ export class LoginComponent implements OnInit {
           this.loading = false;
           this.message = 'Usuário ou senha inválidos';
         }
-      });
+      }), (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.message = error.message;
+      }
     }
   }
 }

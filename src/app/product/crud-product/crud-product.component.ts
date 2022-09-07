@@ -34,7 +34,10 @@ export class CrudProductComponent implements OnInit {
     }).subscribe((products: Product[]) => {
       this.products = products;
       this.loading = false;
-    });
+    }), (error: HttpErrorResponse) => {
+      this.loading = false;
+      alert(error.message);
+    };
   }
 
   public modalProduct(product?: Product): void {
