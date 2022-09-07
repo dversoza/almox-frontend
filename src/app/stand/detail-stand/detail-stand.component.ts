@@ -24,11 +24,15 @@ export class DetailStandComponent implements OnInit {
 
   public getStand(): void {
     const standId = this.route.snapshot.params.id;
-    this.standService.getStand(standId).subscribe((stand) => {
-      this.stand = stand;
-      this.loading = false;
-    }), (error: HttpErrorResponse) => {
-      alert(error);
-    }
+    this.standService.getStand(standId).subscribe({
+      next: (stand: StandDetail) => {
+        this.stand = stand;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        alert(error.message);
+      }
+    });
   }
 }

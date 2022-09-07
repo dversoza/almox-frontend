@@ -31,13 +31,16 @@ export class CrudPersonComponent implements OnInit {
         page: this.currentPage,
         query
       }
-    }).subscribe((response: Person[]) => {
-      this.persons = response;
-      this.loading = false;
-    }), (error: HttpErrorResponse) => {
-      this.loading = false;
-      alert(error.message);
-    }
+    }).subscribe({
+      next: (persons: Person[]) => {
+        this.persons = persons;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        alert(error.message);
+      }
+    });
   }
 
   public modalPerson(person?: Person): void {
@@ -51,9 +54,14 @@ export class CrudPersonComponent implements OnInit {
       confirm(`Tem certeza que deseja excluir a person ${person.name}?`) &&
       person.id
     ) {
-      this.personService.deletePerson(person.id)
-        .subscribe(() => { this.findAllPersons(); }),
-        (error: any) => { alert(error.message); }
+      this.personService.deletePerson(person.id).subscribe({
+        next: () => {
+          this.findAllPersons();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      });
     }
   }
 

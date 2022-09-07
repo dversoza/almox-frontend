@@ -35,29 +35,47 @@ export class ModalProductComponent implements OnInit {
     } else {
       this.type = ModalType.UPDATE;
     }
-    this.findAllMeasurementUnits();
+    this.findMeasurementUnits();
   }
 
-  public findAllMeasurementUnits() {
-    this.measurementUnitService.findAllMeasurementUnits().subscribe(
-      (response) => {
-        this.measurementUnits = response;
-      });
+  public findMeasurementUnits(measurementUnitName: string = ''): void {
+    this.measurementUnitService.findAllMeasurementUnits({
+      params: {
+        query: measurementUnitName,
+      }
+    }).subscribe({
+      next: (measurementUnits: MeasurementUnit[]) => {
+        this.measurementUnits = measurementUnits;
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    });
   }
 
   public submitForm() {
     if (this.productForm.valid) {
       if (this.type === ModalType.CREATE) {
-        this.productService.createProduct(this.product).subscribe(
-          () => {
+        this.productService.createProduct(this.product).subscribe({
+          next: (product: Product) => {
             this.activeModal.close();
             parent.location.reload();
-          }),
-          (error: HttpErrorResponse) => { alert(error.message) }
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+            parent.location.reload();
+          }
+        });
       } else {
-        this.productService.updateProduct(this.product).subscribe(() => {
-          this.activeModal.close();
-          parent.location.reload();
+        this.productService.updateProduct(this.product).subscribe({
+          next: (product: Product) => {
+            this.activeModal.close();
+            parent.location.reload();
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+            parent.location.reload();
+          }
         });
       }
     }

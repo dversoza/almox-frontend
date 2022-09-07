@@ -37,13 +37,16 @@ export class CrudTransactionComponent implements OnInit {
         page: this.currentPage,
         query,
       },
-    }).subscribe((transactions) => {
-      this.transactions = transactions;
-      this.loading = false;
-    }), (error: HttpErrorResponse) => {
-      this.loading = false;
-      alert(error.message);
-    }
+    }).subscribe({
+      next: (transactions: Transaction[]) => {
+        this.transactions = transactions;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        alert(error.message);
+      },
+    });
   }
 
   public modalTransaction(transaction?: Transaction) {
@@ -65,13 +68,14 @@ export class CrudTransactionComponent implements OnInit {
       confirm('Tem certeza que deseja excluir esta movimentação?') &&
       transaction.id
     ) {
-      this.transactionService.deleteTransaction(transaction.id).subscribe(
-        () => {
+      this.transactionService.deleteTransaction(transaction.id).subscribe({
+        next: () => {
           this.findAllTransactions();
-        }),
-        (error: HttpErrorResponse) => {
+        },
+        error: (error: HttpErrorResponse) => {
           alert(error.message);
-        }
+        },
+      });
     }
   }
 

@@ -31,14 +31,16 @@ export class CrudStandComponent implements OnInit {
         page: this.currentPage,
         query,
       }
-    }).subscribe(
-      (response: Stand[]) => {
-        this.stands = response;
+    }).subscribe({
+      next: (stands: Stand[]) => {
+        this.stands = stands;
         this.loading = false;
-      }), (error: HttpErrorResponse) => {
-        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
+        this.loading = false;
       }
+    });
   }
 
   public modalStand(stand?: Stand) {
@@ -52,12 +54,14 @@ export class CrudStandComponent implements OnInit {
       confirm(`Tem certeza que deseja excluir a stand ${stand.name}?`) &&
       stand.id
     ) {
-      this.standService.deleteStand(stand.id).subscribe(
-        () => {
+      this.standService.deleteStand(stand.id).subscribe({
+        next: () => {
           this.findAllStands();
-        }), (error: HttpErrorResponse) => {
+        },
+        error: (error: HttpErrorResponse) => {
           alert(error.message);
         }
+      });
     }
   }
 

@@ -24,11 +24,15 @@ export class DetailProductComponent implements OnInit {
 
   public getStand(): void {
     const productId = this.route.snapshot.params.id;
-    this.productService.getProduct(productId).subscribe((product) => {
-      this.product = product;
-      this.loading = false;
-    }), (error: HttpErrorResponse) => {
-      alert(error);
-    }
+    this.productService.getProduct(productId).subscribe({
+      next: (product: ProductDetail) => {
+        this.product = product;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        alert(error.message);
+      }
+    });
   }
 }

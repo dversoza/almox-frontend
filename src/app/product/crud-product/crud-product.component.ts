@@ -31,13 +31,16 @@ export class CrudProductComponent implements OnInit {
         page: this.currentPage,
         query,
       }
-    }).subscribe((products: Product[]) => {
-      this.products = products;
-      this.loading = false;
-    }), (error: HttpErrorResponse) => {
-      this.loading = false;
-      alert(error.message);
-    };
+    }).subscribe({
+      next: (products: Product[]) => {
+        this.products = products;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        alert(error.message);
+      }
+    });
   }
 
   public modalProduct(product?: Product): void {
@@ -51,9 +54,15 @@ export class CrudProductComponent implements OnInit {
       confirm(`Tem certeza que deseja excluir o product ${product.name}?`) &&
       product.id
     ) {
-      this.productService.deleteProduct(product.id).subscribe(
-        () => { this.findAllProducts(); }),
-        (error: HttpErrorResponse) => { alert(error.message) }
+      this.productService.deleteProduct(product.id).subscribe({
+        next: () => {
+          this.findAllProducts();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      }
+      );
     }
   }
 

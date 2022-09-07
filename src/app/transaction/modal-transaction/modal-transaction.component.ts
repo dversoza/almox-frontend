@@ -35,7 +35,7 @@ export class ModalTransactionComponent implements OnInit {
   transactionTypes!: TransactionType[];
 
   stands!: Stand[];
-  person!: Person[];
+  persons!: Person[];
   products!: Product[];
 
   constructor(
@@ -54,13 +54,13 @@ export class ModalTransactionComponent implements OnInit {
     } else {
       this.modal_type = ModalType.UPDATE;
     }
-    this.findAllStands();
-    this.findAllPersons();
-    this.findAllProducts();
+    this.findStands();
+    this.findPersons();
+    this.findProducts();
     this.findAllTransactionTypes();
   }
 
-  public findAllProducts(productName: string = ''): void {
+  public findProducts(productName: string = ''): void {
     this.productService.getAllProducts({
       params: {
         query: productName,
@@ -70,7 +70,7 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
-  public findAllStands(standName: string = ''): void {
+  public findStands(standName: string = ''): void {
     this.standService.getAllStands({
       params: {
         query: standName,
@@ -80,13 +80,18 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
-  public findAllPersons(personName: string = ''): void {
+  public findPersons(personName: string = ''): void {
     this.personService.getAllPersons({
       params: {
         query: personName,
       }
-    }).subscribe((person) => {
-      this.person = person;
+    }).subscribe({
+      next: (persons: Person[]) => {
+        this.persons = persons;
+      },
+      error: (error) => {
+        alert(error.message);
+      }
     });
   }
 
@@ -99,21 +104,27 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   private createTransaction(): void {
-    this.transactionService
-      .createTransaction(this.transaction)
-      .subscribe((transaction) => {
-        this.activeModal.close();
+    this.transactionService.createTransaction(this.transaction).subscribe({
+      next: (transaction: Transaction) => {
+        this.activeModal.close(transaction);
         parent.location.reload();
-      });
+      },
+      error: (error: any) => {
+        alert(error.message);
+      }
+    });
   }
 
   private updateTransaction(): void {
-    this.transactionService
-      .updateTransaction(this.transaction)
-      .subscribe((transaction) => {
-        this.activeModal.close();
+    this.transactionService.updateTransaction(this.transaction).subscribe({
+      next: (transaction: Transaction) => {
+        this.activeModal.close(transaction);
         parent.location.reload();
-      });
+      },
+      error: (error: any) => {
+        alert(error.message);
+      }
+    });
   }
 
   public changeOperation(): void {
@@ -125,11 +136,16 @@ export class ModalTransactionComponent implements OnInit {
   createPerson = (name: string) => {
     let person = new Person();
     person.name = name;
-    this.personService.createPerson(person).subscribe((personCriada: Person) => {
-      this.transaction.person = personCriada;
+    this.personService.createPerson(person).subscribe({
+      next: (person: Person) => {
+        this.persons.push(person);
+        this.transaction.person = person;
+      },
+      error: (error: any) => {
+        alert(error.message);
+      }
     });
-    this.findAllPersons();
-  };
+  }
 
   private validateTransaction() {
     if (this.transaction.operation == 'E') {

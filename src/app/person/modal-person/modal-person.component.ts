@@ -5,6 +5,7 @@ import { StandService } from 'src/app/stand/services/stand.service';
 import { Stand } from 'src/app/shared/models/stand.model';
 import { Person } from 'src/app/shared/models/person.model';
 import { PersonService } from '../services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 enum ModalType {
   CREATE,
@@ -35,19 +36,22 @@ export class ModalPersonComponent implements OnInit {
     } else {
       this.type = ModalType.UPDATE;
     }
-    this.findAllStands();
+    this.findStands();
   }
 
-  public findAllStands(standName: string = ''): void {
+  public findStands(standName: string = ''): void {
     this.standService.getAllStands({
       params: {
         query: standName,
       },
-    }).subscribe(
-      (response: Stand[]) => {
-        this.stands = response;
-      }),
-      (error: any) => { alert(error.message); }
+    }).subscribe({
+      next: (stands: Stand[]) => {
+        this.stands = stands;
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    });
   }
 
   private personFactory(person: Person): any {
@@ -60,15 +64,15 @@ export class ModalPersonComponent implements OnInit {
 
   public submitForm(): void {
     if (this.personForm.valid) {
-      this.personFactory(this.person).subscribe(
-        (response: Person) => {
+      this.personFactory(this.person).subscribe({
+        next: () => {
           this.activeModal.close();
           parent.location.reload();
         },
-        (error: any) => {
+        error: (error: HttpErrorResponse) => {
           alert(error.message);
         }
-      );
+      });
     }
   }
 }

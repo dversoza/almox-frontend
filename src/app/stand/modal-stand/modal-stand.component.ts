@@ -35,11 +35,15 @@ export class ModalStandComponent implements OnInit {
     } else {
       this.type = ModalType.UPDATE;
     }
-    this.findAllPersons();
+    this.findPersons();
   }
 
-  public findAllPersons() {
-    this.personService.getAllPersons().subscribe((person) => {
+  public findPersons(personName: string = '') {
+    this.personService.getAllPersons({
+      params: {
+        query: personName,
+      }
+    }).subscribe((person) => {
       this.person = person;
     });
   }
