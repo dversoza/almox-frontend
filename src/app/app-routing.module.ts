@@ -5,7 +5,6 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CrudTransactionComponent } from './transaction';
 import { CrudPersonComponent } from './person';
-import { CrudProductComponent } from './product/crud-product';
 
 const appRoutes: Routes = [
   {
@@ -24,8 +23,8 @@ const appRoutes: Routes = [
       role: 'ADMIN, COMUM',
     },
   },
-  { path: 'stands', redirectTo: 'stands', pathMatch: 'full' },
-  { path: 'products', redirectTo: 'products', pathMatch: 'full' },
+  { path: 'stands', redirectTo: 'stands', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'products', redirectTo: 'products', pathMatch: 'full', canActivate: [AuthGuard] },
   {
     path: 'people',
     children: [{ path: '', component: CrudPersonComponent }],
