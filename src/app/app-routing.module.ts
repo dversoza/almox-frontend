@@ -23,8 +23,8 @@ const appRoutes: Routes = [
       role: 'ADMIN, COMUM',
     },
   },
-  { path: 'stands', redirectTo: 'stands', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'products', redirectTo: 'products', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'stands', redirectTo: 'stands', pathMatch: 'full' },
+  { path: 'products', redirectTo: 'products', pathMatch: 'full' },
   {
     path: 'people',
     children: [{ path: '', component: CrudPersonComponent }],
@@ -45,7 +45,9 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(appRoutes, {
+    enableTracing: false, // <-- debugging purposes only
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
