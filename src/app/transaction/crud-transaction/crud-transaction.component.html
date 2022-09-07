@@ -59,8 +59,8 @@
       <td>{{ transaction.person?.name }}</td>
       <td>{{ transaction.product?.name }}</td>
       <td>
-        <i *ngIf="transaction.operation == 'S'" class="fa fa-arrow-up text-success"></i>
-        <i *ngIf="transaction.operation == 'E'" class="fa fa-arrow-down text-danger"></i>
+        <i *ngIf="transaction.operation == 'E'" class="fa fa-arrow-up text-success"></i>
+        <i *ngIf="transaction.operation == 'S'" class="fa fa-arrow-down text-danger"></i>
         {{ transaction.quantity }}
         {{ transaction.product?.measurement_unit?.abbreviation }}
       </td>
