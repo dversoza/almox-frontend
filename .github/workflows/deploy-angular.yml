@@ -6,8 +6,7 @@ on:
     - main
 
 jobs:
-  deploy:
-
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,12 +39,17 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Deploy
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: SSH-Deploy
       if: success()
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SOURCE: "dist/"
+        SOURCE: "dist/almox/"
         REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
         TARGET: ${{ secrets.SSH_REMOTE_TARGET }}
