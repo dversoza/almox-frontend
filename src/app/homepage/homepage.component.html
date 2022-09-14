@@ -1,14 +1,21 @@
 <div class="d-flex h-100 text-black flex-column">
   <div class="d-flex w-100 text-center h-100 p-3 mx-auto flex-column">
     <h1>Festa da Padroeira</h1>
-    <p class="lead">Bem-vindo(a) aos bastidores da 70ª Festa da Padroeira!</p>
+    <p class="lead">Bem-vindo(a) aos bastidores da {{eventEdition}}ª Festa da Padroeira!</p>
   </div>
 
-  <div class="container" style="
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      padding-top: 56.25%;
-    ">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>Histórico</h2>
+        <p>Visualizar dados de outra festa</p>
+        <div class="row">
+          <div *ngFor="let year of AVAILABLE_YEARS" class="col-md-2">
+            <button (click)="setTransactionYear(year)" class="btn btn-secondary">
+              {{ year }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
