@@ -46,14 +46,14 @@
       <div *ngIf="transaction.operation != 'E'" class="form-group">
         <label for="stand">Barraca: </label>
         <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
-          (ngModelChange)="findStands(stand.value)" placeholder="Selecione a barraca">
+          (search)="findStands($event.term)" placeholder="Selecione a barraca">
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="manager">Responsável: </label>
         <ng-select [items]="persons" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
-          (ngModelChange)="findPersons(manager.value)" placeholder="Selecione o responsável pela movimentação"
+          (search)="findPersons($event.term)" placeholder="Selecione o responsável pela movimentação"
           addTagText="Criar: " [addTag]="createPerson">
         </ng-select>
       </div>
@@ -61,7 +61,7 @@
       <div class="form-group">
         <label for="product">Produto: </label>
         <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          (ngModelChange)="findProducts(product.value)" name="product" placeholder="Selecione o produto" required>
+          (search)="findProducts($event.term)" name="product" placeholder="Selecione o produto" required>
         </ng-select>
       </div>
 
