@@ -62,7 +62,7 @@
         <i *ngIf="transaction.operation == 'E'" class="fa fa-arrow-up text-success"></i>
         <i *ngIf="transaction.operation == 'S'" class="fa fa-arrow-down text-danger"></i>
         {{ transaction.quantity }}
-        {{ transaction.product?.measurement_unit?.abbreviation }}
+        {{ normalizedMeasurementUnitName(transaction) }}
       </td>
       <td>{{ transaction.price | currency }}</td>
       <td>{{ transaction.details }}</td>

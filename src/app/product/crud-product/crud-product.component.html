@@ -41,7 +41,7 @@
     <tr *ngFor="let product of products">
       <th scope="row">{{ product.id }}</th>
       <td>{{ product.name }}</td>
-      <td>{{ product.stock }} {{ product.measurement_unit?.abbreviation }}</td>
+      <td>{{ product.stock }} {{ normalizedProductMeasurementUnit(product) }}</td>
       <td class="text-center">
         <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#"><i class="fa fa-eye"
             aria-hidden="true"></i>

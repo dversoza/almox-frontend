@@ -35,4 +35,12 @@ export class DetailProductComponent implements OnInit {
       }
     });
   }
+
+  public normalizedProductMeasurementUnit(productDetail: ProductDetail, stock: number): string | undefined {
+    if (stock == 1) {
+      return productDetail.measurement_unit?.name?.toLowerCase();
+    } else {
+      return `${productDetail.measurement_unit?.name}s`.toLowerCase();
+    }
+  }
 }

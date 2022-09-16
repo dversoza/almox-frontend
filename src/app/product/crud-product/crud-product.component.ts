@@ -83,4 +83,12 @@ export class CrudProductComponent implements OnInit {
   public hasNextPage(): boolean {
     return this.products?.length == 10;
   }
+
+  public normalizedProductMeasurementUnit(product: Product): string | undefined {
+    if (product.stock == 1) {
+      return product.measurement_unit?.name?.toLowerCase();
+    } else {
+      return `${product.measurement_unit?.name}s`.toLowerCase();
+    }
+  }
 }

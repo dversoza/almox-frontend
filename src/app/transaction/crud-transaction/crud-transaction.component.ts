@@ -96,4 +96,12 @@ export class CrudTransactionComponent implements OnInit {
   public hasNextPage(): boolean {
     return this.transactions?.length == 10;
   }
+
+  public normalizedMeasurementUnitName(transaction: Transaction): string | undefined {
+    if (transaction.quantity == 1) {
+      return transaction.product?.measurement_unit?.abbreviation?.toLowerCase();
+    } else {
+      return `${transaction.product?.measurement_unit?.abbreviation}s`.toLowerCase();
+    }
+  }
 }
