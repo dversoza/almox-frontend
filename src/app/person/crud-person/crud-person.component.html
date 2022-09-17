@@ -33,12 +33,6 @@
       <th [appSort]="persons" data-order="desc" data-name="name" scope="col">
         Nome
       </th>
-      <th [appSort]="persons" data-order="desc" data-name="isBusiness" scope="col">
-        Tipo
-      </th>
-      <th [appSort]="persons" data-order="desc" data-name="document" scope="col">
-        Documento
-      </th>
       <th [appSort]="persons" data-order="desc" data-name="contact" scope="col">
         Telefone
       </th>
@@ -52,8 +46,6 @@
     <tr *ngFor="let person of persons">
       <th scope="row">{{ person.id }}</th>
       <td>{{ person.name }}</td>
-      <td>{{ person.isBusiness ? "PJ" : "PF" }}</td>
-      <td>{{ person.document }}</td>
       <td>{{ person.phone }}</td>
       <td>{{ person.stand?.name }}</td>
       <td class="text-center">
