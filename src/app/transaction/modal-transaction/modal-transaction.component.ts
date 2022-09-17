@@ -44,7 +44,6 @@ export class ModalTransactionComponent implements OnInit {
     private productService: ProductService,
     private standService: StandService,
     private personService: PersonService,
-    private loginService: LoginService,
   ) { }
 
   ngOnInit(): void {
