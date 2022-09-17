@@ -1,34 +1,103 @@
-<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #013357; margin-bottom: 2vh;">
+<nav *ngIf="!hasTransactionYearSelected()" class="navbar navbar-expand-sm navbar-dark"
+  style="background-color: #013357; margin-bottom: 2vh;">
   <div class="container-fluid">
+
     <img src="assets/nsaLogo.svg" alt="Nossa Senhora Aparecida" style="height: 50px; fill: azure" />
-    <a class="navbar-brand" href="#">Almoxarifado Catedral</a>
+    <a class="navbar-brand" href="/">Almoxarifado Catedral</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['transactions']" href="#"><i class="fas fa-shipping-fast"></i> Movimentações</a>
+          <button class="nav-link text-white" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['transactions']">
+            <i class="fas fa-shipping-fast"></i> Movimentações
+          </button>
         </li>
+
         <li class="nav-item">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
             [routerLink]="['stands']" href="#"><i class="fas fa-store"></i> Barracas</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
             [routerLink]="['products']" href="#"><i class="fas fa-dolly"></i> Produtos</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
             [routerLink]="['people']" href="#"><i class="fas fa-user"></i> Pessoas</a>
         </li>
       </ul>
+
       <div class="nav" *ngIf="authenticatedUser">
         <button class="btn btn-link nav-link text-white" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i> Sair
         </button>
+
+        <div class="nav-link text-white">
+          <i class="fa fa-user"></i> {{ authenticatedUser.person?.name || authenticatedUser.username }}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<nav *ngIf="hasTransactionYearSelected()" class="navbar navbar-expand-sm navbar-dark"
+  style="background-color: #2f3030; margin-bottom: 2vh;">
+  <div class="container-fluid">
+
+    <img src="assets/nsaLogo.svg" alt="Nossa Senhora Aparecida" style="height: 50px; fill: azure" />
+    <a class="navbar-brand" href="/">Almoxarifado Catedral</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <button class="nav-link text-white" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['transactions']">
+            <i class="fas fa-shipping-fast"></i> Movimentações
+          </button>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['stands']" href="#"><i class="fas fa-store"></i> Barracas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['products']" href="#"><i class="fas fa-dolly"></i> Produtos</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['people']" href="#"><i class="fas fa-user"></i> Pessoas</a>
+        </li>
+      </ul>
+
+      <div class="text-white">
+        Apenas movimentações de <b>{{ getTransactionYear }}</b> <i class="fas fa-calendar-alt"
+          style="margin-left: 0.25rem;"></i>
+        <button (click)="resetToCurrentYear()" class="btn btn-light btn-sm" style="margin-left: 2rem;">
+          Voltar para a festa atual
+        </button>
+      </div>
+
+      <div class="nav" *ngIf="authenticatedUser">
+        <button class="btn btn-link nav-link text-white" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+
         <div class="nav-link text-white">
           <i class="fa fa-user"></i> {{ authenticatedUser.person?.name || authenticatedUser.username }}
         </div>
