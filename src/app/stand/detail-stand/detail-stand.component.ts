@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { StandDetail, StandService } from '../services/stand.service';
+import { StandDetail, StandService, StandStock } from '../services/stand.service';
 
 @Component({
   selector: 'app-detail-stand',
@@ -34,5 +34,13 @@ export class DetailStandComponent implements OnInit {
         alert(error.message);
       }
     });
+  }
+
+  public normalizedProductMeasurementUnit(stand_stock: StandStock): string | undefined {
+    if (stand_stock.stock == 1) {
+      return stand_stock.measurement_unit?.toLowerCase();
+    } else {
+      return `${stand_stock.measurement_unit}s`.toLowerCase();
+    }
   }
 }

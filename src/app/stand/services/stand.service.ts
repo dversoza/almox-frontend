@@ -5,11 +5,14 @@ import { Stand, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/ap
 import { environment } from 'src/environments/environment';
 
 
+export interface StandStock {
+  product__name: string;
+  stock: number;
+  measurement_unit: string;
+}
+
 export interface StandDetail extends Stand {
-  stock: [{
-    product__name: string;
-    stock: number;
-  }]
+  stock: StandStock[]
 }
 
 
