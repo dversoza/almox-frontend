@@ -50,8 +50,17 @@
   </thead>
 
   <tbody class="align-middle">
-    <tr *ngFor="let transaction of transactions">
-      <th scope="row">{{ transaction.id }}</th>
+    <tr
+      *ngFor="let transaction of transactions"
+    >
+      <th
+        scope="row"
+        (click)="modalTransaction(transaction)"
+        class="use-pointer"
+        data-toggle="tooltip"
+        title="Editar movimentação {{transaction.id}}"
+        data-placement="top"
+      >{{ transaction.id }}</th>
       <td>
         {{ transaction.datetime | date: 'dd/MM/yyyy HH:mm' }}
       </td>

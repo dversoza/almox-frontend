@@ -16,7 +16,7 @@
   <tbody *ngIf="stand?.stock" class="align-middle">
     <tr *ngFor="let stock of stand.stock">
       <th scope="row">{{ stock.product__name }}</th>
-      <td>{{ stock.stock }}</td>
+      <td>{{ stock.stock }} {{ normalizedProductMeasurementUnit(stock)}}</td>
     </tr>
   </tbody>
 </table>
