@@ -4,11 +4,21 @@
     <p class="lead">Bem-vindo(a) aos bastidores da 70ª Festa da Padroeira!</p>
   </div>
 
-  <div class="container" style="
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      padding-top: 56.25%;
-    ">
+  <div class="container">
+    <div class="row" *ngIf="authUser?.is_staff">
+      <div class="col">
+        <h2>Relatórios gerenciais</h2>
+        <div class="row">
+          <div *ngFor="let report of REPORTS" class="col-md-2">
+            <h6>{{report.name}}</h6>
+            <a href="{{report.url}}" class="btn btn-primary">
+              Exportar
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+
 </div>
