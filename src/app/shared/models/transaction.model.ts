@@ -8,7 +8,7 @@ export class TransactionType {
     public id?: number,
     public name?: string,
     public operation?: string,
-    public abbreviation?: string,
+    public description?: string,
   ) { }
 }
 
