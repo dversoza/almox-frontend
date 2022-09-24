@@ -44,8 +44,8 @@ export class CrudTransactionComponent implements OnInit {
       page: this.currentPage,
       ...(this.queryFilter && { query: this.queryFilter }),
       ...(this.typeFilter && { type: this.typeFilter.id }),
-      ...(this.startDateFilter && { start_date: this.startDateFilter }),
-      ...(this.endDateFilter && { end_date: this.endDateFilter }),
+      ...(this.startDateFilter && { start_date: new Date(this.startDateFilter).toISOString() }),
+      ...(this.endDateFilter && { end_date: new Date(this.endDateFilter).toISOString() }),
     };
 
     this.transactionService.getTransactions({ params: filters }).subscribe({
