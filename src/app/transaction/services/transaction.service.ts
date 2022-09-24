@@ -47,7 +47,8 @@ export class TransactionService {
       price: transaction.price ? (transaction.price * 100).toFixed(0) : 0,
       person_id: transaction.person?.id,
       type_id: transaction.type?.id,
-      stand_id: transaction.stand?.id,
+      from_stand_id: transaction.from_stand?.id,
+      to_stand_id: transaction.to_stand?.id,
       product_id: transaction.product?.id,
     });
   }
@@ -58,7 +59,8 @@ export class TransactionService {
       price: transaction.price ? (transaction.price * 100).toFixed(0) : 0,
       person_id: transaction.person?.id,
       type_id: transaction.type?.id,
-      stand_id: transaction.stand?.id,
+      from_stand_id: transaction.from_stand?.id,
+      to_stand_id: transaction.to_stand?.id,
       product_id: transaction.product?.id,
     });
   }

@@ -9,12 +9,9 @@ export class TransactionType {
     public name?: string,
     public operation?: string,
     public description?: string,
+    public default_from_stand?: Stand,
+    public default_to_stand?: Stand,
   ) { }
-}
-
-enum TransactionOperation {
-  IN = 'E',
-  OUT = 'S',
 }
 
 export class Transaction {
@@ -23,10 +20,11 @@ export class Transaction {
   public updated_at?: Date
   public created_by?: User
   public updated_by?: User
-  public stand?: Stand
+  public from_stand?: Stand
+  public to_stand?: Stand
   public product?: Product
   public person?: Person
-  public operation?: TransactionOperation
+  public operation?: string
   public type?: TransactionType
   public datetime?: Date
   public quantity?: number

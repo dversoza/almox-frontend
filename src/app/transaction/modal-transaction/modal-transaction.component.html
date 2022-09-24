@@ -11,24 +11,19 @@
 
 <div class="modal-body">
   <form #transactionForm="ngForm">
-    <div>
-      <label for="operation" style="margin-right: 10px">Operação: </label>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.operation" #operation="ngModel" type="radio" name="operation" value="E"
-          id="operation_in" class="form-check-input" />
-        <label class="form-check-label" for="operation_in">Entrada</label>
+    <div class="row align-items-center">
+      <div class="col">
+        <button class="btn btn-primary" style="width: 100%;" (click)="handleSelectOperation('E')">Entrada</button>
       </div>
-      <div class="form-check form-check-inline">
-        <input [(ngModel)]="transaction.operation" #operation="ngModel" type="radio" name="operation" value="S"
-          id="operation_out" class="form-check-input" />
-        <label class="form-check-label" for="operation_out">Saída</label>
+      <div class="col">
+        <button class="btn btn-primary" style="width: 100%;" (click)="handleSelectOperation('S')">Saída</button>
       </div>
     </div>
 
     <div *ngIf="transaction.operation">
       <div class="form-group">
         <label for="type">Tipo: </label>
-        <ng-select (click)="changeOperation()" [items]="transactionTypes" bindLabel="name"
+        <ng-select [items]="transactionTypes" bindLabel="name" (change)="handleSetTransactionType()"
           [(ngModel)]="transaction.type" #type="ngModel" name="type" placeholder="Selecione o tipo da movimentação"
           required>
           <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
@@ -47,11 +42,20 @@
           placeholder="Digite a data e hora da movimentação" required />
       </div>
 
-      <div *ngIf="transaction.operation != 'E'" class="form-group">
-        <label for="stand">Barraca: </label>
-        <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
-          (search)="findStands($event.term)" placeholder="Selecione a barraca">
-        </ng-select>
+      <div class="row">
+        <div class="form-group col">
+          <label for="stand">De: </label>
+          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.from_stand" #from_stand="ngModel" name="from_stand"
+            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          </ng-select>
+        </div>
+
+        <div class="form-group col">
+          <label for="stand">Para: </label>
+          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.to_stand" #to_stand="ngModel" name="to_stand"
+            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          </ng-select>
+        </div>
       </div>
 
       <div class="form-group">
