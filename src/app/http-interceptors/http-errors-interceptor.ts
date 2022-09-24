@@ -13,13 +13,21 @@ import { catchError } from 'rxjs/operators';
 export class HttpErrorInterceptorService implements HttpInterceptor {
   constructor() {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log(error.name + ': ' + error.message);
-        for (let key in error.error) {
-          alert(`${key}: ${error.error[key]}`);
+
+        if (error.status == 400) {
+          for (let key in error.error) {
+            alert(`${key}: ${error.error[key]}`);
+          }
         }
+
+        if (error.status == 500) {
+          alert('500: Erro interno do servidor');
+        }
+
         return throwError(() => error);
       })
     );
