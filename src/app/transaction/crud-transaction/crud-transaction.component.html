@@ -1,24 +1,8 @@
-<div class="d-flex justify-content-between" id="main-content">
-  <h1>Movimentações</h1>
-  <div>
-    <form class="d-flex flex-row">
-      <input
-        #searchInput="ngModel"
-        ngModel
-        name="searchInput"
-        id="searchInput"
-        class="form-control"
-        type="search"
-        placeholder="Pesquisar movimentação ..."
-        aria-label="Pesquisar"
-      />
-      <button
-        class="btn btn-secondary d-flex align-items-center"
-        (click)="findAllTransactions(searchInput.value)"
-        style="margin: 0 0.5vw"
-      >
-        <i class="fa fa-search" style="margin-right: 5px"></i> Pesquisar
-      </button>
+<h1>Movimentações</h1>
+
+<div class="d-flex flex-wrap justify-content-between" style="margin-top: 2%">
+  <div class="d-flex flex-row" id="leftSide">
+    <div id="create">
       <button
         class="btn btn-success d-flex align-items-center"
         (click)="modalTransaction()"
@@ -26,17 +10,89 @@
       >
         <i class="fa fa-plus" style="margin-right: 5px"></i> Nova
       </button>
-    </form>
+    </div>
+    <div id="filters" style="margin-left: 0.25rem">
+      <button
+        class="btn btn-secondary"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#filtersCollapse"
+        aria-expanded="false"
+        aria-controls="filtersCollapse"
+      >
+        Filtros <i class="fa fa-filter"></i>
+      </button>
+    </div>
+  </div>
+  <div id="rightSide">
+    <div id="pagination">
+      <button class="btn btn-primary" (click)="previousPage()" [disabled]="!hasPreviousPage()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior
+      </button>
+      <button class="btn btn-primary" (click)="nextPage()" [disabled]="!hasNextPage()">
+        Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </div>
 
-<div class="d-flex justify-content-between" style="margin-top: 2%">
-  <button class="btn btn-primary" (click)="previousPage()" [disabled]="!hasPreviousPage()">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior
-  </button>
-  <button class="btn btn-primary" (click)="nextPage()" [disabled]="!hasNextPage()">
-    Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
-  </button>
+<div id="filtersCollapse" class="collapse">
+  <form (submit)="findAllTransactions()">
+    <div class="d-flex flex-row flex-wrap">
+      <div class="form-group">
+        <label for="searchInput">Texto</label>
+        <input
+          #searchInput="ngModel"
+          [(ngModel)]="queryFilter"
+          name="searchInput"
+          id="searchInput"
+          class="form-control"
+          type="search"
+          placeholder="Termo para pesquisa ..."
+          aria-label="Pesquisar"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Data Inicial</label>
+        <input
+          [(ngModel)]="startDateFilter"
+          type="date"
+          class="form-control"
+          name="startDate"
+          placeholder="Data Inicial"
+        />
+      </div>
+      <div class="form-group">
+        <label for="endDate">Data Final</label>
+        <input
+          [(ngModel)]="endDateFilter"
+          type="date"
+          class="form-control"
+          name="endDate"
+          placeholder="Data Final"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="typeFilter">Tipo de movimentação</label>
+        <ng-select
+          [items]="transactionTypes"
+          bindLabel="name"
+          (change)="handleSelectTransactionTypeFilter($event)"
+          #typeFilter
+          name="type"
+          placeholder="Selecione ..."
+        ></ng-select>
+      </div>
+
+      <div class="align-self-end" style="margin-left: 0.25rem">
+        <button class="btn btn-primary" type="submit" (click)="findAllTransactions()">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 
 <table class="table table-striped">
