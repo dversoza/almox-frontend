@@ -23,4 +23,4 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
   ],
   providers: [TransactionService],
 })
-export class TransactionModule { }
+export class TransactionModule {}

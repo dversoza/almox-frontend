@@ -25,7 +25,7 @@ export class ModalProductComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private productService: ProductService,
     private measurementUnitService: MeasurementUnitService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (!this.product) {
@@ -38,38 +38,40 @@ export class ModalProductComponent implements OnInit {
   }
 
   public findMeasurementUnits(measurementUnitName: string = ''): void {
-    this.measurementUnitService.findAllMeasurementUnits({
-      params: {
-        query: measurementUnitName,
-      }
-    }).subscribe({
-      next: (measurementUnits: MeasurementUnit[]) => {
-        this.measurementUnits = measurementUnits;
-      }
-    });
+    this.measurementUnitService
+      .findAllMeasurementUnits({
+        params: {
+          query: measurementUnitName,
+        },
+      })
+      .subscribe({
+        next: (measurementUnits: MeasurementUnit[]) => {
+          this.measurementUnits = measurementUnits;
+        },
+      });
   }
 
   public submitForm() {
     if (this.productForm.valid) {
       if (this.type === ModalType.CREATE) {
         this.productService.createProduct(this.product).subscribe({
-          next: (product: Product) => {
+          next: () => {
             this.activeModal.close();
             parent.location.reload();
           },
           error: () => {
             parent.location.reload();
-          }
+          },
         });
       } else {
         this.productService.updateProduct(this.product).subscribe({
-          next: (product: Product) => {
+          next: () => {
             this.activeModal.close();
             parent.location.reload();
           },
           error: () => {
             parent.location.reload();
-          }
+          },
         });
       }
     }

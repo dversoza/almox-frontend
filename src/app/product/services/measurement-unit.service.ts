@@ -10,19 +10,24 @@ import { environment } from 'src/environments/environment';
 export class MeasurementUnitService {
   private apiMeasurementUnitsUrl: string = `${environment.apiBaseUrl}/measurement-units`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  public findAllMeasurementUnits(options: DjangoRequestOptionsList = {}): Observable<MeasurementUnit[]> {
+  public findAllMeasurementUnits(
+    options: DjangoRequestOptionsList = {}
+  ): Observable<MeasurementUnit[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
-    return this.http.get<DjangoPaginatedResponse<MeasurementUnit>>(`${this.apiMeasurementUnitsUrl}/`, options).pipe(
-      map(response => response.results)
-    );
+    return this.http
+      .get<DjangoPaginatedResponse<MeasurementUnit>>(`${this.apiMeasurementUnitsUrl}/`, options)
+      .pipe(map((response) => response.results));
   }
 
   public createMeasurementUnit(measurementUnit: MeasurementUnit): Observable<MeasurementUnit> {
-    return this.http.post<MeasurementUnit>(`${this.apiMeasurementUnitsUrl}/create/`, measurementUnit);
+    return this.http.post<MeasurementUnit>(
+      `${this.apiMeasurementUnitsUrl}/create/`,
+      measurementUnit
+    );
   }
 
   public updateMeasurementUnit(measurementUnit: MeasurementUnit): Observable<MeasurementUnit> {

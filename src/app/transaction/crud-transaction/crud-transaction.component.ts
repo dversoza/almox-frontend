@@ -20,7 +20,7 @@ export class CrudTransactionComponent implements OnInit {
     private transactionService: TransactionService,
     private modalService: NgbModal,
     private loginService: LoginService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.findAllTransactions();
@@ -31,20 +31,22 @@ export class CrudTransactionComponent implements OnInit {
   }
 
   public findAllTransactions(query: string = ''): void {
-    this.transactionService.getTransactions({
-      params: {
-        page: this.currentPage,
-        query,
-      },
-    }).subscribe({
-      next: (transactions: Transaction[]) => {
-        this.transactions = transactions;
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      },
-    });
+    this.transactionService
+      .getTransactions({
+        params: {
+          page: this.currentPage,
+          query,
+        },
+      })
+      .subscribe({
+        next: (transactions: Transaction[]) => {
+          this.transactions = transactions;
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
+        },
+      });
   }
 
   public modalTransaction(transaction?: Transaction) {
@@ -53,23 +55,17 @@ export class CrudTransactionComponent implements OnInit {
       keyboard: false,
     };
 
-    const modalRef = this.modalService.open(
-      ModalTransactionComponent,
-      ngbModalOptions
-    );
+    const modalRef = this.modalService.open(ModalTransactionComponent, ngbModalOptions);
     modalRef.componentInstance.transaction = transaction;
   }
 
   public deleteTransaction($event: any, transaction: Transaction) {
     $event.preventDefault();
-    if (
-      confirm('Tem certeza que deseja excluir esta movimentação?') &&
-      transaction.id
-    ) {
+    if (confirm('Tem certeza que deseja excluir esta movimentação?') && transaction.id) {
       this.transactionService.deleteTransaction(transaction.id).subscribe({
         next: () => {
           this.findAllTransactions();
-        }
+        },
       });
     }
   }

@@ -8,6 +8,6 @@ export class User {
     public email?: string,
     public groups?: string,
     public person?: Person,
-    public username?: string,
-  ) { }
+    public username?: string
+  ) {}
 }

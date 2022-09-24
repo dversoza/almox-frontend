@@ -22,4 +22,4 @@ import { StandRoutingModule } from './stand-routing.module';
   declarations: [CrudStandComponent, ModalStandComponent, DetailStandComponent],
   providers: [StandService],
 })
-export class StandModule { }
+export class StandModule {}

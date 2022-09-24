@@ -1,17 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginService } from 'src/app/auth/services/login.service';
 import { StandService } from 'src/app/stand/services/stand.service';
 import { PersonService } from 'src/app/person/services';
 import { ProductService } from 'src/app/product/services';
-import {
-  Stand,
-  Transaction,
-  Person,
-  Product,
-  TransactionType
-} from 'src/app/shared';
+import { Stand, Transaction, Person, Product, TransactionType } from 'src/app/shared';
 import { TransactionService } from '../services';
 
 enum ModalType {
@@ -44,8 +37,8 @@ export class ModalTransactionComponent implements OnInit {
     private transactionService: TransactionService,
     private productService: ProductService,
     private standService: StandService,
-    private personService: PersonService,
-  ) { }
+    private personService: PersonService
+  ) {}
 
   ngOnInit(): void {
     this.findStands();
@@ -62,35 +55,41 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   public findProducts(productName: string = ''): void {
-    this.productService.getAllProducts({
-      params: {
-        query: productName,
-      }
-    }).subscribe((products) => {
-      this.products = products;
-    });
+    this.productService
+      .getAllProducts({
+        params: {
+          query: productName,
+        },
+      })
+      .subscribe((products) => {
+        this.products = products;
+      });
   }
 
   public findStands(standName: string = ''): void {
-    this.standService.getAllStands({
-      params: {
-        query: standName,
-      }
-    }).subscribe((stands) => {
-      this.stands = stands;
-    });
+    this.standService
+      .getAllStands({
+        params: {
+          query: standName,
+        },
+      })
+      .subscribe((stands) => {
+        this.stands = stands;
+      });
   }
 
   public findPersons(personName: string = ''): void {
-    this.personService.getAllPersons({
-      params: {
-        query: personName,
-      }
-    }).subscribe({
-      next: (persons: Person[]) => {
-        this.persons = persons;
-      }
-    });
+    this.personService
+      .getAllPersons({
+        params: {
+          query: personName,
+        },
+      })
+      .subscribe({
+        next: (persons: Person[]) => {
+          this.persons = persons;
+        },
+      });
   }
 
   public findAllTransactionTypes(): void {
@@ -105,7 +104,7 @@ export class ModalTransactionComponent implements OnInit {
       next: (transaction: Transaction) => {
         this.activeModal.close(transaction);
         parent.location.reload();
-      }
+      },
     });
   }
 
@@ -114,7 +113,7 @@ export class ModalTransactionComponent implements OnInit {
       next: (transaction: Transaction) => {
         this.activeModal.close(transaction);
         parent.location.reload();
-      }
+      },
     });
   }
 
@@ -138,16 +137,19 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   private validateForm(): void {
-    if (this.transaction.from_stand?.name == "Externo" || this.transaction.to_stand?.name == "Externo") {
+    if (
+      this.transaction.from_stand?.name == 'Externo' ||
+      this.transaction.to_stand?.name == 'Externo'
+    ) {
       if (!this.transaction.details) {
-        alert("Digite o nome do fornecedor externo nas observações!");
-        throw new Error("Digite o nome do fornecedor externo nas observações!");
+        alert('Digite o nome do fornecedor externo nas observações!');
+        throw new Error('Digite o nome do fornecedor externo nas observações!');
       }
     }
 
     if (this.transaction.from_stand?.name == this.transaction.to_stand?.name) {
-      alert("As barracas de origem e destino não podem ser iguais!");
-      throw new Error("O stand de origem e destino não podem ser iguais!");
+      alert('As barracas de origem e destino não podem ser iguais!');
+      throw new Error('O stand de origem e destino não podem ser iguais!');
     }
   }
 
@@ -158,9 +160,9 @@ export class ModalTransactionComponent implements OnInit {
       next: (person: Person) => {
         this.persons.push(person);
         this.transaction.person = person;
-      }
+      },
     });
-  }
+  };
 
   public submitForm() {
     if (this.transactionForm.valid) {

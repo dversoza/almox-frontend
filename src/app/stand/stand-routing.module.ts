@@ -11,9 +11,7 @@ const standRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(standRoutes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(standRoutes)],
+  exports: [RouterModule],
 })
-export class StandRoutingModule { }
+export class StandRoutingModule {}

@@ -15,30 +15,29 @@ export class CrudStandComponent implements OnInit {
   public loading = true;
   private currentPage: number = 1;
 
-  constructor(
-    private standService: StandService,
-    private modalService: NgbModal
-  ) { }
+  constructor(private standService: StandService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.findAllStands();
   }
 
   public findAllStands(query: string = ''): void {
-    this.standService.getAllStands({
-      params: {
-        page: this.currentPage,
-        query,
-      }
-    }).subscribe({
-      next: (stands: Stand[]) => {
-        this.stands = stands;
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+    this.standService
+      .getAllStands({
+        params: {
+          page: this.currentPage,
+          query,
+        },
+      })
+      .subscribe({
+        next: (stands: Stand[]) => {
+          this.stands = stands;
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
+        },
+      });
   }
 
   public modalStand(stand?: Stand) {
@@ -48,14 +47,11 @@ export class CrudStandComponent implements OnInit {
 
   public deleteStand($event: any, stand: Stand) {
     $event.preventDefault();
-    if (
-      confirm(`Tem certeza que deseja excluir a stand ${stand.name}?`) &&
-      stand.id
-    ) {
+    if (confirm(`Tem certeza que deseja excluir a stand ${stand.name}?`) && stand.id) {
       this.standService.deleteStand(stand.id).subscribe({
         next: () => {
           this.findAllStands();
-        }
+        },
       });
     }
   }

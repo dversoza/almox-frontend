@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 import { Stand, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
-
 export interface StandStock {
   product__name: string;
   stock: number;
@@ -12,9 +11,8 @@ export interface StandStock {
 }
 
 export interface StandDetail extends Stand {
-  stock: StandStock[]
+  stock: StandStock[];
 }
-
 
 @Injectable({
   providedIn: 'root',
@@ -22,15 +20,15 @@ export interface StandDetail extends Stand {
 export class StandService {
   private apiStandsUrl: string = `${environment.apiBaseUrl}/stands`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAllStands(options: DjangoRequestOptionsList): Observable<Stand[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
-    return this.http.get<DjangoPaginatedResponse<Stand>>(`${this.apiStandsUrl}/`, options).pipe(
-      map(response => response.results)
-    );
+    return this.http
+      .get<DjangoPaginatedResponse<Stand>>(`${this.apiStandsUrl}/`, options)
+      .pipe(map((response) => response.results));
   }
 
   public getStand(idStand: number): Observable<StandDetail> {

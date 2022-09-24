@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { DjangoPaginatedResponse, DjangoRequestOptionsList, Transaction, TransactionType } from 'src/app/shared';
+import {
+  DjangoPaginatedResponse,
+  DjangoRequestOptionsList,
+  Transaction,
+  TransactionType,
+} from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,16 +16,17 @@ export class TransactionService {
   private apiTransactionUrl: string = `${environment.apiBaseUrl}/transactions`;
   private apiTransactionTypesUrl: string = `${environment.apiBaseUrl}/transaction-types`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getTransactions(options: DjangoRequestOptionsList): Observable<Transaction[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
-    return this.http.get<DjangoPaginatedResponse<Transaction>>(`${(this.apiTransactionUrl)}/`, options)
+    return this.http
+      .get<DjangoPaginatedResponse<Transaction>>(`${this.apiTransactionUrl}/`, options)
       .pipe(
-        map(response =>
-          response.results.map(transaction => ({
+        map((response) =>
+          response.results.map((transaction) => ({
             ...transaction,
             price: transaction.price ? transaction.price / 100 : 0,
           }))
@@ -29,12 +35,13 @@ export class TransactionService {
   }
 
   public getTransactionTypes(page: number = 1): Observable<TransactionType[]> {
-    return this.http.get<DjangoPaginatedResponse<TransactionType>>(`${this.apiTransactionTypesUrl}/`, {
-      params: {
-        page: page.toString(),
-      },
-    })
-      .pipe(map(response => response.results));
+    return this.http
+      .get<DjangoPaginatedResponse<TransactionType>>(`${this.apiTransactionTypesUrl}/`, {
+        params: {
+          page: page.toString(),
+        },
+      })
+      .pipe(map((response) => response.results));
   }
 
   public getTransaction(id: number): Observable<Transaction> {

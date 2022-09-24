@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       },
       error: (auth_err: HttpErrorResponse) => {
         this.loading = false;
-        this.message = "Usuário ou senha inválidos!";
+        this.message = 'Usuário ou senha inválidos!';
         console.log(auth_err);
       },
     });

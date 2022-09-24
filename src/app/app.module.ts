@@ -29,12 +29,7 @@ const interceptorProviders = [
 
 registerLocaleData(localePt);
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomepageComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent, FooterComponent, HomepageComponent],
   imports: [
     StandModule,
     AuthModule,

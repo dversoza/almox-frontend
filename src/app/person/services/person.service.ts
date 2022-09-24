@@ -10,15 +10,15 @@ import { environment } from 'src/environments/environment';
 export class PersonService {
   private apiPersonsUrl: string = `${environment.apiBaseUrl}/persons`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAllPersons(options: DjangoRequestOptionsList = {}): Observable<Person[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
-    return this.http.get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`, options).pipe(
-      map(response => response.results)
-    );
+    return this.http
+      .get<DjangoPaginatedResponse<Person>>(`${this.apiPersonsUrl}/`, options)
+      .pipe(map((response) => response.results));
   }
 
   public getPerson(idPerson: number): Observable<Person> {

@@ -26,7 +26,7 @@ export class ModalPersonComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private personService: PersonService,
     private standService: StandService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (!this.person) {
@@ -39,15 +39,17 @@ export class ModalPersonComponent implements OnInit {
   }
 
   public findStands(standName: string = ''): void {
-    this.standService.getAllStands({
-      params: {
-        query: standName,
-      },
-    }).subscribe({
-      next: (stands: Stand[]) => {
-        this.stands = stands;
-      }
-    });
+    this.standService
+      .getAllStands({
+        params: {
+          query: standName,
+        },
+      })
+      .subscribe({
+        next: (stands: Stand[]) => {
+          this.stands = stands;
+        },
+      });
   }
 
   private personFactory(person: Person): any {
@@ -64,7 +66,7 @@ export class ModalPersonComponent implements OnInit {
         next: () => {
           this.activeModal.close();
           parent.location.reload();
-        }
+        },
       });
     }
   }

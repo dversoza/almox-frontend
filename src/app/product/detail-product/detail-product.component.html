@@ -5,18 +5,17 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>
-        Barraca
-      </th>
-      <th>
-        Estoque
-      </th>
+      <th>Barraca</th>
+      <th>Estoque</th>
     </tr>
   </thead>
   <tbody *ngIf="product?.stock" class="align-middle">
     <tr *ngFor="let stock of product.stand_stocks">
       <th scope="row">{{ stock.stand__name }}</th>
-      <td>{{ stock.stock | number : '1.2-2' }} {{ normalizedProductMeasurementUnit(product, stock.stock) }}</td>
+      <td>
+        {{ stock.stock | number: "1.2-2" }}
+        {{ normalizedProductMeasurementUnit(product, stock.stock) }}
+      </td>
     </tr>
   </tbody>
 </table>

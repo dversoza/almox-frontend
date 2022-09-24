@@ -8,9 +8,8 @@ describe('ModalProductComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModalProductComponent]
-    })
-      .compileComponents();
+      declarations: [ModalProductComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

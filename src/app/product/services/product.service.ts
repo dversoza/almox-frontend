@@ -5,10 +5,12 @@ import { Product, DjangoPaginatedResponse, DjangoRequestOptionsList } from 'src/
 import { environment } from 'src/environments/environment';
 
 export interface ProductDetail extends Product {
-  stand_stocks: [{
-    stand__name: string;
-    stock: number;
-  }]
+  stand_stocks: [
+    {
+      stand__name: string;
+      stock: number;
+    }
+  ];
 }
 
 @Injectable({
@@ -17,15 +19,15 @@ export interface ProductDetail extends Product {
 export class ProductService {
   private apiProductsUrl: string = `${environment.apiBaseUrl}/products`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAllProducts(options: DjangoRequestOptionsList): Observable<Product[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
-    return this.http.get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`, options).pipe(
-      map(response => response.results)
-    );
+    return this.http
+      .get<DjangoPaginatedResponse<Product>>(`${this.apiProductsUrl}/`, options)
+      .pipe(map((response) => response.results));
   }
 
   public getProduct(id: number): Observable<ProductDetail> {
