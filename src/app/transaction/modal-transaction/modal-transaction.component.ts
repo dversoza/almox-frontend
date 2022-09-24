@@ -87,9 +87,6 @@ export class ModalTransactionComponent implements OnInit {
     }).subscribe({
       next: (persons: Person[]) => {
         this.persons = persons;
-      },
-      error: (error) => {
-        alert(error.message);
       }
     });
   }
@@ -107,9 +104,6 @@ export class ModalTransactionComponent implements OnInit {
       next: (transaction: Transaction) => {
         this.activeModal.close(transaction);
         parent.location.reload();
-      },
-      error: (error: any) => {
-        alert(error.message);
       }
     });
   }
@@ -119,9 +113,6 @@ export class ModalTransactionComponent implements OnInit {
       next: (transaction: Transaction) => {
         this.activeModal.close(transaction);
         parent.location.reload();
-      },
-      error: (error: any) => {
-        alert(error.message);
       }
     });
   }
@@ -139,9 +130,6 @@ export class ModalTransactionComponent implements OnInit {
       next: (person: Person) => {
         this.persons.push(person);
         this.transaction.person = person;
-      },
-      error: (error: any) => {
-        alert(error.message);
       }
     });
   }

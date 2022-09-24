@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'src/app/auth/services/login.service';
@@ -42,9 +41,8 @@ export class CrudTransactionComponent implements OnInit {
         this.transactions = transactions;
         this.loading = false;
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.loading = false;
-        alert(error.message);
       },
     });
   }
@@ -71,10 +69,7 @@ export class CrudTransactionComponent implements OnInit {
       this.transactionService.deleteTransaction(transaction.id).subscribe({
         next: () => {
           this.findAllTransactions();
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
-        },
+        }
       });
     }
   }

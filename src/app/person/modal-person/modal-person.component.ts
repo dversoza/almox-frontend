@@ -5,7 +5,6 @@ import { StandService } from 'src/app/stand/services/stand.service';
 import { Stand } from 'src/app/shared/models/stand.model';
 import { Person } from 'src/app/shared/models/person.model';
 import { PersonService } from '../services';
-import { HttpErrorResponse } from '@angular/common/http';
 
 enum ModalType {
   CREATE,
@@ -47,9 +46,6 @@ export class ModalPersonComponent implements OnInit {
     }).subscribe({
       next: (stands: Stand[]) => {
         this.stands = stands;
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
       }
     });
   }
@@ -68,9 +64,6 @@ export class ModalPersonComponent implements OnInit {
         next: () => {
           this.activeModal.close();
           parent.location.reload();
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
         }
       });
     }

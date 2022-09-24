@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Stand } from 'src/app/shared/models/stand.model';
@@ -36,8 +35,7 @@ export class CrudStandComponent implements OnInit {
         this.stands = stands;
         this.loading = false;
       },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
+      error: () => {
         this.loading = false;
       }
     });
@@ -57,9 +55,6 @@ export class CrudStandComponent implements OnInit {
       this.standService.deleteStand(stand.id).subscribe({
         next: () => {
           this.findAllStands();
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
         }
       });
     }
