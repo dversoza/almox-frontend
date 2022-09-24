@@ -132,6 +132,20 @@ export class ModalTransactionComponent implements OnInit {
     );
   }
 
+  private validateForm(): void {
+    if (this.transaction.from_stand?.name == "Externo" || this.transaction.to_stand?.name == "Externo") {
+      if (!this.transaction.details) {
+        alert("Digite o nome do fornecedor externo nas observações!");
+        throw new Error("Digite o nome do fornecedor externo nas observações!");
+      }
+    }
+
+    if (this.transaction.from_stand?.name == this.transaction.to_stand?.name) {
+      alert("As barracas de origem e destino não podem ser iguais!");
+      throw new Error("O stand de origem e destino não podem ser iguais!");
+    }
+  }
+
   createPerson = (name: string) => {
     let person = new Person();
     person.name = name;
@@ -146,15 +160,9 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
-  private validateTransaction() {
-    if (this.transaction.operation == 'E') {
-      this.transaction.stand = { id: 1 };
-    }
-  }
-
   public submitForm() {
     if (this.transactionForm.valid) {
-      this.validateTransaction();
+      this.validateForm();
       this.transaction.datetime = this.datetime.value;
       if (this.modal_type === ModalType.CREATE) {
         this.createTransaction();

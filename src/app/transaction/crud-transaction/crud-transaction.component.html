@@ -33,7 +33,8 @@
       <th [appSort]="transactions" data-order="desc" data-name="datetime" scope="col">
         Data
       </th>
-      <th scope="col">Barraca</th>
+      <th scope="col">De</th>
+      <th scope="col">Para</th>
       <th scope="col">Responsável</th>
       <th scope="col">Produto</th>
       <th [appSort]="transactions" data-order="desc" data-name="quantity" scope="col">
@@ -64,7 +65,8 @@
       <td>
         {{ transaction.datetime | date: 'dd/MM/yyyy HH:mm' }}
       </td>
-      <td>{{ transaction.stand?.name }}</td>
+      <td>{{ transaction.from_stand?.name }}</td>
+      <td>{{ transaction.to_stand?.name }}</td>
       <td>{{ transaction.person?.name }}</td>
       <td>{{ transaction.product?.name }}</td>
       <td>

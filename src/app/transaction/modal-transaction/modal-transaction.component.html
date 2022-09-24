@@ -43,11 +43,20 @@
           placeholder="Digite a data e hora da movimentação" required />
       </div>
 
-      <div *ngIf="transaction.operation != 'E'" class="form-group">
-        <label for="stand">Barraca: </label>
-        <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.stand" #stand="ngModel" name="stand"
-          (search)="findStands($event.term)" placeholder="Selecione a barraca">
-        </ng-select>
+      <div class="row">
+        <div class="form-group col">
+          <label for="stand">De: </label>
+          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.from_stand" #from_stand="ngModel" name="from_stand"
+            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          </ng-select>
+        </div>
+
+        <div class="form-group col">
+          <label for="stand">Para: </label>
+          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.to_stand" #to_stand="ngModel" name="to_stand"
+            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          </ng-select>
+        </div>
       </div>
 
       <div class="form-group">

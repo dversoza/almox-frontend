@@ -8,7 +8,9 @@ export class TransactionType {
     public id?: number,
     public name?: string,
     public operation?: string,
-    public abbreviation?: string,
+    public description?: string,
+    public default_from_stand?: Stand,
+    public default_to_stand?: Stand,
   ) { }
 }
 
@@ -23,7 +25,8 @@ export class Transaction {
   public updated_at?: Date
   public created_by?: User
   public updated_by?: User
-  public stand?: Stand
+  public from_stand?: Stand
+  public to_stand?: Stand
   public product?: Product
   public person?: Person
   public operation?: TransactionOperation
