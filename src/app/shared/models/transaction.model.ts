@@ -14,11 +14,6 @@ export class TransactionType {
   ) { }
 }
 
-enum TransactionOperation {
-  IN = 'E',
-  OUT = 'S',
-}
-
 export class Transaction {
   public id?: number
   public created_at?: Date
@@ -29,7 +24,7 @@ export class Transaction {
   public to_stand?: Stand
   public product?: Product
   public person?: Person
-  public operation?: TransactionOperation
+  public operation?: string
   public type?: TransactionType
   public datetime?: Date
   public quantity?: number

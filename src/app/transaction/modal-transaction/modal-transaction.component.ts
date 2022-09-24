@@ -10,7 +10,7 @@ import {
   Transaction,
   Person,
   Product,
-  TransactionType,
+  TransactionType
 } from 'src/app/shared';
 import { TransactionService } from '../services';
 
@@ -31,12 +31,13 @@ export class ModalTransactionComponent implements OnInit {
   modal_type!: ModalType;
 
   transaction!: Transaction;
-  allTransactionTypes!: TransactionType[];
-  transactionTypes!: TransactionType[];
 
   stands!: Stand[];
   persons!: Person[];
   products!: Product[];
+
+  allTransactionTypes!: TransactionType[];
+  transactionTypes!: TransactionType[];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -47,16 +48,17 @@ export class ModalTransactionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.findStands();
+    this.findPersons();
+    this.findProducts();
+    this.findAllTransactionTypes();
+
     if (!this.transaction) {
       this.modal_type = ModalType.CREATE;
       this.transaction = new Transaction();
     } else {
       this.modal_type = ModalType.UPDATE;
     }
-    this.findStands();
-    this.findPersons();
-    this.findProducts();
-    this.findAllTransactionTypes();
   }
 
   public findProducts(productName: string = ''): void {
@@ -97,9 +99,8 @@ export class ModalTransactionComponent implements OnInit {
   public findAllTransactionTypes(): void {
     this.transactionService.getTransactionTypes().subscribe((transactionTypes) => {
       this.allTransactionTypes = transactionTypes;
-      this.changeOperation();
-    }
-    );
+      this.filterTransactionTypes();
+    });
   }
 
   private createTransaction(): void {
@@ -126,10 +127,23 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
-  public changeOperation(): void {
+  private filterTransactionTypes(): void {
     this.transactionTypes = this.allTransactionTypes.filter(
       (transactionType) => transactionType.operation === this.transaction.operation
     );
+  }
+
+  public handleSelectOperation(operation: string): void {
+    this.transaction.operation = operation;
+    this.filterTransactionTypes();
+    this.transaction.datetime = new Date();
+  }
+
+  public handleSetTransactionType(): void {
+    if (this.transaction.type) {
+      this.transaction.from_stand = this.transaction.type.default_from_stand;
+      this.transaction.to_stand = this.transaction.type.default_to_stand;
+    }
   }
 
   private validateForm(): void {
