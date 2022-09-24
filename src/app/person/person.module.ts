@@ -10,13 +10,7 @@ import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [CrudPersonComponent, ModalPersonComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    NgSelectModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, NgSelectModule, SharedModule],
   providers: [PersonService],
 })
-export class PersonsModule { }
+export class PersonsModule {}

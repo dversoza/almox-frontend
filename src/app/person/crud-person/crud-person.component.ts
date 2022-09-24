@@ -15,27 +15,26 @@ export class CrudPersonComponent implements OnInit {
   public loading = true;
   private currentPage: number = 1;
 
-  constructor(
-    private personService: PersonService,
-    private modalService: NgbModal
-  ) { }
+  constructor(private personService: PersonService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.findAllPersons();
   }
 
   public findAllPersons(query: string = ''): void {
-    this.personService.getAllPersons({
-      params: {
-        page: this.currentPage,
-        query
-      }
-    }).subscribe({
-      next: (persons: Person[]) => {
-        this.persons = persons;
-        this.loading = false;
-      }
-    });
+    this.personService
+      .getAllPersons({
+        params: {
+          page: this.currentPage,
+          query,
+        },
+      })
+      .subscribe({
+        next: (persons: Person[]) => {
+          this.persons = persons;
+          this.loading = false;
+        },
+      });
   }
 
   public modalPerson(person?: Person): void {
@@ -45,14 +44,11 @@ export class CrudPersonComponent implements OnInit {
 
   public deletePerson($event: any, person: Person): void {
     $event.preventDefault();
-    if (
-      confirm(`Tem certeza que deseja excluir a person ${person.name}?`) &&
-      person.id
-    ) {
+    if (confirm(`Tem certeza que deseja excluir a person ${person.name}?`) && person.id) {
       this.personService.deletePerson(person.id).subscribe({
         next: () => {
           this.findAllPersons();
-        }
+        },
       });
     }
   }

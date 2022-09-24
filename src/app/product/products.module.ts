@@ -20,8 +20,8 @@ import { ProductRoutingModule } from './product-routing.module';
     HttpClientModule,
     RouterModule,
     SharedModule,
-    ProductRoutingModule
+    ProductRoutingModule,
   ],
   providers: [ProductService, MeasurementUnitService],
 })
-export class ProductModule { }
+export class ProductModule {}

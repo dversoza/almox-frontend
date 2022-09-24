@@ -6,4 +6,4 @@ import { CrudUserComponent } from './crud-user/crud-user.component';
   declarations: [CrudUserComponent],
   imports: [CommonModule],
 })
-export class UserModule { }
+export class UserModule {}

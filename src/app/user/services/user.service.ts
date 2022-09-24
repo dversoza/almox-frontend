@@ -10,12 +10,12 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   private apiUsersUrl: string = `${environment.apiBaseUrl}/users`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAllUsers(): Observable<User[]> {
-    return this.http.get<DjangoPaginatedResponse<User>>(this.apiUsersUrl).pipe(
-      map(response => response.results)
-    );
+    return this.http
+      .get<DjangoPaginatedResponse<User>>(this.apiUsersUrl)
+      .pipe(map((response) => response.results));
   }
 
   public getUser(idUser: number): Observable<User> {

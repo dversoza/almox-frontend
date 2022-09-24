@@ -13,23 +13,16 @@ import { LoginService } from './services/login.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const authUser = this.loginService.getUser();
     let url = state.url;
     if (authUser) {
-      if (
-        route.data.role &&
-        route.data.role.indexOf(authUser.is_staff) === true
-      ) {
+      if (route.data.role && route.data.role.indexOf(authUser.is_staff) === true) {
         this.router.navigate(['/'], {
           queryParams: { error: 'Proibido o acesso a ' + url },
         });

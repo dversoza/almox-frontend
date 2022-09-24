@@ -1,1 +1,1 @@
-export * from "./stands_service";
+export * from './stand.service';

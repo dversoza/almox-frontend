@@ -8,5 +8,5 @@ export class Person {
     public document?: string,
     public phone?: string,
     public stand?: Stand
-  ) { }
+  ) {}
 }

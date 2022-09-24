@@ -7,13 +7,11 @@ import { DetailProductComponent } from './detail-product';
 
 const standRoutes: Routes = [
   { path: 'products', component: CrudProductComponent, canActivate: [AuthGuard] },
-  { path: 'products/:id', component: DetailProductComponent, canActivate: [AuthGuard] }
+  { path: 'products/:id', component: DetailProductComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(standRoutes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(standRoutes)],
+  exports: [RouterModule],
 })
-export class ProductRoutingModule { }
+export class ProductRoutingModule {}

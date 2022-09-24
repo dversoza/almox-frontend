@@ -5,17 +5,14 @@ import { StandDetail, StandService, StandStock } from '../services/stand.service
 @Component({
   selector: 'app-detail-stand',
   templateUrl: './detail-stand.component.html',
-  styleUrls: ['./detail-stand.component.css']
+  styleUrls: ['./detail-stand.component.css'],
 })
 export class DetailStandComponent implements OnInit {
   stand!: StandDetail;
 
   loading = true;
 
-  constructor(
-    private standService: StandService,
-    private route: ActivatedRoute,
-  ) { }
+  constructor(private standService: StandService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getStand();
@@ -30,7 +27,7 @@ export class DetailStandComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
-      }
+      },
     });
   }
 

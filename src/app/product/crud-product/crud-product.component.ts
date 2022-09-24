@@ -15,27 +15,26 @@ export class CrudProductComponent implements OnInit {
   public loading = true;
   private currentPage: number = 1;
 
-  constructor(
-    private productService: ProductService,
-    private modalService: NgbModal
-  ) { }
+  constructor(private productService: ProductService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.findAllProducts();
   }
 
   public findAllProducts(query: string = ''): void {
-    this.productService.getAllProducts({
-      params: {
-        page: this.currentPage,
-        query,
-      }
-    }).subscribe({
-      next: (products: Product[]) => {
-        this.products = products;
-        this.loading = false;
-      }
-    });
+    this.productService
+      .getAllProducts({
+        params: {
+          page: this.currentPage,
+          query,
+        },
+      })
+      .subscribe({
+        next: (products: Product[]) => {
+          this.products = products;
+          this.loading = false;
+        },
+      });
   }
 
   public modalProduct(product?: Product): void {
@@ -45,16 +44,12 @@ export class CrudProductComponent implements OnInit {
 
   public deleteProduct($event: any, product: Product) {
     $event.preventDefault();
-    if (
-      confirm(`Tem certeza que deseja excluir o product ${product.name}?`) &&
-      product.id
-    ) {
+    if (confirm(`Tem certeza que deseja excluir o product ${product.name}?`) && product.id) {
       this.productService.deleteProduct(product.id).subscribe({
         next: () => {
           this.findAllProducts();
-        }
-      }
-      );
+        },
+      });
     }
   }
 

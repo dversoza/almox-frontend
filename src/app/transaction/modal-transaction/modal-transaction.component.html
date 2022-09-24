@@ -1,34 +1,48 @@
 <div class="modal-header">
   <h5 class="modal-title">
-    {{
-    transaction.id
-    ? "Movimentação " + transaction.id
-    : "Cadastrar nova movimentação"
-    }}
+    {{ transaction.id ? "Movimentação " + transaction.id : "Cadastrar nova movimentação" }}
   </h5>
-  <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Fechar"
+    (click)="activeModal.dismiss()"
+  ></button>
 </div>
 
 <div class="modal-body">
   <form #transactionForm="ngForm">
     <div class="row align-items-center">
       <div class="col">
-        <button class="btn btn-primary" style="width: 100%;" (click)="handleSelectOperation('E')">Entrada</button>
+        <button class="btn btn-primary" style="width: 100%" (click)="handleSelectOperation('E')">
+          Entrada
+        </button>
       </div>
       <div class="col">
-        <button class="btn btn-primary" style="width: 100%;" (click)="handleSelectOperation('S')">Saída</button>
+        <button class="btn btn-primary" style="width: 100%" (click)="handleSelectOperation('S')">
+          Saída
+        </button>
       </div>
     </div>
 
     <div *ngIf="transaction.operation">
       <div class="form-group">
         <label for="type">Tipo: </label>
-        <ng-select [items]="transactionTypes" bindLabel="name" (change)="handleSetTransactionType()"
-          [(ngModel)]="transaction.type" #type="ngModel" name="type" placeholder="Selecione o tipo da movimentação"
-          required>
+        <ng-select
+          [items]="transactionTypes"
+          bindLabel="name"
+          (change)="handleSetTransactionType()"
+          [(ngModel)]="transaction.type"
+          #type="ngModel"
+          name="type"
+          placeholder="Selecione o tipo da movimentação"
+          required
+        >
           <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-            <div><b>{{item.name}}</b></div>
-            <small>{{item.description}}</small>
+            <div>
+              <b>{{ item.name }}</b>
+            </div>
+            <small>{{ item.description }}</small>
           </ng-template>
         </ng-select>
       </div>
@@ -37,78 +51,144 @@
     <div *ngIf="transaction.operation">
       <div class="form-group">
         <label for="datetime">Data do Fato: </label>
-        <input type="datetime-local" class="form-control" name="datetime"
-          [ngModel]="transaction.datetime | date:'yyyy-MM-ddTHH:mm'" #datetime="ngModel"
-          placeholder="Digite a data e hora da movimentação" required />
+        <input
+          type="datetime-local"
+          class="form-control"
+          name="datetime"
+          [ngModel]="transaction.datetime | date: 'yyyy-MM-ddTHH:mm'"
+          #datetime="ngModel"
+          placeholder="Digite a data e hora da movimentação"
+          required
+        />
       </div>
 
       <div class="row">
         <div class="form-group col">
           <label for="stand">De: </label>
-          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.from_stand" #from_stand="ngModel" name="from_stand"
-            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          <ng-select
+            [items]="stands"
+            bindLabel="name"
+            [(ngModel)]="transaction.from_stand"
+            #from_stand="ngModel"
+            name="from_stand"
+            (search)="findStands($event.term)"
+            placeholder="Selecione a barraca"
+            required
+          >
           </ng-select>
         </div>
 
         <div class="form-group col">
           <label for="stand">Para: </label>
-          <ng-select [items]="stands" bindLabel="name" [(ngModel)]="transaction.to_stand" #to_stand="ngModel" name="to_stand"
-            (search)="findStands($event.term)" placeholder="Selecione a barraca" required>
+          <ng-select
+            [items]="stands"
+            bindLabel="name"
+            [(ngModel)]="transaction.to_stand"
+            #to_stand="ngModel"
+            name="to_stand"
+            (search)="findStands($event.term)"
+            placeholder="Selecione a barraca"
+            required
+          >
           </ng-select>
         </div>
       </div>
 
       <div class="form-group">
         <label for="manager">Responsável: </label>
-        <ng-select [items]="persons" bindLabel="name" [(ngModel)]="transaction.person" #manager="ngModel" name="manager"
-          (search)="findPersons($event.term)" placeholder="Selecione o responsável pela movimentação"
-          addTagText="Criar: " [addTag]="createPerson">
+        <ng-select
+          [items]="persons"
+          bindLabel="name"
+          [(ngModel)]="transaction.person"
+          #manager="ngModel"
+          name="manager"
+          (search)="findPersons($event.term)"
+          placeholder="Selecione o responsável pela movimentação"
+          addTagText="Criar: "
+          [addTag]="createPerson"
+        >
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="product">Produto: </label>
-        <ng-select [items]="products" bindLabel="name" [(ngModel)]="transaction.product" #product="ngModel"
-          (search)="findProducts($event.term)" name="product" placeholder="Selecione o produto" required>
+        <ng-select
+          [items]="products"
+          bindLabel="name"
+          [(ngModel)]="transaction.product"
+          #product="ngModel"
+          (search)="findProducts($event.term)"
+          name="product"
+          placeholder="Selecione o produto"
+          required
+        >
         </ng-select>
       </div>
 
       <div class="form-group">
         <label for="quantity" class="text-nowrap">Quantidade:</label>
         <div class="input-group">
-          <input [(ngModel)]="transaction.quantity" #quantity="ngModel" class="form-control" id="quantity_input"
-            name="quantity" type="number" placeholder="Digite a quantidade ..." required />
+          <input
+            [(ngModel)]="transaction.quantity"
+            #quantity="ngModel"
+            class="form-control"
+            id="quantity_input"
+            name="quantity"
+            type="number"
+            placeholder="Digite a quantidade ..."
+            required
+          />
           <div *ngIf="transaction.product" class="input-group-append">
-            <span class="input-group-text">{{transaction.product.measurement_unit?.name | lowercase }}s</span>
+            <span class="input-group-text"
+              >{{ transaction.product.measurement_unit?.name | lowercase }}s</span
+            >
           </div>
         </div>
       </div>
 
-      <div *ngIf="
-          transaction.operation == 'E' && transaction.type?.name != 'Devolução'
-        " class="form-group">
+      <div
+        *ngIf="transaction.operation == 'E' && transaction.type?.name != 'Devolução'"
+        class="form-group"
+      >
         <label for="price">{{
-          transaction.type?.name == "Doação"
-          ? "Valor Estimado da Doação: "
-          : "Valor da compra"
-          }}</label>
-        <input type="text" class="form-control" [ngModel]="transaction.price | currency:'BRL':'symbol':'1.2-2'"
-          [ngModelOptions]="{updateOn:'blur'}"
-          (ngModelChange)="transaction.price=$event.replace('.', '').replace(',', '.').replace('R$', '')" name="price"
-          #price="ngModel" placeholder="Digite o valor em reais" />
+          transaction.type?.name == "Doação" ? "Valor Estimado da Doação: " : "Valor da compra"
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="transaction.price | currency: 'BRL':'symbol':'1.2-2'"
+          [ngModelOptions]="{ updateOn: 'blur' }"
+          (ngModelChange)="
+            transaction.price = $event.replace('.', '').replace(',', '.').replace('R$', '')
+          "
+          name="price"
+          #price="ngModel"
+          placeholder="Digite o valor em reais"
+        />
       </div>
 
       <div class="form-group">
         <label for="details">Observações: </label>
-        <textarea class="form-control" [(ngModel)]="transaction.details" name="details" #details="ngModel"
-          placeholder="Detalhes sobre a movimentação" cols="40" rows="2"></textarea>
+        <textarea
+          class="form-control"
+          [(ngModel)]="transaction.details"
+          name="details"
+          #details="ngModel"
+          placeholder="Detalhes sobre a movimentação"
+          cols="40"
+          rows="2"
+        ></textarea>
       </div>
 
       <div class="d-grid gap-2">
-        <button [disabled]="!transactionForm.form.valid" style="margin-top: 20px" type="button" class="btn btn-success"
-          (click)="submitForm()">
-          <i class="fa fa-save" aria-hidden="true"></i>
-          Salvar
+        <button
+          [disabled]="!transactionForm.form.valid"
+          style="margin-top: 20px"
+          type="button"
+          class="btn btn-success"
+          (click)="submitForm()"
+        >
+          <i class="fa fa-save" aria-hidden="true"></i>Salvar
         </button>
       </div>
     </div>
@@ -116,7 +196,5 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
-    Fechar
-  </button>
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Fechar</button>
 </div>

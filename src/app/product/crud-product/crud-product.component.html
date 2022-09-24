@@ -2,20 +2,35 @@
   <h1>Produtos</h1>
   <div>
     <form class="d-flex flex-row">
-      <input #searchInput="ngModel" ngModel name="searchInput" id="searchInput" class="form-control" type="search"
-        placeholder="Pesquisar produto ..." aria-label="Pesquisar" />
-      <button class="btn btn-secondary d-flex align-items-center" (click)="findAllProducts(searchInput.value)"
-        style="margin: 0 0.5vw">
+      <input
+        #searchInput="ngModel"
+        ngModel
+        name="searchInput"
+        id="searchInput"
+        class="form-control"
+        type="search"
+        placeholder="Pesquisar produto ..."
+        aria-label="Pesquisar"
+      />
+      <button
+        class="btn btn-secondary d-flex align-items-center"
+        (click)="findAllProducts(searchInput.value)"
+        style="margin: 0 0.5vw"
+      >
         <i class="fa fa-search" style="margin-right: 5px"></i> Pesquisar
       </button>
-      <button class="btn btn-success d-flex align-items-center" (click)="modalProduct()" type="button">
+      <button
+        class="btn btn-success d-flex align-items-center"
+        (click)="modalProduct()"
+        type="button"
+      >
         <i class="fa fa-plus" style="margin-right: 5px"></i> Novo
       </button>
     </form>
   </div>
 </div>
 
-<div class="d-flex justify-content-between" style="margin-top: 2%;">
+<div class="d-flex justify-content-between" style="margin-top: 2%">
   <button class="btn btn-primary" (click)="previousPage()" [disabled]="!hasPreviousPage()">
     <i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior
   </button>
@@ -27,12 +42,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th [appSort]="products" data-order="desc" data-name="id" scope="col">
-        ID
-      </th>
-      <th [appSort]="products" data-order="desc" data-name="name" scope="col">
-        Nome
-      </th>
+      <th [appSort]="products" data-order="desc" data-name="id" scope="col">ID</th>
+      <th [appSort]="products" data-order="desc" data-name="name" scope="col">Nome</th>
       <th scope="col">Estoque (Almoxarifado)</th>
       <th class="text-center">Opções ...</th>
     </tr>
@@ -43,19 +54,22 @@
       <td>{{ product.name }}</td>
       <td>{{ product.stock }} {{ normalizedProductMeasurementUnit(product) }}</td>
       <td class="text-center">
-        <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#"><i class="fa fa-eye"
-            aria-hidden="true"></i>
-          Estoque</a>
-        <button style="margin: 0.2vh 1vh" class="btn btn-xs btn-info" (click)="modalProduct(product)">
+        <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#"
+          ><i class="fa fa-eye" aria-hidden="true"></i> Estoque</a
+        >
+        <button
+          style="margin: 0.2vh 1vh"
+          class="btn btn-xs btn-info"
+          (click)="modalProduct(product)"
+        >
           <i class="fa fa-edit" aria-hidden="true"></i> Editar
         </button>
-        <button class="btn btn-xs btn-danger" (click)="deleteProduct($event, product)"><i class="fa fa-times"
-            aria-hidden="true"></i> Excluir</button>
+        <button class="btn btn-xs btn-danger" (click)="deleteProduct($event, product)">
+          <i class="fa fa-times" aria-hidden="true"></i> Excluir
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
-<div class="alert alert-danger" *ngIf="!loading && !products">
-  Nenhum produto encontrado!
-</div>
+<div class="alert alert-danger" *ngIf="!loading && !products">Nenhum produto encontrado!</div>

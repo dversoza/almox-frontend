@@ -9,9 +9,9 @@ import { User } from 'src/app/shared';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   get authenticatedUser(): User | null {
     return this.loginService.getUser();

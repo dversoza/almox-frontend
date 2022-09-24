@@ -6,6 +6,6 @@ export class Product {
     public name?: string,
     public description?: string,
     public measurement_unit?: MeasurementUnit,
-    public stock?: number,
-  ) { }
+    public stock?: number
+  ) {}
 }

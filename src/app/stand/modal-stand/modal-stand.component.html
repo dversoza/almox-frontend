@@ -2,31 +2,63 @@
   <h5 class="modal-title">
     {{ stand.name ? stand.name : "Criar Barraca" }}
   </h5>
-  <button type="button" class="btn-close" aria-label="Fechar" (click)="activeModal.dismiss()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Fechar"
+    (click)="activeModal.dismiss()"
+  ></button>
 </div>
 
 <div class="modal-body">
   <form #standForm="ngForm">
     <div class="form-group">
       <label for="name">Nome: </label>
-      <input [(ngModel)]="stand.name" #name="ngModel" class="form-control" id="nome_input" name="name" type="text"
-        placeholder="Digite o name da barraca" required />
+      <input
+        [(ngModel)]="stand.name"
+        #name="ngModel"
+        class="form-control"
+        id="nome_input"
+        name="name"
+        type="text"
+        placeholder="Digite o name da barraca"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="name">Responsável: </label>
-      <ng-select [items]="person" bindLabel="name" [(ngModel)]="stand.manager" #manager="ngModel" name="manager"
-        (search)="findPersons($event.term)" placeholder="Selecione o responsável">
+      <ng-select
+        [items]="person"
+        bindLabel="name"
+        [(ngModel)]="stand.manager"
+        #manager="ngModel"
+        name="manager"
+        (search)="findPersons($event.term)"
+        placeholder="Selecione o responsável"
+      >
       </ng-select>
     </div>
     <div class="form-group">
       <label for="name">Contato: </label>
-      <input [(ngModel)]="stand.contact" #contact="ngModel" name="contact" id="contact_input" class="form-control"
-        type="text" placeholder="Digite o contact/e-mail da barraca" />
+      <input
+        [(ngModel)]="stand.contact"
+        #contact="ngModel"
+        name="contact"
+        id="contact_input"
+        class="form-control"
+        type="text"
+        placeholder="Digite o contact/e-mail da barraca"
+      />
     </div>
   </form>
   <div class="d-grid gap-2">
-    <button [disabled]="!standForm.form.valid" style="margin-top: 20px" type="button" class="btn btn-primary"
-      (click)="submitForm()">
+    <button
+      [disabled]="!standForm.form.valid"
+      style="margin-top: 20px"
+      type="button"
+      class="btn btn-primary"
+      (click)="submitForm()"
+    >
       <i class="fa fa-save" aria-hidden="true"></i>
       Salvar
     </button>
@@ -34,7 +66,5 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
-    Fechar
-  </button>
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Fechar</button>
 </div>

@@ -26,12 +26,7 @@ const interceptorProviders = [
 
 registerLocaleData(localePt);
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomepageComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent, FooterComponent, HomepageComponent],
   imports: [
     StandModule,
     AuthModule,
@@ -53,8 +48,8 @@ registerLocaleData(localePt);
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'BRL',
     },
-    interceptorProviders
+    interceptorProviders,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

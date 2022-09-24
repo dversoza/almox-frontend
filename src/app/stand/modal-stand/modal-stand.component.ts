@@ -26,7 +26,7 @@ export class ModalStandComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private standService: StandService,
     private personService: PersonService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (!this.stand) {
@@ -39,13 +39,15 @@ export class ModalStandComponent implements OnInit {
   }
 
   public findPersons(personName: string = '') {
-    this.personService.getAllPersons({
-      params: {
-        query: personName,
-      }
-    }).subscribe((person) => {
-      this.person = person;
-    });
+    this.personService
+      .getAllPersons({
+        params: {
+          query: personName,
+        },
+      })
+      .subscribe((person) => {
+        this.person = person;
+      });
   }
 
   public submitForm() {

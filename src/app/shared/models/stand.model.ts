@@ -7,5 +7,5 @@ export class Stand {
     public name?: string,
     public contact?: string,
     public manager?: Person
-  ) { }
+  ) {}
 }
