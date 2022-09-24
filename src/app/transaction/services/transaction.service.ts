@@ -9,6 +9,16 @@ import {
 } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
+interface TransactionRequestOptions extends DjangoRequestOptionsList {
+  params?: {
+    page?: number;
+    query?: string;
+    type?: number;
+    start_date?: string;
+    end_date?: string;
+  };
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +28,7 @@ export class TransactionService {
 
   constructor(private http: HttpClient) {}
 
-  public getTransactions(options: DjangoRequestOptionsList): Observable<Transaction[]> {
+  public getTransactions(options: TransactionRequestOptions): Observable<Transaction[]> {
     if (!options.params?.query) {
       delete options.params?.query;
     }
