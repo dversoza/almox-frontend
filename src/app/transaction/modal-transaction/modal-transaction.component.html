@@ -150,9 +150,7 @@
         *ngIf="transaction.operation == 'E' && transaction.type?.name != 'Devolução'"
         class="form-group"
       >
-        <label for="price">{{
-          transaction.type?.name == "Doação" ? "Valor Estimado da Doação: " : "Valor da compra"
-        }}</label>
+        <label for="price">{{ priceInputLabel }}</label>
         <input
           type="text"
           class="form-control"

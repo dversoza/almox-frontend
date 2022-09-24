@@ -116,6 +116,19 @@ export class ModalTransactionComponent implements OnInit {
     });
   }
 
+  get priceInputLabel(): string {
+    if (this.transaction.type) {
+      if (this.transaction.type.name == 'Doação') {
+        return 'Valor da estimado da doação';
+      } else if (this.transaction.type.name == 'Compra') {
+        return 'Valor da compra';
+      } else if (this.transaction.type.name == 'Patrocínio') {
+        return 'Valor do patrocínio';
+      }
+    }
+    return 'Valor';
+  }
+
   private filterTransactionTypes(): void {
     this.transactionTypes = this.allTransactionTypes.filter(
       (transactionType) => transactionType.operation === this.transaction.operation
