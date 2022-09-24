@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDetail, ProductService } from '../services';
@@ -28,10 +27,6 @@ export class DetailProductComponent implements OnInit {
       next: (product: ProductDetail) => {
         this.product = product;
         this.loading = false;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.loading = false;
-        alert(error.message);
       }
     });
   }

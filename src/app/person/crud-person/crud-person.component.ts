@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Person } from 'src/app/shared/models/person.model';
@@ -35,10 +34,6 @@ export class CrudPersonComponent implements OnInit {
       next: (persons: Person[]) => {
         this.persons = persons;
         this.loading = false;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.loading = false;
-        alert(error.message);
       }
     });
   }
@@ -57,9 +52,6 @@ export class CrudPersonComponent implements OnInit {
       this.personService.deletePerson(person.id).subscribe({
         next: () => {
           this.findAllPersons();
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
         }
       });
     }

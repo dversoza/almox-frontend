@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StandDetail, StandService, StandStock } from '../services/stand.service';
@@ -29,9 +28,8 @@ export class DetailStandComponent implements OnInit {
         this.stand = stand;
         this.loading = false;
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.loading = false;
-        alert(error.message);
       }
     });
   }
