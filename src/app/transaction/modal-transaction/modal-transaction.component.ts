@@ -112,7 +112,6 @@ export class ModalTransactionComponent implements OnInit {
     this.transactionService.updateTransaction(this.transaction).subscribe({
       next: (transaction: Transaction) => {
         this.activeModal.close(transaction);
-        parent.location.reload();
       },
     });
   }
