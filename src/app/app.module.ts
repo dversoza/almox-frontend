@@ -16,12 +16,15 @@ import { ProductModule } from './product/products.module';
 import { SharedModule } from './shared';
 import { StandModule } from './stand';
 import { TransactionModule } from './transaction';
-import { UserModule } from './user/user.module';
 import { HttpErrorInterceptorService } from './http-interceptors/http-errors-interceptor';
 
 const interceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptorService,
+    multi: true,
+  },
 ];
 
 registerLocaleData(localePt);
@@ -40,7 +43,6 @@ registerLocaleData(localePt);
     TransactionModule,
     PersonsModule,
     ProductModule,
-    UserModule,
     SharedModule,
     AppRoutingModule,
   ],
@@ -53,8 +55,8 @@ registerLocaleData(localePt);
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'BRL',
     },
-    interceptorProviders
+    interceptorProviders,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
