@@ -26,6 +26,10 @@
         <ng-select [items]="transactionTypes" bindLabel="name" (change)="handleSetTransactionType()"
           [(ngModel)]="transaction.type" #type="ngModel" name="type" placeholder="Selecione o tipo da movimentação"
           required>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <div><b>{{item.name}}</b></div>
+            <small>{{item.description}}</small>
+          </ng-template>
         </ng-select>
       </div>
     </div>

@@ -4,7 +4,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/shared/models/product.model';
 import { MeasurementUnit } from 'src/app/shared/models/measurement-unit.model';
 import { ProductService, MeasurementUnitService } from '../services';
-import { HttpErrorResponse } from '@angular/common/http';
 
 enum ModalType {
   CREATE,
@@ -46,9 +45,6 @@ export class ModalProductComponent implements OnInit {
     }).subscribe({
       next: (measurementUnits: MeasurementUnit[]) => {
         this.measurementUnits = measurementUnits;
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
       }
     });
   }
@@ -61,8 +57,7 @@ export class ModalProductComponent implements OnInit {
             this.activeModal.close();
             parent.location.reload();
           },
-          error: (error: HttpErrorResponse) => {
-            alert(error.message);
+          error: () => {
             parent.location.reload();
           }
         });
@@ -72,8 +67,7 @@ export class ModalProductComponent implements OnInit {
             this.activeModal.close();
             parent.location.reload();
           },
-          error: (error: HttpErrorResponse) => {
-            alert(error.message);
+          error: () => {
             parent.location.reload();
           }
         });

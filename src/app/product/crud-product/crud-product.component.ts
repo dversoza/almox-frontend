@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/shared/models/product.model';
@@ -35,10 +34,6 @@ export class CrudProductComponent implements OnInit {
       next: (products: Product[]) => {
         this.products = products;
         this.loading = false;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.loading = false;
-        alert(error.message);
       }
     });
   }
@@ -57,9 +52,6 @@ export class CrudProductComponent implements OnInit {
       this.productService.deleteProduct(product.id).subscribe({
         next: () => {
           this.findAllProducts();
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
         }
       }
       );
