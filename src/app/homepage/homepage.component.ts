@@ -11,20 +11,26 @@ const backendBaseUrl: string = `${environment.baseUrl}`;
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
-  public REPORTS = [{
-    name: 'Listagem de Barracas',
-    url: `${backendBaseUrl}/reports/stands/`
-  },
-  {
-    name: 'Listagem de Produtos',
-    url: `${backendBaseUrl}/reports/products/`
-  }];
+  public REPORTS = [
+    {
+      name: 'Listagem de Barracas',
+      url: `${backendBaseUrl}/reports/stands/`,
+    },
+    {
+      name: 'Listagem de Produtos',
+      url: `${backendBaseUrl}/reports/products/`,
+    },
+    {
+      name: 'Estoque',
+      url: `${backendBaseUrl}/reports/stock/`,
+    },
+  ];
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {}
 
   get authUser(): User | null {
     return this.loginService.getUser();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

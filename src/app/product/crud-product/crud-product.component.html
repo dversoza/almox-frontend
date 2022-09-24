@@ -54,9 +54,11 @@
       <td>{{ product.name }}</td>
       <td>{{ product.stock }} {{ normalizedProductMeasurementUnit(product) }}</td>
       <td class="text-center">
-        <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#"
-          ><i class="fa fa-eye" aria-hidden="true"></i> Estoque</a
-        >
+        <!--
+        <a class="btn btn-xs btn-primary" [routerLink]="['/products', product.id]" href="#">
+          <i class="fa fa-eye" aria-hidden="true"></i> Estoque
+        </a>
+        -->
         <button
           style="margin: 0.2vh 1vh"
           class="btn btn-xs btn-info"
