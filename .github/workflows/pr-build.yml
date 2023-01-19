@@ -1,9 +1,9 @@
-name: GitHub Actions Deploy Angular App
+name: PR Build
 
 on:
-  push:
+  pull_request:
     branches:
-    - main
+      - main
 
 jobs:
   Build:
@@ -30,7 +30,6 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-
     - name: Install dependencies
       if:
         steps.cache-node_modules.outputs.cache-hit != 'true'
@@ -38,34 +37,3 @@ jobs:
 
     - name: Build
       run: npm run build
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        path: dist/almox/
-
-  Deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Download artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: dist
-        path: dist/almox/
-
-    - name: SSH-Deploy
-      if: success()
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SOURCE: "dist/almox/"
-        REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
-        TARGET: ${{ secrets.SSH_REMOTE_TARGET }}
-        EXCLUDE: "/dist/, /node_modules/"
